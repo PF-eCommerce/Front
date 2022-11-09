@@ -1,9 +1,15 @@
+import {Box} from "@mui/material"
+import Navbar from "./components/Navbar/Navbar";
 
 
 function App() {
   return (
-    <div className="App">
-      <h1>Comencemos!</h1>
+    <div>
+      <Box>
+        <Navbar/>
+        
+      
+      </Box>
     </div>
   );
 }
