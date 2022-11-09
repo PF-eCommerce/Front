@@ -3,7 +3,7 @@ import React from "react";
 import {styled} from "@mui/system";
 import SearchBar from "./SearchBar/SearchBar";
 import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
-
+import MenuCatalogo from "./MenuCatalogo"
 import PositionedMenu from "./MenuSession"
 import Logo from "./Logo";
 
@@ -49,11 +49,10 @@ return(
       <LogoBox>
         <Logo/>
       </LogoBox>
-      <ButtonNav color="primary" variant="outlined">Catalogo</ButtonNav>
+      <MenuCatalogo/>
       <ButtonNav variant="outlined">Promos</ButtonNav>
       <Box sx={{display:"flex"}}>
-       <SearchBar/>
-      
+         <SearchBar/>
       </Box>
       <PositionedMenu/>
       <IconButton>
