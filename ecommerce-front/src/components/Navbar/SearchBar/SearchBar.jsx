@@ -35,7 +35,7 @@ const SearchBar = () =>{
         <>
             <Search><InputBase placeholder="Search..."/></Search>
             <IconButton>
-            <SearchIcono color="primary" sx={{paddingLeft:"rem",marginTop:".5rem"}}  />
+            <SearchIcono color="secondary" sx={{paddingLeft:"rem",marginTop:".5rem"}}  />
             </IconButton>
             {/* <Button sx={{marginLeft:".5rem"}} variant="outlined" color="primary" startIcon={
             <SearchOutlinedIcon sx={{paddingLeft:".5rem"}}  />

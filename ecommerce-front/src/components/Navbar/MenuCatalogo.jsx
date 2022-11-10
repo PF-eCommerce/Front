@@ -76,6 +76,8 @@ export default function CustomizedMenus() {
         disableElevation
         onClick={handleClick}
         endIcon={<KeyboardArrowDownIcon />}
+        color="secondary"
+     
       >
           Catalogo
       </Button>
