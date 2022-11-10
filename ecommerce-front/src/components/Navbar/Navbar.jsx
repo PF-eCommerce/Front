@@ -13,6 +13,7 @@ const StyledToolbar = styled(Toolbar)(({theme})=>({
   display:"flex",
   justifyContent:"space-between",
   backgroundColor:"#fff3e0"
+  
 
   
 }))
