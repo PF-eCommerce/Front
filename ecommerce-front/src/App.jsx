@@ -7,6 +7,7 @@ import Details from "./pages/Details/Details";
 import About from "./pages/About/About";
 import Form from "./pages/Forms/Form";
 import Footer from "./components/Footer/Footer";
+import Sucursales from "./pages/Sucursales/Sucursales";
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route path="/detail/:id" element={<Details />} />
           <Route path="/about" element={<About />} />
           <Route path="/postproduct" element={<Form />} />
+          <Route path="/sucursales" element={<Sucursales />} />
           {/* <Route path="/login" element={<Login />}/> */}
         </Routes>
       </Box>

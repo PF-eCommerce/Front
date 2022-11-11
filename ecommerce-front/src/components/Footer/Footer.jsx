@@ -20,7 +20,7 @@ export default function Footer() {
                         <h4>Info</h4>
                             <li className='footer__li'></li>
                             <li className='footer__li'><Link to='/' className='footer__link'>direcciones</Link></li>
-                            <li className='footer__li'><Link to='/' className='footer__link'>Ver Mapa Sucursales</Link></li>
+                            <li className='footer__li'><Link to='/sucursales' className='footer__link'>Ver Mapa Sucursales</Link></li>
 
                             <li className='footer__li'><Link to='/faqs' className='footer__link'>FAQs</Link></li>
                     </div>
