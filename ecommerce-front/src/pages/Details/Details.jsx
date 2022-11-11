@@ -24,25 +24,26 @@ const Details = () => {
   }
 
   return (
-    <Box >
-      <Typography variant="h4" align="center" sx={{ margin: "30px" }}>
+    <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center"}}>
+      <Typography variant="h4" align="center" sx={{ margin: "30px", width: "100%" }}>
         {obj.title}
       </Typography>
       <Box sx={{
         display: "flex",
         justifyContent: "center",
+        flexWrap: "wrap"
       }}>
         <Box
           component="img"
           sx={{
-            maxHeight: "70vh",
-            maxWidth: { xs: 350, md: "auto" },
+
+            maxWidth: { xs: 500, md: 350 },
           }}
           alt="Product"
           src={obj.img}
         />
-        <Typography sx={{ padding: "10px", width: "30%", textAlign:"center" }}>{obj.desc}</Typography>
-        <Box>
+        <Typography sx={{ padding: "10px", width: {xs: "100%", sm: "50%", md: "auto"}, textAlign: "center" }}>{obj.desc}</Typography>
+        <Box sx={{width: { xs: "90%", sm: "auto", md: 450 }}}>
           <Box sx={boxStyle}>
             <Typography sx={textStyle}>Talles disponibles</Typography>
             <Size arrSize={obj.size} />
@@ -56,7 +57,7 @@ const Details = () => {
             <Typography sx={{ fontSize: 20 }}>${obj.price}</Typography>
           </Box>
           <Typography sx={{ padding: "10px" }}>Hasta 3 cuotas sin interés de ${Math.round(obj.price / 3)}</Typography>
-          <Box sx={{ marginTop: "30px" }}>
+          <Box sx={{ marginTop: "30px", marginBottom: "20px" }}>
             <Button
               sx={{
                 backgroundColor: "#7B5B3E",
@@ -75,6 +76,7 @@ const Details = () => {
               sx={{
                 backgroundColor: "#7B5B3E",
                 color: "white",
+                fontSize: 15,
                 "&:hover": {
                   backgroundColor: "#927960",
                 }

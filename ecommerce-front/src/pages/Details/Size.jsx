@@ -1,12 +1,11 @@
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
-import {obj} from "../../utils/data/productDetail";
 
 const Size = ({arrSize}) => {
-    const talles = () => arrSize.map(s => {
+    const talles = () => arrSize.map((s, i) => {
         return(
-            <Typography sx={{
+            <Typography key={i} sx={{
                 backgroundColor: "#1F3116",
                 color: "white",
                 width: "40px",
