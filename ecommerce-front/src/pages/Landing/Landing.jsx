@@ -26,6 +26,7 @@ const Landing = () => {
     color: "white",
     background: "none",
     border: "none",
+    boxShadow: 'none',
   }));
 
   const Item1 = styled(Paper)(({ theme }) => ({
@@ -41,7 +42,7 @@ const Landing = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
-        <Grid
+        <Grid container
           xs={12}
           style={{
             backgroundImage: `url(https://images.squarespace-cdn.com/content/v1/5f173b6f507f722ff8fd049d/1616490580704-S2KYVQT66SCCMQHWB26F/Tendencias+en+ropa+para+mujer+joven+verano+2021.jpg})`,
@@ -54,9 +55,14 @@ const Landing = () => {
           }}
         >
           {/* <Paper className={classes.paper}>probandoo</Paper> */}
+          <Grid xs={12}
+            style={{
+              marginBottom: "-85px",
+              marginTop:'110px',
+            }}
+          >
           <Item
             style={{
-              height: "150px",
 
               fontSize: "30px",
               fontFamily: "sans-serif",
@@ -68,6 +74,12 @@ const Landing = () => {
           >
             Selecciones
           </Item>
+          </Grid>
+          <Grid xs={12}
+          style={{
+            marginBottom: "-65px",
+          }}
+          >
           <Item
             style={{
               marginTop: "-5px",
@@ -79,6 +91,13 @@ const Landing = () => {
           >
             Trés Bien
           </Item>
+          </Grid>
+          <Grid xs={12}
+          style={{
+            marginBottom: "-95px",
+            marginTop: '-30px'
+          }}
+          >
           <Item
             style={{
               fontSize: "60px",
@@ -90,6 +109,13 @@ const Landing = () => {
           >
             TRENDS DE
           </Item>
+          </Grid>
+          <Grid xs={12}
+          style={{
+            marginBottom: "-95px",
+            marginTop: '-50px'
+          }}
+          >
           <Item
             style={{
               fontSize: "60px",
@@ -101,16 +127,31 @@ const Landing = () => {
           >
             VERANO
           </Item>
+          </Grid>
+          <Grid xs={12}
+          style={{
+            marginBottom: "-65px",
+            marginTop: '-70px'
+          }}
+          >
           <Item
             style={{
               fontSize: "60px",
               fontFamily: "monospace",
               display: "flex",
               justifyContent: "center",
+              
             }}
           >
             20.22
           </Item>
+          </Grid>
+          <Grid xs={3} xsOffset={4.9}
+          style={{
+            marginBottom: "45px",
+            marginTop: '-30px'
+          }}
+          >
           <Item
             style={{
               fontSize: "30px",
@@ -118,10 +159,17 @@ const Landing = () => {
               display: "flex",
               justifyContent: "center",
               width: "250px",
+              border: 'solid white 2px',
+              backgroundColor: 'aquamarine',
+              color: 'black',
+              
             }}
           >
             IR A SELECCIÓN
           </Item>
+          </Grid>
+          
+          
         </Grid>
         <Grid container xs={7.8}>
           <Grid
