@@ -9,7 +9,6 @@ import Form from "./pages/Forms/Form";
 import Footer from "./components/Footer/Footer";
 import Sucursales from "./pages/Sucursales/Sucursales";
 
-
 function App() {
   return (
     <div>
@@ -31,3 +30,4 @@ function App() {
 }
 
 export default App;
+
