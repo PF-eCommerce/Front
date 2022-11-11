@@ -37,7 +37,7 @@ export default function RecipeReviewCard({title,desc,price,img,numStock}) {
   };
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 330 }}>
       <CardHeader
         avatar={
           <Avatar src={logo} />
@@ -61,11 +61,11 @@ export default function RecipeReviewCard({title,desc,price,img,numStock}) {
         
       />
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="h8" color="secondary">
           {`$ ${price}`}
         </Typography>
       </CardContent>
-      <CardActions disableSpacing>
+      <CardActions disableSpacing >
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
         </IconButton>
