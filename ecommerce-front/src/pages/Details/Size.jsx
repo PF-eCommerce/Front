@@ -13,7 +13,7 @@ const Size = ({arrSize}) => {
                 borderRadius: "30px",
                 textAlign: "center",
                 paddingTop: "7px",
-                marginRight: "10px"
+                marginRight: "10px",
                 }}
             >
                 {s}
@@ -21,7 +21,7 @@ const Size = ({arrSize}) => {
         )
     })
     return (
-        <Box sx={{display: "flex"}}>
+        <Box sx={{display: "flex", justifyContent: {xs: "center", md: "start"}, marginBottom: "20px"}}>
             {talles()}
         </Box>
     )

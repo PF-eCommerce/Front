@@ -17,7 +17,7 @@ const Colors = ({arrColors}) => {
         })
     }
     return(
-        <Box sx={{display:"flex"}}>
+        <Box sx={{display:"flex", justifyContent: {xs: "center", md: "start"}, marginBottom: "20px"}}>
             {colors()}
         </Box>
     )
