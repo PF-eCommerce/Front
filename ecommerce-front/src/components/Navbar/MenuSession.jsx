@@ -38,9 +38,10 @@ export default function PositionedMenu() {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-      <Avatar sx={{width: 28, height: 28, bgcolor:"#ccc0ae"}} />
+      <Avatar sx={{width: 28, height: 28, bgcolor:"#D4D3D3"}} />
      
-      <TypografiaInicio sx={{marginLeft:"1rem"}} variant='span'>Iniciar Sesion</TypografiaInicio>
+      <TypografiaInicio sx={{marginLeft:"1rem"}} variant='span'
+      color="secondary">Iniciar Sesion</TypografiaInicio>
       </Button>
       <Menu
         id="demo-positioned-menu"

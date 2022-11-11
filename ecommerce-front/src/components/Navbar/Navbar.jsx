@@ -12,11 +12,12 @@ import Logo from "./Logo";
 const StyledToolbar = styled(Toolbar)(({theme})=>({
   display:"flex",
   justifyContent:"space-between",
-  backgroundColor:"#fff3e0"
-
+  backgroundColor:"#F9F3EE"
+  
+ 
   
 }))
-
+// "  #fff3e0 primer propuesta
 const LogoBox = styled(Box)(({theme})=>({
   display:"none",
   gap:"5px",
@@ -50,13 +51,13 @@ return(
         <Logo/>
       </LogoBox>
       <MenuCatalogo/>
-      <ButtonNav variant="outlined">Promos</ButtonNav>
+      <ButtonNav variant="outlined" color="secondary" >Promos</ButtonNav>
       <Box sx={{display:"flex"}}>
          <SearchBar/>
       </Box>
       <PositionedMenu/>
       <IconButton>
-        <AddShoppingCartOutlinedIcon sx={{marginRight:"1rem"}}/>
+        <AddShoppingCartOutlinedIcon sx={{marginRight:"1rem"}} color="secondary"/>
       </IconButton>
       
     </StyledToolbar>
