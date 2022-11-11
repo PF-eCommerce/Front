@@ -1,0 +1,4 @@
+.sucursalContain{
+    display: grid;
+    place-items: center;
+}
