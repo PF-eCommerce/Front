@@ -11,6 +11,9 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Man2Icon from '@mui/icons-material/Man2';
 import Woman2Icon from '@mui/icons-material/Woman2';
+import { Link } from '@mui/material';
+import StorefrontIcon from '@mui/icons-material/Storefront';
+// import { Link } from 'react-router-dom';
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -91,8 +94,11 @@ export default function CustomizedMenus() {
         onClose={handleClose}
       >
         <MenuItem onClick={handleClose} disableRipple>
-          <Man2Icon/>
-          Ropa Hombre
+          <StorefrontIcon/>
+          <Link href="/home" underline="none">
+          Todos los productos
+          </Link>
+          
         </MenuItem>
         <MenuItem onClick={handleClose} disableRipple>
         <Woman2Icon/>
