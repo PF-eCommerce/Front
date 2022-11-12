@@ -9,6 +9,9 @@ import NotificationsActiveOutlinedIcon from '@mui/icons-material/NotificationsAc
 import FeedOutlinedIcon from '@mui/icons-material/FeedOutlined';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 import { width } from "@mui/system";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
+
 
 const SubmitButton = styled(Button)({
   width:400,
@@ -55,6 +58,86 @@ const SubmitButton = styled(Button)({
 });
 
 const FormLogin = () => {
+
+  const dispatch = useDispatch()
+  const [errors, setErrors] = useState('')
+  const [input, setInput] = useState({
+    userName:'',
+    email:'',
+    password:'',
+})
+
+  const inputsError = ['userName', 'email', 'password','password2']
+
+  function validate(input) {
+    let errors = {};
+    
+    // const as = allRecip.map(el=>{
+    //     if(el.title===input.title[0].toUpperCase()+input.title.slice(1)) return true})
+    //     const aa = as.includes(true)
+    if (!input.userName) {
+      errors.userName = 'Nombre de usuario requerido';
+    }
+    // else if(aa){errors.title = 'Title allready exist'};
+    if (!input.email) {
+      errors.email = 'Email requerido';
+    } 
+    // else if(input.summary.lenght>255){
+    //     errors.summary='Summary cannot be'
+    // }
+    
+    if (!input.password) {
+      errors.password = 'Contraseña requerida';
+    } 
+    else if (input.password.length<8) {
+      errors.password = 'Al menos 8 caracteres';
+    }
+    if (!input.password2) {
+      errors.password2 = 'Repetir contraseña';
+      
+    }else if (input.password2 !== input.password) {
+      errors.password2 = 'La contraseña debe coincidir';
+    } 
+    
+    return errors;
+  };
+
+  function handleChange(e){
+    e.preventDefault()
+    setInput({
+        ...input,
+        [e.target.name]: e.target.value
+    });
+    setErrors(validate({
+        ...input, 
+        [e.target.name]:e.target.value
+    }))
+    console.log('INPUT', input)
+    console.log('ERROR', errors)
+    
+}
+
+    // function handleSubmit(e){
+    // e.preventDefault()
+    // if(!inputsError.some(inp=>errors.hasOwnProperty(inp))&&input.userName.length>0){
+    //       dispatch(postNewRecipe(input))
+    //       if(!nameRepeated){
+    //           alert('Recipe created successfully')
+    //           setInput({
+    //           title:'',
+    //           summary:'',
+    //           healthScore:'',
+    //           steps:'',
+    //           diets:[],
+    //           image: ''
+    //           })
+              
+    //       } else alert('name repeated')
+    //   } else{
+          
+    //       alert('Complete mandatory data')
+    //   }
+    // } 
 
   const Item = styled(Paper)(({ theme }) => ({
     //   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -116,15 +199,34 @@ const FormLogin = () => {
             marginLeft:60,
           }}
           >
-          <TextField
-          required
-          id="outlined-required"
-          // label="Requerido"
-          placeholder="Nombre de usuario"
-          style={{
-            backgroundColor:'white'
-          }}
-          />
+          {!errors.userName?
+            <TextField
+            required
+            id="outlined-required"
+            name='userName'
+            value={input.value}
+            // label="Requerido"
+            placeholder="Nombre de usuario"
+            onChange={handleChange}
+            style={{
+              backgroundColor:'white'
+            }}
+            />
+            :
+            <TextField
+            required
+            id="outlined-required"
+            name='userName'
+            value={input.value}
+            // label="Requerido"
+            placeholder="Nombre de usuario"
+            onChange={handleChange}
+            style={{
+              backgroundColor:'white'
+            }}
+            />
+          }
+          
           </Grid>
           <Grid xs={5}
           style={{
@@ -132,15 +234,35 @@ const FormLogin = () => {
             marginLeft:20,
           }}
           >
+          {!errors.email?
           <TextField
           required
           id="outlined-required"
+          name='email'
+          value={input.value}
           // label="Requerido"
           placeholder="Email"
+          onChange={handleChange}
           style={{
             backgroundColor:'white'
           }}
           />
+          :
+          <TextField
+          required
+          id="outlined-required"
+          name='email'
+          value={input.value}
+          // label="Requerido"
+          placeholder="Email"
+          onChange={handleChange}
+          helperText={errors.email}
+          style={{
+            backgroundColor:'white'
+          }}
+          />
+        }
+          
           </Grid>
           <Grid container xs={12}
           style={{
@@ -151,17 +273,38 @@ const FormLogin = () => {
           }}
           >
             <Grid xs={6}>
+          {!errors.password?
           <TextField
           required
           id="outlined-required"
+          name='password'
+          value={input.value}
           // label="Requerido"
           placeholder="Contraseña"
-          helperText="Debe contener mas de 8 caracteres"
+          // helperText="Debe contener mas de 8 caracteres"
+          onChange={handleChange}
           style={{
             backgroundColor:'white',
             width:230
           }}
           />
+          :
+          <TextField
+          required
+          id="outlined-required"
+          name='password'
+          value={input.value}
+          // label="Requerido"
+          placeholder="Contraseña"
+          helperText={errors.password}
+          onChange={handleChange}
+          style={{
+            backgroundColor:'white',
+            width:230
+          }}
+          />
+          }
+          
           </Grid>
           </Grid>
           {/* <Item
@@ -181,17 +324,38 @@ const FormLogin = () => {
           }}
           >
             <Grid xs={6}>
+          {!errors.password2?
           <TextField
           required
           id="outlined-required"
+          name='password2'
+          value={input.value}
           // label="Requerido"
           placeholder="Repetir Contraseña"
-          helperText="Debe coincidir con la anterior"
+          // helperText="Debe coincidir con la anterior"
+          onChange={handleChange}
           style={{
             backgroundColor:'white',
             width:230
           }}
           />
+          :
+          <TextField
+          required
+          id="outlined-required"
+          name='password2'
+          value={input.value}
+          // label="Requerido"
+          placeholder="Repetir Contraseña"
+          helperText={errors.password2}
+          onChange={handleChange}
+          style={{
+            backgroundColor:'white',
+            width:230
+          }}
+          />
+          }
+          
           </Grid>
           </Grid>
           
@@ -286,8 +450,18 @@ const FormLogin = () => {
             marginBottom: 40,
             marginTop:30
           }}
-          >
+          > 
+            {input.userName&&!inputsError.some(inp=>errors.hasOwnProperty(inp))?
             <SubmitButton>Registrarse</SubmitButton>
+            :
+            <SubmitButton
+            style={{
+              opacity: 0.33,
+              pointerEvents:'none'
+            }}
+            >Registrarse</SubmitButton>
+            }
+            {/* <SubmitButton>Registrarse</SubmitButton> */}
           </Grid>
       </Grid>
     </Grid>
