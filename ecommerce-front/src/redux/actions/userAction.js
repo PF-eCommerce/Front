@@ -1,5 +1,8 @@
+import axios from 'axios';
+
 export const REGISTER_ERROR = "REGISTER_ERROR";
 export const LOGIN_ERROR = "LOGIN_ERROR";
+
 
 axios.defaults.baseURL = "http://localhost:3001";
 

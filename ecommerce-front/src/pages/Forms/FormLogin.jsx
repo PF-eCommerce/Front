@@ -9,8 +9,9 @@ import NotificationsActiveOutlinedIcon from '@mui/icons-material/NotificationsAc
 import FeedOutlinedIcon from '@mui/icons-material/FeedOutlined';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 import { width } from "@mui/system";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
+import { userRegister } from "../../redux/actions/userAction";
 
 
 const SubmitButton = styled(Button)({
@@ -60,6 +61,7 @@ const SubmitButton = styled(Button)({
 const FormLogin = () => {
 
   const dispatch = useDispatch()
+  const errorBack = useSelector(state=>state.user.error_register)
   const [errors, setErrors] = useState('')
   const [input, setInput] = useState({
     userName:'',
@@ -72,25 +74,24 @@ const FormLogin = () => {
   function validate(input) {
     let errors = {};
     
-    // const as = allRecip.map(el=>{
-    //     if(el.title===input.title[0].toUpperCase()+input.title.slice(1)) return true})
-    //     const aa = as.includes(true)
     if (!input.userName) {
       errors.userName = 'Nombre de usuario requerido';
     }
-    // else if(aa){errors.title = 'Title allready exist'};
+    else if (input.userName.length>20){
+      errors.userName = 'Máximo 20 caracteres'
+    }
     if (!input.email) {
-      errors.email = 'Email requerido';
-    } 
-    // else if(input.summary.lenght>255){
-    //     errors.summary='Summary cannot be'
-    // }
+      errors.email = 'Email requerido'; 
+    }     
+    else if (!(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(input.email))) {
+      errors.email = 'Email invalido'
+    }
     
     if (!input.password) {
       errors.password = 'Contraseña requerida';
     } 
     else if (input.password.length<8) {
-      errors.password = 'Al menos 8 caracteres';
+      errors.password = 'Entre 8 y 20 caracteres';
     }
     if (!input.password2) {
       errors.password2 = 'Repetir contraseña';
@@ -112,32 +113,26 @@ const FormLogin = () => {
         ...input, 
         [e.target.name]:e.target.value
     }))
-    console.log('INPUT', input)
-    console.log('ERROR', errors)
+    // console.log('INPUT', input)
+    // console.log('ERROR', errors)
     
 }
 
-    // function handleSubmit(e){
-    // e.preventDefault()
-    // if(!inputsError.some(inp=>errors.hasOwnProperty(inp))&&input.userName.length>0){
-    //       dispatch(postNewRecipe(input))
-    //       if(!nameRepeated){
-    //           alert('Recipe created successfully')
-    //           setInput({
-    //           title:'',
-    //           summary:'',
-    //           healthScore:'',
-    //           steps:'',
-    //           diets:[],
-    //           image: ''
-    //           })
+    function handleSubmit(e){
+    e.preventDefault()
+    if(!inputsError.some(inp=>errors.hasOwnProperty(inp))&&input.userName.length>0){
+          dispatch(userRegister(input))
+          if(!errorBack){
+              alert('Usuario creado correctamente')
+              setInput({
+              userName:'',
+              email:'',
+              password:''
+              })
               
-    //       } else alert('name repeated')
-    //   } else{
-          
-    //       alert('Complete mandatory data')
-    //   }
-    // } 
+          } else alert(errorBack.msg)
+      }
+    } 
 
   const Item = styled(Paper)(({ theme }) => ({
     //   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -277,6 +272,7 @@ const FormLogin = () => {
           <TextField
           required
           id="outlined-required"
+          type='password'
           name='password'
           value={input.value}
           // label="Requerido"
@@ -292,6 +288,7 @@ const FormLogin = () => {
           <TextField
           required
           id="outlined-required"
+          type='password'
           name='password'
           value={input.value}
           // label="Requerido"
@@ -329,6 +326,7 @@ const FormLogin = () => {
           required
           id="outlined-required"
           name='password2'
+          type='password'
           value={input.value}
           // label="Requerido"
           placeholder="Repetir Contraseña"
@@ -343,6 +341,7 @@ const FormLogin = () => {
           <TextField
           required
           id="outlined-required"
+          type='password'
           name='password2'
           value={input.value}
           // label="Requerido"
