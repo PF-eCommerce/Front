@@ -23,7 +23,7 @@ function App() {
           <Route path="/postproduct" element={<Form />} />
           <Route path="/sucursales" element={<Sucursales />} />
           {/* <Route path="/login" element={<Login />}/> */}
-          <Route path="/preguntas" element={<Preguntas />} />
+          <Route path="/faqs" element={<Preguntas />} />
         </Routes>
       </Box>
       <Footer />
