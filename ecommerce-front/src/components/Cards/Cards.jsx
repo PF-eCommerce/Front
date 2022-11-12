@@ -1,26 +1,20 @@
-
 import { useSelector } from "react-redux";
 import { Container, Grid } from "@mui/material";
 import Card from "./Card/Card";
 import { useEffect } from "react";
-import {useDispatch} from "react-redux"
-import {getAllProducts} from "../../redux/actions/productsAction"
-
-
-
-
+import { useDispatch } from "react-redux";
+import { getAllProducts } from "../../redux/actions/productsAction";
 
 const Cards = () => {
+  const dispatch = useDispatch();
 
-  const dispatch = useDispatch()
-
-  useEffect(()=>{
-  dispatch(getAllProducts())
-  },[])
+  useEffect(() => {
+    dispatch(getAllProducts());
+  }, []);
 
   const products = useSelector((state) => state.product.products);
   // const products = useSelector((state)=>state.product.products)
-  console.log(products)
+  // console.log(products)
 
   return (
     <Container>
