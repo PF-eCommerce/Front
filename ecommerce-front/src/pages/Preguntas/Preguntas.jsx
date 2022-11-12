@@ -9,7 +9,7 @@ const Preguntas = () => {
         return (
             lista.map((p, i) => {
                 return (
-                    <Accordion key={i} sx={{width: {xs: "100%", sm: "80%"}}}>
+                    <Accordion key={i} sx={{ width: { xs: "100%", sm: "80%" } }}>
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}
                             aria-controls="panel1a-content"
@@ -30,9 +30,9 @@ const Preguntas = () => {
             display: "flex",
             flexWrap: "wrap",
             justifyContent: "center"
-            }}
+        }}
         >
-            <Typography variant="h3" sx={{width:"100%", textAlign:"center", marginTop: 3, marginBottom: 4}}>
+            <Typography variant="h3" sx={{ width: "100%", textAlign: "center", marginTop: 3, marginBottom: 4 }}>
                 Preguntas y respuestas
             </Typography>
             {preguntas()}
