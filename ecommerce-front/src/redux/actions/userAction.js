@@ -11,7 +11,7 @@ export const userRegister = (user) => {
   console.log('INPUT', user)
   return async (dispatch) => {
     try {
-      await axios.post("/register", user);
+      await axios.post("/register/user", user);
     
     } catch (error) {
       console.log('ERROR', error)
