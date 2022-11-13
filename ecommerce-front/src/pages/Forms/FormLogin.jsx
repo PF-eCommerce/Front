@@ -11,7 +11,7 @@ import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 import { width } from "@mui/system";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import { userRegister } from "../../redux/actions/userAction";
+import { userRegister, resetError } from "../../redux/actions/userAction";
 
 
 const SubmitButton = styled(Button)({
@@ -115,13 +115,20 @@ const FormLogin = () => {
     }))
     // console.log('INPUT', input)
     // console.log('ERROR', errors)
-    
-}
+    }
+    function handleChange2(e){
+      e.preventDefault()
+      setErrors(validate({
+        ...input, 
+        [e.target.name]:e.target.value
+    }))
+    }
 
     function handleSubmit(e){
     e.preventDefault()
     if(!inputsError.some(inp=>errors.hasOwnProperty(inp))&&input.userName.length>0){
           dispatch(userRegister(input))
+          // console.log('ERROR=BACK', errorBack)
           if(!errorBack){
               alert('Usuario creado correctamente')
               setInput({
@@ -129,8 +136,12 @@ const FormLogin = () => {
               email:'',
               password:''
               })
+              dispatch(resetError)
               
-          } else alert(errorBack.msg)
+          } else {
+          alert(errorBack.msg)
+          dispatch(resetError)
+          }
       }
     } 
 
@@ -331,7 +342,7 @@ const FormLogin = () => {
           // label="Requerido"
           placeholder="Repetir Contraseña"
           // helperText="Debe coincidir con la anterior"
-          onChange={handleChange}
+          onChange={handleChange2}
           style={{
             backgroundColor:'white',
             width:230
@@ -347,7 +358,7 @@ const FormLogin = () => {
           // label="Requerido"
           placeholder="Repetir Contraseña"
           helperText={errors.password2}
-          onChange={handleChange}
+          onChange={handleChange2}
           style={{
             backgroundColor:'white',
             width:230
@@ -451,7 +462,7 @@ const FormLogin = () => {
           }}
           > 
             {input.userName&&!inputsError.some(inp=>errors.hasOwnProperty(inp))?
-            <SubmitButton>Registrarse</SubmitButton>
+            <SubmitButton onClick={handleSubmit}>Registrarse</SubmitButton>
             :
             <SubmitButton
             style={{

@@ -1,4 +1,4 @@
-import { REGISTER_ERROR, LOGIN_ERROR} from "../actions/userAction";
+import { REGISTER_ERROR, LOGIN_ERROR, RESET_ERROR} from "../actions/userAction";
 
 const initialState = {
   error_register : {},
@@ -18,6 +18,12 @@ export default function productReducer(state = initialState, action) {
         ...state,
         error_login : {}
       }
+
+      case RESET_ERROR:
+      return {
+        ...state,
+        error_register : {}
+      };
 
     default:
       return {
