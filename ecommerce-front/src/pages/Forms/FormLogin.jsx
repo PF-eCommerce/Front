@@ -12,6 +12,10 @@ import { width } from "@mui/system";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { userRegister, resetError } from "../../redux/actions/userAction";
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+import { useEffect } from "react";
+import { useNavigate } from 'react-router-dom'
 
 
 const SubmitButton = styled(Button)({
@@ -61,13 +65,31 @@ const SubmitButton = styled(Button)({
 const FormLogin = () => {
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const errorBack = useSelector(state=>state.user.error_register)
+  const registerDone = useSelector(state=>state.user.register_done)
   const [errors, setErrors] = useState('')
   const [input, setInput] = useState({
     userName:'',
     email:'',
     password:'',
 })
+
+  useEffect(()=>{
+    
+    if (registerDone) {
+      alert('Usuario creado correctamente')
+      setInput({
+              userName:'',
+              email:'',
+              password:'',
+              password2:''
+              })
+      dispatch(resetError())
+      return navigate('/home')
+    }   
+    
+  },[registerDone])
 
   const inputsError = ['userName', 'email', 'password','password2']
 
@@ -105,6 +127,7 @@ const FormLogin = () => {
 
   function handleChange(e){
     e.preventDefault()
+    
     setInput({
         ...input,
         [e.target.name]: e.target.value
@@ -113,8 +136,8 @@ const FormLogin = () => {
         ...input, 
         [e.target.name]:e.target.value
     }))
-    // console.log('INPUT', input)
-    // console.log('ERROR', errors)
+    dispatch(resetError())
+    
     }
     function handleChange2(e){
       e.preventDefault()
@@ -128,20 +151,7 @@ const FormLogin = () => {
     e.preventDefault()
     if(!inputsError.some(inp=>errors.hasOwnProperty(inp))&&input.userName.length>0){
           dispatch(userRegister(input))
-          // console.log('ERROR=BACK', errorBack)
-          if(!errorBack){
-              alert('Usuario creado correctamente')
-              setInput({
-              userName:'',
-              email:'',
-              password:''
-              })
-              dispatch(resetError)
-              
-          } else {
-          alert(errorBack.msg)
-          dispatch(resetError)
-          }
+          
       }
     } 
 
@@ -166,9 +176,15 @@ const FormLogin = () => {
       display: 'flex',
       justifyContent: 'center',
       marginTop: 50,
-      
-      
     }}>
+      {errorBack.msg?.length>0
+      &&
+      <Stack sx={{ width: '70%' }} spacing={2}>
+      <Alert severity="error"
+      style={{marginBottom:40}}
+      >{errorBack.msg}</Alert>
+      </Stack>
+      }
       <Grid container xs={10}
       style={{
         display: 'flex',
@@ -178,6 +194,7 @@ const FormLogin = () => {
         boxShadow: '5px 5px 5px black',
       }}
       >
+        
         <Grid container xs={6}>
           <Grid xs={12}>
           <Item

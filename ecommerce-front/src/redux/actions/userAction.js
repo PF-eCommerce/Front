@@ -2,22 +2,23 @@ import axios from 'axios';
 
 export const REGISTER_ERROR = "REGISTER_ERROR";
 export const LOGIN_ERROR = "LOGIN_ERROR";
-export const RESET_ERROR = 'RESET_ERROR'
+export const RESET_ERROR = 'RESET_ERROR';
+export const USER_REGISTER = 'USER_REGISTER';
 
 
 axios.defaults.baseURL = "http://localhost:3001";
 
 export const userRegister = (user) => {
-  console.log('INPUT', user)
+  
   return async (dispatch) => {
     try {
       await axios.post("/register/user", user);
+      return dispatch({
+        type: USER_REGISTER,
+      })
     
     } catch (error) {
-      console.log('ERROR', error)
-      console.log('ERROR RESPONSE', error.response)
-      console.log('ERROR RESPONSE DATA', error.response.data)
-      console.log('ERROR RESPONSE DATA MSG', error.response.data.msg)
+      
       return dispatch({
         type: REGISTER_ERROR,
         payload: error.response.data,
