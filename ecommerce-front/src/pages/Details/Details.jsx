@@ -1,11 +1,24 @@
-import { Box, Button, Typography } from "@mui/material";
-import React from "react";
+import { Alert, Box, Button, Typography } from "@mui/material";
+import React, { useEffect } from "react";
 import { obj } from "../../utils/data/productDetail";
 import Size from "./Size";
 import Colors from "./Colors";
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { getProductDetail } from "../../redux/actions/productsAction";
 
 
 const Details = () => {
+
+  const {id} = useParams();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProductDetail(id))
+  }, []);
+
+  const product = useSelector((state) => state.product.detail);
+  // console.log(product)
 
   const boxStyle = {
     display: {xs:"block", md:"flex"},
@@ -26,7 +39,7 @@ const Details = () => {
   return (
     <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "space-around"}}>
       <Typography variant="h4" align="center" sx={{ margin: "30px", width: "100%" }}>
-        {obj.title}
+        {product.title}
       </Typography>
       <Box sx={{
         display: "flex",
@@ -39,24 +52,25 @@ const Details = () => {
             maxWidth: { xs: 500, md: 350 },
           }}
           alt="Product"
-          src={obj.img}
+          src={product.img}
         />
-        <Typography sx={{ padding: "10px", width: {xs: "100%", sm: "50%", md: "auto"}, textAlign: "center" }}>{obj.desc}</Typography>
+        <Typography sx={{ padding: "10px", width: {xs: "100%", sm: "50%", md: "auto"}, textAlign: "center" }}>{product.desc}</Typography>
         <Box sx={{width: { xs: "90%", sm: "auto", md: 450 }}}>
           <Box sx={boxStyle}>
             <Typography sx={textStyle}>Talles disponibles</Typography>
-            <Size arrSize={obj.size} />
+            <Size arrSize={product.size} />
           </Box>
           <Box sx={boxStyle}>
             <Typography sx={textStyle}>Colores disponibles</Typography>
-            <Colors arrColors={obj.color} />
+            <Colors arrColors={product.color} />
           </Box>
           <Box sx={boxStyle}>
             <Typography sx={textStyle}>Precio</Typography>
-            <Typography sx={{ fontSize: 20, textAlign: "center" }}>${obj.price}</Typography>
+            <Typography sx={{ fontSize: 20, textAlign: "center" }}>${product.price}</Typography>
           </Box>
-          <Typography sx={{ padding: "10px", textAlign: {xs: "center", md: "start"} }}>Hasta 3 cuotas sin interés de ${Math.round(obj.price / 3)}</Typography>
-          <Box sx={{ marginTop: "30px", marginBottom: "20px", display: "flex" }}>
+          <Typography sx={{ padding: "10px", textAlign: {xs: "center", md: "start"} }}>Hasta 3 cuotas sin interés de ${Math.round(product.price / 3)}</Typography>
+          <Typography sx={{ padding: "10px", paddingBottom : "5px" , textAlign: {xs: "center", md: "start"} }}>{product.numStock} unidades disponibles</Typography>
+          <Box sx={{ marginTop: "10px", marginBottom: "20px", display: "flex" }}>
             <Button
               sx={{
                 backgroundColor: "#7B5B3E",
