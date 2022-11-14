@@ -8,6 +8,7 @@ import About from "./pages/About/About";
 import Form from "./pages/Forms/Form";
 import Footer from "./components/Footer/Footer";
 import Sucursales from "./pages/Sucursales/Sucursales";
+import Preguntas from "./pages/Preguntas/Preguntas";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/postproduct" element={<Form />} />
           <Route path="/sucursales" element={<Sucursales />} />
           {/* <Route path="/login" element={<Login />}/> */}
+          <Route path="/faqs" element={<Preguntas />} />
         </Routes>
       </Box>
       <Footer />
