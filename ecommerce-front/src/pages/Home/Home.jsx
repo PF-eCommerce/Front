@@ -4,6 +4,7 @@ import Cards from "../../components/Cards/Cards";
 import PaginationSize from "../../components/Cards/Pagination/Pagination";
 import FilterSide from "../../components/Filters/filtros/FilterSide";
 
+
 const Home = () => {
   return (
     <div>

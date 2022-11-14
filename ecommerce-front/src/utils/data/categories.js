@@ -1,6 +1,3 @@
-
-
-
 const cates = [
     { nombre: "Abrigos", valor: "Abrigos" },
     { nombre: "Moda", valor: "Accesorio" },
@@ -24,4 +21,4 @@ const cates = [
   ];
 
   
-  export default cates;
+  export default cates
