@@ -33,6 +33,7 @@ export const getOtherPages = (num) => {
     }
   };
 };
+
 export const getProductDetail = (id) => {
   return async (dispatch) => {
     try {
@@ -40,6 +41,20 @@ export const getProductDetail = (id) => {
       return dispatch({
         type: GET_PRODUCT_DETAIL,
         payload: product.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const createProduct = (form) => {
+  return async (dispatch) => {
+    try {
+      const product = await axios.post("/product", form);
+
+      return dispatch({
+        payload: product,
       });
     } catch (error) {
       console.log(error);
