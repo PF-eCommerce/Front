@@ -1,4 +1,5 @@
-import { GET_ALL_PRODUCTS, GET_PRODUCT_DETAIL, USE_PAGINATION } from "../actions/productsAction";
+import { GET_ALL_PRODUCTS, USE_PAGINATION, GET_PRODUCT_BY_NAME, GET_PRODUCT_BY_COLOR, GET_BY_CATEGORY, GET_PRODUCT_DETAIL, } from "../actions/productsAction";
+
 
 const initialState = {
   products: [],
@@ -17,12 +18,26 @@ export default function productReducer(state = initialState, action) {
         ...state,
         products: action.payload,
       };
+    case GET_PRODUCT_BY_NAME:
+      return {
+        ...state,
+        products: action.payload
+      }
+    case GET_PRODUCT_BY_COLOR:
+      return {
+        ...state,
+        products: action.payload
+      }
+    case GET_BY_CATEGORY:
+      return {
+        ...state,
+        products:action.payload
+      }
     case GET_PRODUCT_DETAIL:
       return {
         ...state,
-        detail: action.payload,
+        detail: action.payload
       }
-
     default:
       return {
         ...state,
