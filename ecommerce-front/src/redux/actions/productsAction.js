@@ -32,3 +32,16 @@ export const getOtherPages = (num) => {
     }
   };
 };
+export const createProduct = (form) => {
+  return async (dispatch) => {
+    try {
+      const product = await axios.post("/product", form);
+
+      return dispatch({
+        payload: product,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
