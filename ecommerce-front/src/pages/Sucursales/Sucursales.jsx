@@ -7,7 +7,8 @@ const Sucursales = () => {
     <div className={s.sucursalContain} >
         <h1>Sucursales</h1>
         <div>
-            <h2>Sucursal Corrientes</h2>
+            <h2>Sucursal Corrientes:</h2>
+            <p>Av. Costanera Juan Pablo II, Corrientes, Argentina</p>
             <Maps />
         </div>
     </div>
