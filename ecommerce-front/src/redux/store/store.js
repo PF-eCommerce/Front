@@ -6,7 +6,7 @@ import thunk from "redux-thunk";
 
 const reducer = combineReducers({
     product: productReducer,
-    // user: userReducer,
+     user: userReducer,
     // cart: cartReducer,
     // review: reviewReducer,
     // orders: ordersReducer,
