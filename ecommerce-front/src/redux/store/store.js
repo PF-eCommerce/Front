@@ -2,11 +2,12 @@ import productReducer from "../reducers/productReducer";
 import { createStore, applyMiddleware, combineReducers } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
+import userReducer from "../reducers/userReducer";
 
 
 const reducer = combineReducers({
     product: productReducer,
-    // user: userReducer,
+    user: userReducer,
     // cart: cartReducer,
     // review: reviewReducer,
     // orders: ordersReducer,

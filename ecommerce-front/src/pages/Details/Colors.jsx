@@ -4,7 +4,7 @@ import React from "react";
 
 const Colors = ({arrColors}) => {
     const colors = () => {
-        return arrColors.map((c, i) => {
+        return !arrColors ? <Typography></Typography>:arrColors.map((c, i) => {
             return <Typography key={i} sx={{
                 backgroundColor: c,
                 width: "30px",
