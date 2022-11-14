@@ -29,7 +29,7 @@ export default function CheckboxLabels() {
     
     
           <FormControlLabel disabled value={"Rojo"}control={<Checkbox  sx={{ color:"red"}} />} label="Rojo" />
-          <FormControlLabel disabled value={"Negro"} control={<Checkbox value={"negro"} sx={{ color:"black"}}/>} label="Negro" />
+          <FormControlLabel disabled value={"Negro"} control={<Checkbox value={"negro"} sx={{ color:"Black"}}/>} label="Negro" />
           <FormControlLabel disabled value={"Blanco"} control={<Checkbox />} label="Blanco" />
           <FormControlLabel disabled value={"Azul"} control={<Checkbox  sx={{ color:"blue"}}/>} label="Azul" />
           
