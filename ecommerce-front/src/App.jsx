@@ -9,7 +9,7 @@ import ProductForm from "./pages/Forms/Product/ProductForm";
 import Footer from "./components/Footer/Footer";
 import Sucursales from "./pages/Sucursales/Sucursales";
 import Preguntas from "./pages/Preguntas/Preguntas";
-
+import Auth from './pages/Forms/Auth/FormAuth'
 function App() {
   return (
     <div>
@@ -23,6 +23,7 @@ function App() {
           <Route path="/postproduct" element={<ProductForm />} />
           <Route path="/sucursales" element={<Sucursales />} />
           {/* <Route path="/login" element={<Login />}/> */}
+          <Route path="/auth" element={<Auth />} />
           <Route path="/faqs" element={<Preguntas />} />
         </Routes>
       </Box>
