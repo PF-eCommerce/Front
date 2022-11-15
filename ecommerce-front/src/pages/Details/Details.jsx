@@ -1,24 +1,26 @@
-import { Alert, Box, Button, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import React, { useEffect } from "react";
-import { obj } from "../../utils/data/productDetail";
 import Size from "./Size";
 import Colors from "./Colors";
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { getProductDetail } from "../../redux/actions/productsAction";
+import Carrusel from "./Carrusel";
 
 
 const Details = () => {
 
   const {id} = useParams();
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
     dispatch(getProductDetail(id))
-  }, []);
-
+  }, [dispatch, id]);
+  
   const product = useSelector((state) => state.product.detail);
-  // console.log(product)
+  console.log(product.img)
+  console.log(product.id)
+  console.log(id)
 
   const boxStyle = {
     display: {xs:"block", md:"flex"},
@@ -37,8 +39,17 @@ const Details = () => {
   }
 
   return (
-    <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "space-around"}}>
-      <Typography variant="h4" align="center" sx={{ margin: "30px", width: "100%" }}>
+    <Box 
+      sx={{ 
+        display: "flex", 
+        flexWrap: "wrap", 
+        justifyContent: "space-around"
+      }}>
+      <Typography 
+        variant="h4" 
+        align="center" 
+        sx={{ margin: "30px", width: "100%" }}
+      >
         {product.title}
       </Typography>
       <Box sx={{
@@ -46,31 +57,77 @@ const Details = () => {
         justifyContent: "center",
         flexWrap: "wrap"
       }}>
-        <Box
-          component="img"
-          sx={{
-            maxWidth: { xs: 500, md: 350 },
+        {product._id === id ? <Carrusel images={product.img ? product.img : []} autoplay={true}/> : null}
+        <Typography 
+          sx={{ 
+            padding: "10px", 
+            width: {xs: "100%", sm: "50%", md: "25%"}, 
+            textAlign: "center"
           }}
-          alt="Product"
-          src={product.img}
-        />
-        <Typography sx={{ padding: "10px", width: {xs: "100%", sm: "50%", md: "auto"}, textAlign: "center" }}>{product.desc}</Typography>
-        <Box sx={{width: { xs: "90%", sm: "auto", md: 450 }}}>
+        >
+          {product.desc}
+        </Typography>
+        <Box 
+          sx={{width: { xs: "90%", sm: "auto", md: 450 }}}
+        >
           <Box sx={boxStyle}>
-            <Typography sx={textStyle}>Talles disponibles</Typography>
+            <Typography 
+              sx={textStyle}
+            >
+              Talles disponibles
+            </Typography>
             <Size arrSize={product.size} />
           </Box>
           <Box sx={boxStyle}>
-            <Typography sx={textStyle}>Colores disponibles</Typography>
+            <Typography 
+              sx={textStyle}
+            >
+              Colores disponibles
+            </Typography>
             <Colors arrColors={product.color} />
           </Box>
+
           <Box sx={boxStyle}>
-            <Typography sx={textStyle}>Precio</Typography>
-            <Typography sx={{ fontSize: 20, textAlign: "center" }}>${product.price}</Typography>
+            <Typography 
+              sx={textStyle}
+            >
+              Precio
+            </Typography>
+            <Typography 
+              sx={{ 
+                fontSize: 20, 
+                textAlign: "center" 
+              }}
+            >
+              ${product.price}
+            </Typography>
           </Box>
-          <Typography sx={{ padding: "10px", textAlign: {xs: "center", md: "start"} }}>Hasta 3 cuotas sin interés de ${Math.round(product.price / 3)}</Typography>
-          <Typography sx={{ padding: "10px", paddingBottom : "5px" , textAlign: {xs: "center", md: "start"} }}>{product.numStock} unidades disponibles</Typography>
-          <Box sx={{ marginTop: "10px", marginBottom: "20px", display: "flex" }}>
+
+          <Typography 
+            sx={{ 
+              padding: "10px", 
+              textAlign: {xs: "center", md: "start"} 
+            }}
+          >
+            Hasta 3 cuotas sin interés de ${Math.round(product.price / 3)}
+          </Typography>
+
+          <Typography 
+            sx={{ 
+              padding: "10px", 
+              paddingBottom : "5px" , 
+              textAlign: {xs: "center", md: "start"} 
+            }}
+          >
+            {product.numStock} unidades disponibles
+          </Typography>
+          <Box 
+            sx={{ 
+              marginTop: "10px", 
+              marginBottom: "20px", 
+              display: "flex" 
+            }}
+          >
             <Button
               sx={{
                 backgroundColor: "#7B5B3E",
