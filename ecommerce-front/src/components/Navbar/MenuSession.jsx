@@ -48,9 +48,11 @@ export default function PositionedMenu() {
     dispatch(userLogOut())
     return navigate("/auth")
   }
+
+ console.log(userRedux)
   return (
     <div>
-      {Object.keys(userRedux).length === 0  ? <> <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+      { localStorage.getItem("token") === null ? <> <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
         
       <Button onClick={()=> navigate('/auth')} variant="text">Iniciar Sesion</Button>
         <LoginIcon /> </Box></> : <> <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
