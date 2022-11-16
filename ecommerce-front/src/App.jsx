@@ -10,12 +10,14 @@ import Footer from "./components/Footer/Footer";
 import Sucursales from "./pages/Sucursales/Sucursales";
 import Preguntas from "./pages/Preguntas/Preguntas";
 import Auth from './pages/Forms/Auth/FormAuth'
+import ShoppingCart from "./components/Cart/ShoppingCart";
 function App() {
   return (
     <div>
       <Navbar />
       <Box>
         <Routes>
+          <Route path="/cart" element={<ShoppingCart />} />
           <Route path="/" element={<Landing />} />
           <Route path="/home" element={<Home />} />
           <Route path="/detail/:id" element={<Details />} />
