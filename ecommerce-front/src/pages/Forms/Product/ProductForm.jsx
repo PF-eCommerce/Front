@@ -13,7 +13,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createProduct } from "../../../redux/actions/productsAction";
-import { cates } from "../../../utils/data/categories";
+import cates from "../../../utils/data/categories.js";
 import { talles } from "../../../utils/data/sizes";
 
 const ProductForm = () => {
