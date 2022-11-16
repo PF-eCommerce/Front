@@ -4,6 +4,9 @@ export const REGISTER_ERROR = "REGISTER_ERROR";
 export const LOGIN_ERROR = "LOGIN_ERROR";
 export const RESET_ERROR = 'RESET_ERROR';
 export const USER_REGISTER = 'USER_REGISTER';
+export const USER = 'USER'
+export const RESET_USER = 'RESET_USER'
+export const TOKEN = 'TOKEN'
 
 
 axios.defaults.baseURL = "http://localhost:3001";
@@ -31,15 +34,15 @@ export const userRegister = (user) => {
 export const userLogin = (user) => {
     return async (dispatch) => {
       try {
-        const token = await axios.post("/login", user);
+        const token = await axios.post("/login/user", user);
   
         localStorage.setItem("token", token.data.token);
           
         // si quiero guardar el token con redux
-        // return dispatch({
-        //   type: TOKEN,
-        //   payload: token.data,
-        // });
+        return dispatch({
+          type: TOKEN,
+          payload: token.data,
+        });
       } catch (error) {
         return dispatch({
           type: LOGIN_ERROR,
@@ -52,5 +55,37 @@ export const userLogin = (user) => {
 export const resetError = () => {
     return {
       type: RESET_ERROR,
+    };
+  };
+
+  export const getUserData = () => {
+    return async (dispatch) => {
+      try {
+        const user = await axios.get("/perfil", {
+          headers: {
+            Bearer: localStorage.getItem("token"),
+          },
+        });
+  
+        localStorage.setItem("user", JSON.stringify(user.data));
+        return dispatch({
+          type: USER,
+          payload: user.data,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  };
+
+  export const userLogOut = () => {
+    return async (dispatch) => {
+      try {
+        return dispatch({
+          type: RESET_USER,
+        });
+      } catch (error) {
+       console.log(error)
+      }
     };
   };
