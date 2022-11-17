@@ -113,7 +113,7 @@ const FormAuth = () => {
            
             <OutlinedInput
             sx={{ m: 2, width: "60ch", height: "6ch" }}
-            label= "Password"
+            label="password"
             name = "password"
             type={input.showPassword ? 'text' : 'password'}
             value={input.password}
