@@ -9,22 +9,25 @@ import ProductForm from "./pages/Forms/Product/ProductForm";
 import Footer from "./components/Footer/Footer";
 import Sucursales from "./pages/Sucursales/Sucursales";
 import Preguntas from "./pages/Preguntas/Preguntas";
-import Auth from './pages/Forms/Auth/FormAuth'
+import Auth from "./pages/Forms/Auth/FormAuth";
+import Profile from "./pages/Profile/Profile";
+import FormLogin from "./pages/Forms/FormLogin";
 function App() {
   return (
     <div>
       <Navbar />
       <Box>
         <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/detail/:id" element={<Details />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/postproduct" element={<ProductForm />} />
-          <Route path="/sucursales" element={<Sucursales />} />
-          {/* <Route path="/login" element={<Login />}/> */}
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/faqs" element={<Preguntas />} />
+          <Route path='/' element={<Landing />} />
+          <Route path='/home' element={<Home />} />
+          <Route path='/detail/:id' element={<Details />} />
+          <Route path='/about' element={<About />} />
+          <Route path='/postproduct' element={<ProductForm />} />
+          <Route path='/sucursales' element={<Sucursales />} />
+          <Route path='/register' element={<FormLogin />} />
+          <Route path='/auth' element={<Auth />} />
+          <Route path='/faqs' element={<Preguntas />} />
+          <Route path='/account/profile' element={<Profile />} />
         </Routes>
       </Box>
       <Footer />
