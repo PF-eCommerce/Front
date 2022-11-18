@@ -4,6 +4,7 @@ import { GET_ALL_PRODUCTS, USE_PAGINATION, GET_PRODUCT_BY_NAME, GET_PRODUCT_BY_C
 const initialState = {
   products: [],
   detail: [],
+  allProducts: [],
 };
 
 export default function productReducer(state = initialState, action) {
@@ -11,7 +12,8 @@ export default function productReducer(state = initialState, action) {
     case GET_ALL_PRODUCTS:
       return {
         ...state,
-        products: action.payload,
+        // products: action.payload,
+        allProducts: action.payload,
       };
     case USE_PAGINATION:
       return {
