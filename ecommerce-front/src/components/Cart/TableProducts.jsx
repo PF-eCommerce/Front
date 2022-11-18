@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Table,Stack, TextField} from '@mui/material';
+import {Table,Stack, TextField, Box, Button} from '@mui/material';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
@@ -11,35 +11,49 @@ import Sumas from './Sumas';
 import { Link } from 'react-router-dom';
 import s from "./TableProducts.module.css"
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import {addToCart} from "../../redux/actions/cartAction"
+import {addToCart, deleteFromCart} from "../../redux/actions/cartAction"
 import Input from "./Input"
-import {ADD_TO_CART} from "../../redux/actions/constantes"
+import {ADD_TO_CART} from "../../redux/actions/constantes";
+import {styled} from "@mui/system";
 
 
 export default function BasicTable() {
+
+
+    const BoxSuma = styled(Box)(({theme})=>({
+        display:"inline-flex",
+        gap:"5px",
+        alignItems: "center",
+        [theme.breakpoints.up("sm")]:{
+            display:"flex"
+           }
+      
+      }))
 
     const cartItems = useSelector(state=>state.cart.cart)
     console.log("desdetable", cartItems)
     const dispatch = useDispatch();
 
-   const handleQtyChange = (e,item) => {
-    e.preventDefault()
-    const cartLocal = localStorage.getItem("cart") 
-    ? JSON.parse(localStorage.getItem("cart"))
-    : [];
+    const handleQtyChange = (ee , item) => {
+      
+        const cart = localStorage.getItem('cart')
+              ? JSON.parse(localStorage.getItem('cart'))
+              : [];
+  
+          cart.forEach(cartItem => {
+              if (cartItem._id === item._id) {
+                  if (ee.target.id === '+' && cartItem.numStock > cartItem.count) {
+            cartItem.count = cartItem.count + 1
+          }else if ( ee.target.id === '-'&& cartItem.count > 1  ) cartItem.count = cartItem.count - 1
+          }
+              })
 
-    cartLocal.forEach(cartItem=> {
-        if(cartItem._id===item._id){
-            cartItem.count = e.target.value
-        }
-    });
-
-        localStorage.setItem("cart", JSON.stringify(cartLocal))
+        localStorage.setItem("cart", JSON.stringify(cart))
 
         // dispatch(addToCart(cartLocal))
         dispatch({
 			type: ADD_TO_CART,
-			payload: cartLocal,
+			payload: cart,
 		});
 
     }
@@ -79,27 +93,14 @@ export default function BasicTable() {
             
               <TableCell align="left">{item.numStock}</TableCell>
               <TableCell align="left">${item.price}.00</TableCell>
-              <TableCell align="left"><TextField
-                    size='small'
-          
-                 id="filled-number"
-                 max={item.numStock}
-                 label="Cantidad"
-                 type="number"
-                 defaultValue={"1"}
-                 variant="outlined"
-                 onChange={e =>
-                    handleQtyChange( e,item )
-                }
-        //   value={item.count || item.numStock}
-          InputLabelProps={{
-            shrink: true,
-          }} />
-         
+              <TableCell align="left"> <Button align="left" id="-" onClick={(ee) => handleQtyChange(ee , item)} >-</Button>
+                  {item.count}
+                <Button align="left" id="+" onClick={(ee) => handleQtyChange(ee , item)} >+</Button>  
        
 													
                </TableCell>
-              <TableCell align="left"><DeleteForeverIcon/></TableCell>
+              <TableCell align="left"><DeleteForeverIcon
+              onClick={()=>dispatch(deleteFromCart(item))}/></TableCell>
 
             </TableRow>
           ))}
@@ -108,9 +109,9 @@ export default function BasicTable() {
     </TableContainer>
   
             
-        
+     <BoxSuma>
         <Sumas cart={cartItems}/>
-        
+     </BoxSuma>
         </Stack>
     </div>
     

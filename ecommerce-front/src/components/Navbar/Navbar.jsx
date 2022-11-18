@@ -1,4 +1,4 @@
-import { AppBar,Toolbar,Box, Typography, Button, IconButton, Link, } from "@mui/material";
+import { AppBar,Toolbar,Box, Typography, Button, IconButton } from "@mui/material";
 import React from "react";
 import {styled} from "@mui/system";
 import SearchBar from "./SearchBar/SearchBar";
@@ -7,6 +7,7 @@ import MenuCatalogo from "./MenuCatalogo"
 import PositionedMenu from "./MenuSession"
 import Logo from "./Logo";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 
 
@@ -60,6 +61,7 @@ return(
          <SearchBar/>
       </Box>
       <PositionedMenu/>
+      <ButtonNav variant="outlined" color="secondary" ><Link to={"/admin/dashboard"} underline="none">admin</Link></ButtonNav>
     <Box style={{position:"relative"}}>
       <Link href="/cart">
          <IconButton>
