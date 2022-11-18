@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Table,Stack, TextField, Box} from '@mui/material';
+import {Table,Stack, TextField, Box, Button} from '@mui/material';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
@@ -34,24 +34,26 @@ export default function BasicTable() {
     console.log("desdetable", cartItems)
     const dispatch = useDispatch();
 
-   const handleQtyChange = (e,item) => {
-    e.preventDefault()
-    const cartLocal = localStorage.getItem("cart") 
-    ? JSON.parse(localStorage.getItem("cart"))
-    : [];
+    const handleQtyChange = (ee , item) => {
+      
+        const cart = localStorage.getItem('cart')
+              ? JSON.parse(localStorage.getItem('cart'))
+              : [];
+  
+          cart.forEach(cartItem => {
+              if (cartItem._id === item._id) {
+                  if (ee.target.id === '+' && cartItem.numStock > cartItem.count) {
+            cartItem.count = cartItem.count + 1
+          }else if ( ee.target.id === '-'&& cartItem.count > 1  ) cartItem.count = cartItem.count - 1
+          }
+              })
 
-    cartLocal.forEach(cartItem=> {
-        if(cartItem._id===item._id){
-            cartItem.count = e.target.value
-        }
-    });
-
-        localStorage.setItem("cart", JSON.stringify(cartLocal))
+        localStorage.setItem("cart", JSON.stringify(cart))
 
         // dispatch(addToCart(cartLocal))
         dispatch({
 			type: ADD_TO_CART,
-			payload: cartLocal,
+			payload: cart,
 		});
 
     }
@@ -91,23 +93,9 @@ export default function BasicTable() {
             
               <TableCell align="left">{item.numStock}</TableCell>
               <TableCell align="left">${item.price}.00</TableCell>
-              <TableCell align="left"><TextField
-                    size='small'
-          
-                 id="filled-number"
-                 max={item.numStock}
-                 label="Cantidad"
-                 type="number"
-                 defaultValue={"1"}
-                 variant="outlined"
-                 onChange={e =>
-                    handleQtyChange( e,item )
-                }
-        //   value={item.count || item.numStock}
-          InputLabelProps={{
-            shrink: true,
-          }} />
-         
+              <TableCell align="left"> <Button align="left" id="-" onClick={(ee) => handleQtyChange(ee , item)} >-</Button>
+                  {item.count}
+                <Button align="left" id="+" onClick={(ee) => handleQtyChange(ee , item)} >+</Button>  
        
 													
                </TableCell>
