@@ -8,6 +8,7 @@ import FilterSide from "../../components/Filters/filtros/FilterSide";
 const Home = () => {
   return (
     <div>
+      <PaginationSize />
       <Stack direction="row" spacing={1}>
         <FilterSide/>
           <Cards />
