@@ -1,4 +1,4 @@
-import { GET_ALL_PRODUCTS, USE_PAGINATION, GET_PRODUCT_BY_NAME, GET_PRODUCT_BY_COLOR, GET_BY_CATEGORY, GET_PRODUCT_DETAIL, } from "../actions/productsAction";
+import { GET_ALL_PRODUCTS, USE_PAGINATION, GET_PRODUCT_BY_NAME, GET_PRODUCT_BY_COLOR, GET_BY_CATEGORY, GET_PRODUCT_DETAIL, DELETE_DETAIL } from "../actions/productsAction";
 
 
 const initialState = {
@@ -39,6 +39,12 @@ export default function productReducer(state = initialState, action) {
       return {
         ...state,
         detail: action.payload
+      }
+    case DELETE_DETAIL:
+            
+      return{
+          ...state,
+          detail:[]
       }
     default:
       return {
