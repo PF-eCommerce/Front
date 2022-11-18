@@ -6,7 +6,7 @@ import React from "react";
 
 const Sumas = ({cart}) => {
     return (
-        <Box  justifyContent="center"display={"flex"} pl={8} >
+        <Box  justifyContent="center"display={"flex"} pl={2} pr={4}>
         <Box  
       sx={{
         width: 300,
@@ -16,7 +16,7 @@ const Sumas = ({cart}) => {
       }}
          >
 
-        <Typography  variant="h5" color="initial">Sumas</Typography>
+        <Typography  variant="h5" color="initial">Resumen del Pedido</Typography>
         <Divider/>
         <Typography pt={4} variant="body1" color="initial">{cart.length === 1 ? "(1) Articulo ": `(${cart.length}) Articulos`}</Typography>
         <Divider/>
@@ -29,7 +29,7 @@ const Sumas = ({cart}) => {
 										0
 									)
 									.toFixed(2)}</Typography>
-        <Button pt={8} variant="contained">Proceder a Pagar</Button>
+        <Button fullWidth sx={{mt:"2rem"}} variant="contained">Proceder a Pagar</Button>
     </Box>
     </Box>
     )
