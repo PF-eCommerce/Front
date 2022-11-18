@@ -13,6 +13,7 @@ import s from "./TableProducts.module.css"
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import {addToCart} from "../../redux/actions/cartAction"
 import Input from "./Input"
+import {ADD_TO_CART} from "../../redux/actions/constantes"
 
 
 export default function BasicTable() {
@@ -22,7 +23,7 @@ export default function BasicTable() {
     const dispatch = useDispatch();
 
    const handleQtyChange = (e,item) => {
-
+    e.preventDefault()
     const cartLocal = localStorage.getItem("cart") 
     ? JSON.parse(localStorage.getItem("cart"))
     : [];
@@ -35,7 +36,11 @@ export default function BasicTable() {
 
         localStorage.setItem("cart", JSON.stringify(cartLocal))
 
-        dispatch(addToCart(cartLocal))
+        // dispatch(addToCart(cartLocal))
+        dispatch({
+			type: ADD_TO_CART,
+			payload: cartLocal,
+		});
 
     }
   return (
@@ -61,7 +66,7 @@ export default function BasicTable() {
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="item">
-                 <img src= {item.length ? item[0]:item.img} Width="70px" alt='product'/>
+                 <img src= {item.img[0]} Width="70px" alt='product'/>
               </TableCell>
               {' '}
               
