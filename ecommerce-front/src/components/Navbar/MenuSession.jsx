@@ -16,13 +16,19 @@ import LoginIcon from '@mui/icons-material/Login';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { userLogOut } from '../../redux/actions/userAction';
+import { auth0User, registerUserAuth0, userLogOut } from '../../redux/actions/userAction';
+import { useAuth0 } from '@auth0/auth0-react'
+import axios from 'axios'
+import { useState } from 'react';
+
 
 export default function PositionedMenu() {
-  const [user, setUser] = React.useState(JSON.parse(localStorage.getItem("user")))
+
+  const {loginWithRedirect, logout, isAuthenticated, getAccessTokenSilently} = useAuth0()
+  const userLocalStorage = JSON.parse(localStorage.getItem("auth0"))
+  const [user, setUser] = React.useState(userLocalStorage)
   const userRedux = useSelector(state => state.user.user)
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const navigate = useNavigate()
   const dispatch = useDispatch()
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -43,18 +49,52 @@ export default function PositionedMenu() {
   }))
 
   const handleLogout = () => {
-    localStorage.removeItem("token")
-    localStorage.removeItem("user")
+    localStorage.removeItem("auth0")
+    logout()
     dispatch(userLogOut())
-    return navigate("/auth")
+    
   }
 
- console.log(userRedux)
+  const callApiProtected =  async () => {
+    try {
+     const token = isAuthenticated && await getAccessTokenSilently()
+  
+     const response = await axios.get("http://localhost:3001/protected", {
+      headers : {
+        authorization : `Bearer ${token}`
+      }
+     })
+     localStorage.setItem("auth0", JSON.stringify(response.data))
+     const userAction = JSON.parse(localStorage.getItem("auth0"))
+     dispatch(auth0User( userAction))
+    
+     
+     
+    } catch (error) {
+      console.log(error.message)
+    }
+  
+     
+   }
+
+ 
+
+ React.useEffect(() => {
+  if(isAuthenticated && localStorage.getItem("auth0") === null) {
+    
+     callApiProtected()
+     
+  } 
+
+  
+ })
+
+console.log(user)
   return (
     <div>
-      { localStorage.getItem("token") === null ? <> <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+      { localStorage.getItem("auth0") === null | localStorage.getItem("auth0") === undefined ? <> <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
         
-      <Button onClick={()=> navigate('/auth')} variant="text">Iniciar Sesion</Button>
+      <Button onClick={loginWithRedirect} variant="text">Iniciar Sesion</Button>
         <LoginIcon /> </Box></> : <> <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
    
         
