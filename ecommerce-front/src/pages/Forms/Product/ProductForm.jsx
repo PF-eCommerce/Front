@@ -13,16 +13,18 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createProduct } from "../../../redux/actions/productsAction";
-import  {cates } from "../../../utils/data/categories";
-import  {talles}  from "../../../utils/data/sizes";
+import useUploadWidget from "../../../utils/cloudinary/useUploadWidget";
+import { cates } from "../../../utils/data/categories";
+import { talles } from "../../../utils/data/sizes";
 
 const ProductForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const cloudy = useUploadWidget();
   const [open, setOpen] = useState(false);
   const [tallesOption, setTallesOption] = React.useState([]);
   const [catesOption, setCatesOption] = React.useState("");
-  const [images, setImages] = React.useState([""]);
+  const [images, setImages] = useState([""]);
   const {
     register,
     formState: { errors },
@@ -31,7 +33,6 @@ const ProductForm = () => {
     defaultValues: {
       color: [],
       size: [],
-      images: [],
     },
   });
 
@@ -48,65 +49,14 @@ const ProductForm = () => {
     setCatesOption(typeof value === "string" ? value.split(",") : value);
   };
   const onSubmit = (data) => {
-    console.log(data);
+    console.table(data);
     dispatch(createProduct(data));
     navigate("/home");
   };
 
-  function showUploadWidget() {
-    // eslint-disable-next-line no-unused-vars
-    let cloudbox = window.cloudinary.openUploadWidget(
-      {
-        cloudName: process.env.REACT_APP_SECURE_CLOUDY_NAME,
-        uploadPreset: process.env.REACT_APP_SECURE_CLOUDY_PRESET,
-        sources: [
-          "local",
-          "url",
-          "camera",
-          "google_drive",
-          "dropbox",
-          "instagram",
-        ],
-        googleApiKey: "<image_search_google_api_key>",
-        showAdvancedOptions: false,
-        cropping: false,
-        multiple: true,
-        defaultSource: "local",
-        styles: {
-          palette: {
-            window: "#FFF8F8",
-            windowBorder: "#85AB85",
-            tabIcon: "#B55C00",
-            menuIcons: "#0063E2",
-            textDark: "#904C4C",
-            textLight: "#F7F7F7",
-            link: "#B35A00",
-            action: "#FF9CF9",
-            inactiveTabIcon: "#B5C5B3",
-            error: "#F44235",
-            inProgress: "#B2FF88",
-            complete: "#76B100",
-            sourceBg: "#FFFCED",
-          },
-          fonts: {
-            default: null,
-            "'Poppins', sans-serif": {
-              url: "https://fonts.googleapis.com/css?family=Poppins",
-              active: true,
-            },
-          },
-        },
-      },
-      async (error, result) => {
-        if (!error && result && result.event === "success") {
-          setImages(result.info.url);
-        }
-      }
-    );
-  }
   const handleCloudy = () => {
     setOpen(!open);
-    showUploadWidget();
+    setImages(cloudy);
   };
 
   return (
@@ -158,18 +108,24 @@ const ProductForm = () => {
           <Button
             color='secondary'
             variant='outlined'
-            onClick={() => handleCloudy(open)}
+            onClick={() => handleCloudy()}
           >
             Elegir
           </Button>
-          {images ? <img src={images} alt='error de carga' /> : null}
+          {images ? images?.map((ima) => <img src={ima} alt='' />) : null}
           {/* {errors.images?.type === "required" && (
             <p style={{ color: "red", margin: "0.25rem" }}>Imagen requerida</p>
           )} */}
         </InputLabel>
         <InputLabel>
           Descripción
-          <TextField type='text' {...register("description")}></TextField>
+          <TextField
+            type='text'
+            {...register("desc", { required: true })}
+          ></TextField>
+          {errors.desc?.type === "required" && (
+            <p style={{ color: "red", margin: "0.25rem" }}>Campo requerido</p>
+          )}
         </InputLabel>
         <InputLabel>
           Precio
