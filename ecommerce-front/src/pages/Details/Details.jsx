@@ -4,7 +4,7 @@ import Size from "./Size";
 import Colors from "./Colors";
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { getProductDetail } from "../../redux/actions/productsAction";
+import { getProductDetail, deleteDetail } from "../../redux/actions/productsAction";
 import Carrusel from "./Carrusel";
 import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
 import {addToCart} from "../../redux/actions/cartAction"
@@ -19,6 +19,11 @@ const Details = () => {
   
   useEffect(() => {
     dispatch(getProductDetail(id))
+    return function(){
+            
+      dispatch(deleteDetail())
+      
+  }
   }, [dispatch, id]);
   
   const product = useSelector((state) => state.product.detail);
