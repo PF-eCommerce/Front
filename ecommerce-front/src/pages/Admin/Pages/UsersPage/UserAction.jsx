@@ -1,10 +1,10 @@
 import { Box } from "@mui/system";
 import React from "react";
 
-export default function UsersPage(){
+export default function UserAction(){
     return(
         <Box>
-            Pagina con todos los usuarios
+
         </Box>
     )
 }
