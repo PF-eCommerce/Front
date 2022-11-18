@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Table,Stack, TextField} from '@mui/material';
+import {Table,Stack, TextField, Box} from '@mui/material';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
@@ -11,12 +11,24 @@ import Sumas from './Sumas';
 import { Link } from 'react-router-dom';
 import s from "./TableProducts.module.css"
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import {addToCart} from "../../redux/actions/cartAction"
+import {addToCart, deleteFromCart} from "../../redux/actions/cartAction"
 import Input from "./Input"
-import {ADD_TO_CART} from "../../redux/actions/constantes"
+import {ADD_TO_CART} from "../../redux/actions/constantes";
+import {styled} from "@mui/system";
 
 
 export default function BasicTable() {
+
+
+    const BoxSuma = styled(Box)(({theme})=>({
+        display:"inline-flex",
+        gap:"5px",
+        alignItems: "center",
+        [theme.breakpoints.up("sm")]:{
+            display:"flex"
+           }
+      
+      }))
 
     const cartItems = useSelector(state=>state.cart.cart)
     console.log("desdetable", cartItems)
@@ -99,7 +111,8 @@ export default function BasicTable() {
        
 													
                </TableCell>
-              <TableCell align="left"><DeleteForeverIcon/></TableCell>
+              <TableCell align="left"><DeleteForeverIcon
+              onClick={()=>dispatch(deleteFromCart(item))}/></TableCell>
 
             </TableRow>
           ))}
@@ -108,9 +121,9 @@ export default function BasicTable() {
     </TableContainer>
   
             
-        
+     <BoxSuma>
         <Sumas cart={cartItems}/>
-        
+     </BoxSuma>
         </Stack>
     </div>
     
