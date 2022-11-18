@@ -89,3 +89,26 @@ export const resetError = () => {
       }
     };
   };
+
+  export const registerUserAuth0 = (user) => {
+    console.log(user)
+    return async () => {
+      try {
+        await axios.post("/register/auth0", user);
+       
+      
+      } catch (error) {
+        
+        console.log(error)
+      }
+    };
+  }
+
+  export const auth0User = (user) => {
+   console.log(user)
+    return  {
+        type: USER,
+        payload: user,
+     
+    }
+  }
