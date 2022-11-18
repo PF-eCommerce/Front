@@ -4,6 +4,9 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Unstable_Grid2";
 import { Button, Typography } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { getCategories } from "../../redux/actions/productsAction";
+import { useNavigate } from 'react-router-dom'
 
 const BootstrapButton = styled(Button)({
   boxShadow: 'none',
@@ -92,6 +95,8 @@ const Landing = () => {
   //       color: 'none'
   //     }
   //   }));
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const Item = styled(Paper)(({ theme }) => ({
     //   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -122,6 +127,15 @@ const Landing = () => {
     textAlign: "center",
     color: theme.palette.text.secondary,
   }));
+
+  const handleSelect = (e) => {
+    e.preventDefault();
+    console.log('TARGET VALUE', e.target.value)
+    const value = e.target.value;
+    dispatch(getCategories(value))
+    
+    navigate('/home')
+  };
 
   // const classes = useStyles();
   return (
@@ -284,6 +298,8 @@ const Landing = () => {
             }}
           >
             <ImageButton
+            value= 'Blusas'
+            onClick= {handleSelect}
             style={{
               backgroundImage: `url(https://img.freepik.com/fotos-premium/chica-adolescente-elegante-ropa-casual-camina-confianza-calle-verano-dia-mundial-turismo_381014-484.jpg)`,
               height: "400px",
@@ -292,6 +308,7 @@ const Landing = () => {
               backgroundSize: "cover",
               backgroundRepeat: "no-repeat",
               backgroundPosition: "center center",
+              
             }}
             >
               <Grid xs={12}
@@ -333,6 +350,8 @@ const Landing = () => {
           >
             
             <ImageButton
+            value= 'Abrigos'
+            onClick= {handleSelect}
             style={{
               backgroundImage: `url(https://visteconclase.com/imagenes/Puedo-combinar-un-abrigo-beige-de-hombre-con-zapatillas-deportivas.jpg)`,
               height: "400px",
@@ -391,6 +410,8 @@ const Landing = () => {
             }}
           >
             <ImageButton
+            value= 'Remeras'
+            onClick= {handleSelect}
             style={{
               backgroundImage: `url(https://media.istockphoto.com/id/857856490/photo/cheerful-black-guy-in-london.jpg?b=1&s=170667a&w=0&k=20&c=7w7Bbt-U7QjHCI5JfZHawd5ivO0PqSWoaU6IxD4Jw68=)`,
               height: "375px",
@@ -452,6 +473,8 @@ const Landing = () => {
           }}
         >
           <ImageButton
+          value= 'Jeans'
+          onClick= {handleSelect}
            style={{
             backgroundImage: `url(https://www.outfit-styles.com/wp-content/uploads/2019/07/Skinny-Jeans-Outfit-2019.jpg)`,
             height: "800px",
@@ -622,6 +645,8 @@ const Landing = () => {
           }}
         >
           <ImageButton
+          value= 'Vestidos'
+          onClick= {handleSelect}
           style={{
             backgroundImage: `url(https://i.pinimg.com/originals/18/34/99/183499d64bef2652a041e55bdd3fd7aa.jpg)`,
             height: "600px",
@@ -681,6 +706,8 @@ const Landing = () => {
           }}
         >
           <ImageButton
+          value= 'Shorts'
+          onClick= {handleSelect}
           style={{
             backgroundImage: `url(https://i.pinimg.com/originals/dc/53/94/dc5394110c2f8ce33f9fc13dc36d8abe.jpg)`,
             height: "600px",
