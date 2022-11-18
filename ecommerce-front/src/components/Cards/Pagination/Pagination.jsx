@@ -6,7 +6,8 @@ import { getOtherPages } from "../../../redux/actions/productsAction";
 import { Box } from "@mui/material";
 
 export default function PaginationSize() {
-  const products = useSelector((state) => state.product.products);
+  const products = useSelector((state) => state?.product.products);
+  const productsAll = useSelector(state=>state?.product.allProducts)
   const dispatch = useDispatch();
 
   function handlePage(e) {
@@ -32,6 +33,20 @@ export default function PaginationSize() {
       </Box>
     );
   } else {
-    return null;
-  }
+    return (
+      <Box my={2} display="flex" justifyContent="center">
+        <Stack spacing={2} sx={{ backgroundColor: "#c8f377" }}>
+          {/*quise poner las letras blancas pero no encontré bien cómo */}
+          <Pagination
+            count={productsAll?.totalPages}
+            onChange={handlePage}
+            variant="text"
+            shape="rounded"
+            size="large"
+            hideNextButton
+            hidePrevButton
+          />
+        </Stack>
+      </Box>
+    )}
 }

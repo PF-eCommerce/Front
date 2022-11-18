@@ -1,11 +1,14 @@
-import { Box, Button, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import { Box, Button, Typography, Link, IconButton } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import Size from "./Size";
 import Colors from "./Colors";
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { getProductDetail } from "../../redux/actions/productsAction";
+import { getProductDetail, deleteDetail } from "../../redux/actions/productsAction";
 import Carrusel from "./Carrusel";
+import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
+import {addToCart} from "../../redux/actions/cartAction"
+import Alert from "../../components/Cart/Alert"
 import styles from "./Detail.module.css";
 import Reviews from "../../components/Review/Review";
 import Rating from "@mui/material/Rating";
@@ -14,6 +17,7 @@ import Rating from "@mui/material/Rating";
 const Details = () => {
 
   const {id} = useParams();
+  console.log(id)
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleGoBackBtn = () => {
@@ -22,9 +26,15 @@ const Details = () => {
 
   useEffect(() => {
     dispatch(getProductDetail(id))
+    return function(){
+            
+      dispatch(deleteDetail())
+      
+  }
   }, [dispatch, id]);
   
   const product = useSelector((state) => state.product.detail);
+  const [alert, setAlert] = useState(false)
   console.log(product.img)
   console.log(product.id)
   console.log(id)
@@ -43,6 +53,13 @@ const Details = () => {
     borderRadius: "18px",
     color: "white",
     fontSize: 20
+  }
+
+
+  const handleProduct = () => {
+     dispatch(addToCart(product))
+     setAlert(true)
+
   }
 
   const reviewPro = useSelector((state) => state.review);
@@ -180,20 +197,13 @@ const Details = () => {
               display: "flex" 
             }}
           >
-            <Button
-              sx={{
-                backgroundColor: "#7B5B3E",
-                color: "white",
-                paddingLeft: "20px",
-                paddingRight: "20px",
-                fontSize: 15,
-                marginRight: "10px",
-                "&:hover": {
-                  backgroundColor: "#927960",
-                }
-              }}
-            >Agregar al carrito
-            </Button>
+            {/* <Link href="/cart"> */}
+              <IconButton onClick={handleProduct}>
+               <AddShoppingCartOutlinedIcon sx={{marginRight:"1rem"}} color="secondary" fontSize="large"/>
+              </IconButton>
+             
+             
+             {/* </Link> */}
             <Button
               sx={{
                 backgroundColor: "#7B5B3E",
@@ -206,6 +216,7 @@ const Details = () => {
               onClick={handleGoBackBtn}
             >Volver
             </Button>
+           
           </Box>
           <Box
             sx={{ 
@@ -217,6 +228,10 @@ const Details = () => {
           </Box>
         </Box>
       </Box>
+      {
+                alert?
+                <Alert />:null
+              }
     </Box>
   )
 };

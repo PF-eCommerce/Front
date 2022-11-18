@@ -13,31 +13,53 @@ const Cards = () => {
     dispatch(getAllProducts());
   }, []);
 
-  const products = useSelector((state) => state.product.products);
+  const products = useSelector((state) => state?.product.products);
+  const productsAll = useSelector(state=>state?.product.allProducts)
   // const products = useSelector((state)=>state.product.products)
-  // console.log(products)
+  console.log('PRODUCTOS',products)
 
   return (
-
-    <Box flex={8} p={1}>
-       <Grid container spacing={2}>
-        {products.docs?.map((produc) => (
-          <Grid xs={12} md={6} lg={4} p={2}>
-            
-            <Card
-              title={produc.title}
-              desc={produc.desc}
-              price={produc.price}
-              img={produc.img}
-              numStock={produc.numStock}
-              id={produc._id}
+    
+      <Box flex={8} p={1}>
+        {products.docs?.length>0?
+      <Grid container spacing={2}>
+       {products.docs?.map((produc) => (
+         <Grid xs={12} md={6} lg={4} p={2}>
+           <Link to={`/detail/${produc._id}`}>
+           <Card
+             title={produc.title}
+             desc={produc.desc}
+             price={produc.price}
+             img={produc.img}
+             numStock={produc.numStock}
+             />
+             </Link>
+         </Grid>
+         
+       ))}
+       </Grid>
+      :
+      <Grid container spacing={2}>
+      {productsAll.docs?.map((produc) => (
+        <Grid xs={12} md={6} lg={4} p={2}>
+          <Link to={`/detail/${produc._id}`}>
+          <Card
+            title={produc.title}
+            desc={produc.desc}
+            price={produc.price}
+            img={produc.img}
+            numStock={produc.numStock}
             />
-              
-          </Grid>
-          
-        ))}
+            </Link>
         </Grid>
-    </Box>
+        
+      ))}
+      </Grid>
+      }
+   </Box>
+    
+    
+    
     // <Container>
     //   <Grid container spacing={2}>
     //     {products.docs?.map((produc) => (
@@ -57,3 +79,20 @@ const Cards = () => {
 };
 
 export default Cards;
+/* <Box flex={8} p={1}>
+       <Grid container spacing={2}>
+        {products.docs?.map((produc) => (
+          <Grid xs={12} md={6} lg={4} p={2}>
+            
+            <Card
+              title={produc.title}
+              desc={produc.desc}
+              price={produc.price}
+              img={produc.img}
+              numStock={produc.numStock}
+              id={produc._id}
+            />
+              
+          </Grid>
+          
+        ))} */

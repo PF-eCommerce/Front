@@ -3,13 +3,16 @@ import { createStore, applyMiddleware, combineReducers } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import userReducer from "../reducers/userReducer";
+import cartReducer from "../reducers/CartReducer";
 import reviewReducer from '../reducers/reviewReducer'
 
 
 const reducer = combineReducers({
     product: productReducer,
     user: userReducer,
-    review: reviewReducer
+    cart: cartReducer,
+    review: reviewReducer,
+    // orders: ordersReducer,
   });
   const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
  
