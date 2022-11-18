@@ -8,7 +8,15 @@ import theme from "./utils/theme";
 import { Provider } from "react-redux";
 import store from "./redux/store/store";
 import {Auth0Provider} from '@auth0/auth0-react'
+import axios from 'axios'
+import dotenv from 'dotenv'
+dotenv.config()
+
+axios.defaults.baseURL = process.env.REACT_APP_TRESBIEN || 'http://localhost:3001'
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
+
 root.render(
   <React.StrictMode>
   <Provider store={store}>
