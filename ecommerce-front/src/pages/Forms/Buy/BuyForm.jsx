@@ -10,7 +10,7 @@ import { styled } from "@mui/material/styles";
 
 
 const steps = ['Carro', 'Entrega', 'Pago'];
-const mp = new MercadoPago('TEST-2b431a09-2059-4817-981a-382d3a6af349')
+// const mp = new MercadoPago('TEST-2b431a09-2059-4817-981a-382d3a6af349')
 
 const SubmitButton = styled(Button)({
     width:400,
