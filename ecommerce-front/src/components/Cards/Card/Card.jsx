@@ -17,6 +17,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import logo from "../../../assets/images/Trés_bien__2_-removebg-preview.png"
 import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
+import { Link } from "react-router-dom";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -29,7 +30,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function RecipeReviewCard({title,desc,price,img,numStock}) {
+export default function RecipeReviewCard({title,desc,price,img,numStock,id}) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -52,6 +53,7 @@ export default function RecipeReviewCard({title,desc,price,img,numStock}) {
         title={title}
         subheader={`En stock ${numStock}`}
       />
+      <Link to={`/detail/${id}`}>
       <CardMedia
         component="img"
         height="280"
@@ -60,6 +62,7 @@ export default function RecipeReviewCard({title,desc,price,img,numStock}) {
       
         
       />
+      </Link>
       <CardContent>
         <Typography variant="h8" color="secondary">
           {`$ ${price}`}

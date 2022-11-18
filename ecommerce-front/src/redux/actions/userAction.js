@@ -7,6 +7,7 @@ export const USER_REGISTER = 'USER_REGISTER';
 export const USER = 'USER'
 export const RESET_USER = 'RESET_USER'
 export const TOKEN = 'TOKEN'
+export const ALL_USERS = "ALL_USERS";
 
 
 axios.defaults.baseURL = "http://localhost:3001";
@@ -86,6 +87,20 @@ export const resetError = () => {
         });
       } catch (error) {
        console.log(error)
+      }
+    };
+  };
+
+  export const getAllUsers = () => {
+    return async (dispatch) => {
+      try {
+        const users = await axios.get("/users");
+        return dispatch({
+          type: ALL_USERS,
+          payload: users.data,
+        });
+      } catch (error) {
+        console.log(error);
       }
     };
   };
