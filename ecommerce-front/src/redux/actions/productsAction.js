@@ -6,6 +6,7 @@ export const GET_PRODUCT_BY_NAME = "GET_PRODUCT_BY_NAME";
 export const GET_PRODUCT_BY_COLOR = "GET_PRODUCT_BY_COLOR";
 export const GET_BY_CATEGORY = "GET_BY_CATEGORY";
 export const GET_PRODUCT_DETAIL = "GET_PRODUCT_DETAIL";
+export const DELETE_DETAIL = 'DELETE_DETAIL';
 
 
 axios.defaults.baseURL = "http://localhost:3001";
@@ -109,3 +110,9 @@ export const createProduct = (form) => {
     }
   };
 };
+
+export function deleteDetail(){
+  return{
+      type: DELETE_DETAIL,
+  }
+}

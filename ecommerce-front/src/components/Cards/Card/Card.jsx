@@ -50,7 +50,8 @@ export default function RecipeReviewCard({title,desc,price,img,numStock}) {
           </IconButton>
         }
         title={title}
-        subheader={`En stock ${numStock}`}
+        subheader={`${numStock}`<10?'Quedan pocas unidades':`${numStock}`===0?'SIN STOCK':null}
+        subheaderTypographyProps={`${numStock}`<10?{backgroundColor:'yellow'}:`${numStock}`===0?{backgroundColor:'red'}:null}
       />
       <CardMedia
         component="img"
