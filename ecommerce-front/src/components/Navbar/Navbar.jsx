@@ -7,7 +7,7 @@ import MenuCatalogo from "./MenuCatalogo"
 import PositionedMenu from "./MenuSession"
 import Logo from "./Logo";
 import { useSelector } from "react-redux";
-import { Link, redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 
@@ -61,7 +61,7 @@ return(
          <SearchBar/>
       </Box>
       <PositionedMenu/>
-      <ButtonNav variant="outlined" color="secondary" ><Link to={"/admin"}>admin</Link></ButtonNav>
+      <ButtonNav variant="outlined" color="secondary" ><Link to={"/admin/dashboard"} underline="none">admin</Link></ButtonNav>
     <Box style={{position:"relative"}}>
       <Link href="/cart">
          <IconButton>

@@ -9,6 +9,7 @@ import CreditCardIcon from '@mui/icons-material/CreditCard';
 import MailIcon from '@mui/icons-material/Mail';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { Link } from "react-router-dom";
 
 const Container = styled('div')({
     display: "flex",
@@ -17,7 +18,7 @@ const Container = styled('div')({
     width: "100%",
     marginTop: "15px",
 });
-const ItemContainer = styled('div')({
+const ItemContainer = styled(Link)({
     display: "flex",
     width: "100%",
     borderRadius: "5px 0px 0px 5px",
@@ -30,11 +31,12 @@ const TextItem = styled('p')({
     width: "72%",
     paddingTop: "3px",
     paddingLeft: "3px",
+    color:"black"
 })
 const MainText = styled('p')({
     width: "100%",
     fontSize: "13px",
-    marginBottom: "5px"
+    marginBottom: "5px",
 })
 const styleIcon = {
     color: "#94744F",
@@ -56,18 +58,18 @@ export default function Sidebar() {
                 }}
             >
                 <Box
-                 sx={{
-                    display:"flex", 
-                    alignItems:"center", 
-                    marginTop:"10px",
-                    width: "100%",
-                    borderBottom: "2px solid #DBD0C4"
+                    sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        marginTop: "10px",
+                        width: "100%",
+                        borderBottom: "2px solid #DBD0C4"
                     }}
-                    >
+                >
                     <Typography
                         sx={{
                             fontSize: "20px",
-                            marginRight:"5px",
+                            marginRight: "5px",
                             color: "#D687AC",
                             fontWeight: "bold",
                         }}
@@ -83,44 +85,44 @@ export default function Sidebar() {
                 </Box>
                 <Container>
                     <MainText>Main</MainText>
-                    <ItemContainer>
+                    <ItemContainer to="/admin/dashboard">
                         <DashboardIcon sx={styleIcon} />
                         <TextItem>Dashboard</TextItem>
                     </ItemContainer>
-                    <ItemContainer>
+                    <ItemContainer to="/home">
                         <HomeIcon sx={styleIcon} />
                         <TextItem>Home</TextItem>
                     </ItemContainer>
                 </Container>
                 <Container>
                     <MainText>Lista</MainText>
-                    <ItemContainer>
+                    <ItemContainer to="/admin/users">
                         <PersonIcon sx={styleIcon} />
                         <TextItem>Usuarios</TextItem>
                     </ItemContainer>
-                    <ItemContainer>
+                    <ItemContainer to="/admin/products">
                         <StoreIcon sx={styleIcon} />
                         <TextItem>Productos</TextItem>
                     </ItemContainer>
-                    <ItemContainer>
+                    <ItemContainer to="/admin/orders">
                         <CreditCardIcon sx={styleIcon} />
                         <TextItem>Órdenes</TextItem>
                     </ItemContainer>
                 </Container>
                 <Container>
                     <MainText>Utilidad</MainText>
-                    <ItemContainer>
+                    <ItemContainer to="/admin/notifications">
                         <MailIcon sx={styleIcon} />
                         <TextItem>Notificaciones</TextItem>
                     </ItemContainer>
                 </Container>
                 <Container>
                     <MainText>Usuario</MainText>
-                    <ItemContainer>
+                    <ItemContainer to="/admin/profile">
                         <AccountCircleIcon sx={styleIcon} />
                         <TextItem>Perfil</TextItem>
                     </ItemContainer>
-                    <ItemContainer>
+                    <ItemContainer to="/">
                         <LogoutIcon sx={styleIcon} />
                         <TextItem>Salir</TextItem>
                     </ItemContainer>
