@@ -63,7 +63,7 @@ return(
       <PositionedMenu/>
       <ButtonNav variant="outlined" color="secondary" ><Link to={"/admin/dashboard"} underline="none">admin</Link></ButtonNav>
     <Box style={{position:"relative"}}>
-      <Link href="/cart">
+      <Link to="/cart">
          <IconButton>
              <AddShoppingCartOutlinedIcon fontSize="large" color="secondary"/> 
          </IconButton>
