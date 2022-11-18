@@ -68,7 +68,7 @@ return(
           
             <Box  color={"white"}>
                <Typography variant="body1" style={{position:"absolute", top: "0px"}}
-                backgroundColor={"pink"}  padding={0}border="solid 1px white"paddingBottom={0}paddingRight={.2}
+                backgroundColor={"#f44336"}  padding={0}border="solid 1px white"paddingBottom={0}paddingRight={.2}
                 paddingTop={0} paddingLeft={.2} borderRadius="5px"
               >{cartState.length}</Typography>
               
