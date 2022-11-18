@@ -1,4 +1,4 @@
-import { AppBar,Toolbar,Box, Typography, Button, IconButton, } from "@mui/material";
+import { AppBar,Toolbar,Box, Typography, Button, IconButton } from "@mui/material";
 import React from "react";
 import {styled} from "@mui/system";
 import SearchBar from "./SearchBar/SearchBar";
@@ -6,12 +6,14 @@ import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutl
 import MenuCatalogo from "./MenuCatalogo"
 import PositionedMenu from "./MenuSession"
 import Logo from "./Logo";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 
 
 const StyledToolbar = styled(Toolbar)(({theme})=>({
   display:"flex",
-  justifyContent:"space-between",
+  justifyContent:"space-around",
   backgroundColor:"#F9F3EE"
   
  
@@ -44,6 +46,9 @@ const ButtonNav = styled(Button)(({theme})=>({
 
 
 const Navbar = () => {
+
+  const cartState = useSelector(state=>state.cart.cart)
+
 return(
   <AppBar position="sticky">
     <StyledToolbar >
@@ -56,9 +61,23 @@ return(
          <SearchBar/>
       </Box>
       <PositionedMenu/>
-      <IconButton>
-        <AddShoppingCartOutlinedIcon sx={{marginRight:"1rem"}} color="secondary"/>
-      </IconButton>
+      <ButtonNav variant="outlined" color="secondary" ><Link to={"/admin/dashboard"} underline="none">admin</Link></ButtonNav>
+    <Box style={{position:"relative"}}>
+      <Link href="/cart">
+         <IconButton>
+             <AddShoppingCartOutlinedIcon fontSize="large" color="secondary"/> 
+         </IconButton>
+          
+            <Box  color={"white"}>
+               <Typography variant="body1" style={{position:"absolute", top: "0px"}}
+                backgroundColor={"#f44336"}  padding={0}border="solid 1px white"paddingBottom={0}paddingRight={.2}
+                paddingTop={0} paddingLeft={.2} borderRadius="5px"
+              >{cartState.length}</Typography>
+              
+           </Box>
+           
+      </Link>
+    </Box>
       
     </StyledToolbar>
    
