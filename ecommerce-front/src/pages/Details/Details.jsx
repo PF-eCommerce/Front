@@ -8,8 +8,198 @@ import { getProductDetail, deleteDetail } from "../../redux/actions/productsActi
 import Carrusel from "./Carrusel";
 import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
 import {addToCart} from "../../redux/actions/cartAction"
-import Alert from "../../components/Cart/Alert"
+import Alert from "../../components/Cart/Alert";
+import Modal from '@mui/material/Modal';
+import Grid from "@mui/material/Unstable_Grid2";
+import CardMedia from '@mui/material/CardMedia';
+import { styled } from "@mui/material/styles";
+// import Button from '@mui/material/Button';
 
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  pt: 2,
+  px: 4,
+  pb: 3,
+};
+
+const SizeButton = styled(Button)({
+  // width:400,
+  color:'white',
+  borderRadius:'2px',
+  boxShadow: '0 0 4px black',
+  textTransform: 'none',
+  fontSize: 15,
+  padding: '6px 12px',
+  border: 'none',
+  lineHeight: 1.5,
+  backgroundColor: 'rgb( 23, 87, 45)',
+  borderColor: '#0063cc',
+  margin: 7,
+  fontFamily: [
+    '-apple-system',
+    'BlinkMacSystemFont',
+    '"Segoe UI"',
+    'Roboto',
+    '"Helvetica Neue"',
+    'Arial',
+    'sans-serif',
+    '"Apple Color Emoji"',
+    '"Segoe UI Emoji"',
+    '"Segoe UI Symbol"',
+  ].join(','),
+  '&:hover': {
+    backgroundColor: 'rgb( 23, 87, 45)',
+    borderColor: '#0062cc',
+    boxShadow: 'none',
+    opacity: '0.5',
+    transform: 'scale(1)',
+    boxShadow: '0 0 10px white',
+    // transition: 'all .3s',
+    // cursor: 'pointer',
+  },
+  '&:active': {
+    boxShadow: 'none',
+    backgroundColor: '#0062cc',
+    borderColor: '#005cbf',
+  },
+  '&:focus': {
+    boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
+  },
+});
+
+function ChildModal() {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  return (
+    <React.Fragment>
+      <Button onClick={handleOpen}>Elije tus opciones</Button>
+      <Modal
+        hideBackdrop
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="child-modal-title"
+        aria-describedby="child-modal-description"
+      >
+        <Box sx={{ ...style, width: 200 }}>
+          <h2 id="child-modal-title">Text in a child modal</h2>
+          <p id="child-modal-description">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+          </p>
+          <Button onClick={handleClose}>Close Child Modal</Button>
+        </Box>
+      </Modal>
+    </React.Fragment>
+  );
+}
+
+function NestedModal() {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const product = useSelector((state) => state.product.detail)
+  
+
+  return (
+    <div>
+      <Button onClick={handleOpen}>
+      <AddShoppingCartOutlinedIcon sx={{marginRight:"1rem"}} color="secondary" fontSize="large"/>
+      </Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="parent-modal-title"
+        aria-describedby="parent-modal-description"
+      >
+        <Grid container 
+        sx={{ ...style, width: 600 }}
+        >
+          <Grid xs={12}
+          style={{margin:10}}
+          >
+          <h3 id="parent-modal-title">Selecciona tus opciones para agregar el producto al carro</h3>
+          </Grid>
+          <Grid container xs={12}>
+            <Grid xs={2}
+            style={{margin:10}}
+            >
+            <CardMedia
+            component="img"
+            height="280"
+            image={product&&product.img?.[0]}
+            style={{
+              height:'80px',
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center center",
+              backgroundAttachment: 'fixed'
+            }}
+              />
+            </Grid>
+            <Grid container xs={6}
+            style={{margin:10}}
+            >
+              <Grid xs={12}>
+                <h3>{product.title}</h3>
+              </Grid>
+              <Grid xs={12}>
+                <p>descripcion resumida</p>
+              </Grid>
+            </Grid>
+            <Grid container xs={2}
+            style={{margin:10}}
+            >
+              <p>${product.price}</p>
+            </Grid>
+          
+          </Grid>
+          <Grid container xs={12}
+          style={{margin:10}}
+          >
+            <Grid container xs={6}>
+              <Grid xs={12}>
+                <p>Selecciona tu talle:</p>
+              </Grid>
+              <Grid xs={12}>
+                {product.size?.map(e=>{
+                  return(
+                  <SizeButton>{e}</SizeButton>
+                  )
+                })}
+              </Grid>
+            </Grid>
+          
+          </Grid>
+          
+          <ChildModal />
+        </Grid>
+        {/* <Box sx={{ ...style, width: 400 }}>
+          <h3 id="parent-modal-title">Selecciona tus opciones para agregar el producto al carro</h3>
+          <p id="parent-modal-description">
+            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+          </p>
+          <ChildModal />
+        </Box> */}
+      </Modal>
+    </div>
+  );
+}
 
 const Details = () => {
 
@@ -146,8 +336,8 @@ const Details = () => {
             }}
           >
             {/* <Link href="/cart"> */}
-              <IconButton onClick={handleProduct}>
-               <AddShoppingCartOutlinedIcon sx={{marginRight:"1rem"}} color="secondary" fontSize="large"/>
+              <IconButton >
+               <NestedModal/>
               </IconButton>
              
              
