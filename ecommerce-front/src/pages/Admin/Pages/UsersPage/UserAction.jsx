@@ -50,9 +50,6 @@ export default function UserAction({ datos }) {
     const Verified = styled(SubTitle)({
         fontWeight: "500"
     })
-    const SetAdmin = styled(Button)({
-        backgroundColor: "#94744F"
-    })
 
 
     return (

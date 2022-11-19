@@ -1,4 +1,4 @@
-import { Box, Button, Typography, Link, IconButton } from "@mui/material";
+import { Box, Button, Typography, IconButton } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Size from "./Size";
 import Colors from "./Colors";
@@ -61,7 +61,6 @@ const SizeButton = styled(Button)({
   '&:hover': {
     backgroundColor: 'rgb( 23, 87, 45)',
     borderColor: '#0062cc',
-    boxShadow: 'none',
     opacity: '0.5',
     transform: 'scale(1)',
     boxShadow: '0 0 10px white',
