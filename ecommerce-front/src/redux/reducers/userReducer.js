@@ -1,11 +1,11 @@
-import { REGISTER_ERROR, LOGIN_ERROR, RESET_ERROR, USER_REGISTER, USER, RESET_USER, TOKEN} from "../actions/userAction";
+import { REGISTER_ERROR, LOGIN_ERROR, RESET_ERROR, USER_REGISTER, USER, RESET_USER, TOKEN } from "../actions/userAction";
 
 const initialState = {
-  error_register : {},
-  error_login : {},
-  user : {},
+  error_register: {},
+  error_login: {},
+  user: {},
   register_done: false,
-  token : {}
+  token: {}
 };
 
 export default function productReducer(state = initialState, action) {
@@ -17,41 +17,41 @@ export default function productReducer(state = initialState, action) {
       };
 
     case USER_REGISTER:
-      return{
+      return {
         ...state,
         register_done: true,
       }
 
-      case LOGIN_ERROR : 
+    case LOGIN_ERROR:
       return {
         ...state,
-        error_login : {}
+        error_login: {}
       }
 
-      case RESET_ERROR:
-        
+    case RESET_ERROR:
+
       return {
         ...state,
-        error_register : {},
+        error_register: {},
         register_done: false,
       };
-   
-      case USER:
-        return {
-          ...state,
-          user : action.payload
-        }
-      case RESET_USER:
-        return {
-          ...state,
-          user : {}
-        }
-        
-        case TOKEN : 
-        return {
-          ...state,
-          token : action.payload
-        }
+
+    case USER:
+      return {
+        ...state,
+        user: action.payload
+      }
+    case RESET_USER:
+      return {
+        ...state,
+        user: {}
+      }
+
+    case TOKEN:
+      return {
+        ...state,
+        token: action.payload
+      }
     default:
       return {
         ...state,
