@@ -17,7 +17,8 @@ export default function UserAction({ datos }) {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const handleSetAdmin = () => {
-        dispatch()
+        // dispatch()
+        console.log("Este boton da privilegios de administrador")
     }
 
     const AdminWindows = styled('div')({
