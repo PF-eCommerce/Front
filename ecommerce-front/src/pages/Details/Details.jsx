@@ -15,7 +15,7 @@ import Alert from "../../components/Cart/Alert";
 
 const Details = () => {
   const { id } = useParams();
-  console.log(id);
+  // console.log(id)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,9 +27,9 @@ const Details = () => {
 
   const product = useSelector((state) => state.product.detail);
   const [alert, setAlert] = useState(false);
-  console.log(product.img);
-  console.log(product.id);
-  console.log(id);
+  // console.log(product.img)
+  // console.log(product.id)
+  // console.log(id)
 
   const boxStyle = {
     display: { xs: "block", md: "flex" },
@@ -61,8 +61,8 @@ const Details = () => {
       }}
     >
       <Typography
-        variant="h4"
-        align="center"
+        variant='h4'
+        align='center'
         sx={{ margin: "30px", width: "100%" }}
       >
         {product.title}
@@ -137,8 +137,8 @@ const Details = () => {
             <IconButton onClick={handleProduct}>
               <AddShoppingCartOutlinedIcon
                 sx={{ marginRight: "1rem" }}
-                color="secondary"
-                fontSize="large"
+                color='secondary'
+                fontSize='large'
               />
             </IconButton>
 

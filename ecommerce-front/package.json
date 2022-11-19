@@ -6,7 +6,7 @@
     "@auth0/auth0-react": "^1.12.0",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
-    "@mui/icons-material": "^5.10.9",
+    "@mui/icons-material": "^5.10.14",
     "@mui/material": "^5.10.13",
     "@mui/x-data-grid": "^5.17.11",
     "@react-google-maps/api": "^2.17.0",
