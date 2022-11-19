@@ -50,7 +50,8 @@ export default function RecipeReviewCard({title,desc,price,img,numStock}) {
           </IconButton>
         }
         title={title}
-        subheader={`En stock ${numStock}`}
+        subheader={`${numStock}`<10?'Quedan pocas unidades':`${numStock}`===0?'SIN STOCK':null}
+        subheaderTypographyProps={`${numStock}`<10?{backgroundColor:'yellow'}:`${numStock}`===0?{backgroundColor:'red'}:null}
       />
       <CardMedia
         component="img"
@@ -83,20 +84,7 @@ export default function RecipeReviewCard({title,desc,price,img,numStock}) {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          {/* <Typography paragraph>Method:</Typography> */}
-          {/* <Typography paragraph>
-            Heat 1/2 cup of the broth in a pot until simmering, add saffron and set
-            aside for 10 minutes.
-          </Typography> */}
-          {/* <Typography paragraph>
-            Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over
-            medium-high heat. Add chicken, shrimp and chorizo, and cook, stirring
-            occasionally until lightly browned, 6 to 8 minutes. Transfer shrimp to a
-            large plate and set aside, leaving chicken and chorizo in the pan. Add
-            pimentón, bay leaves, garlic, tomatoes, onion, salt and pepper, and cook,
-            stirring often until thickened and fragrant, about 10 minutes. Add
-            saffron broth and remaining 4 1/2 cups chicken broth; bring to a boil.
-          </Typography> */}
+        
           <Typography paragraph>
            {desc}
           </Typography>
