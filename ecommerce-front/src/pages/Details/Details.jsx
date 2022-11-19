@@ -9,10 +9,10 @@ import {
   deleteDetail,
 } from "../../redux/actions/productsAction";
 import Carrusel from "./Carrusel";
+
 import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
 import {addToCart} from "../../redux/actions/cartAction"
-import Alert from "../../components/Cart/Alert"
-
+import Alert from "../../components/Cart/Alert";
 import Modal from '@mui/material/Modal';
 import Grid from "@mui/material/Unstable_Grid2";
 import CardMedia from '@mui/material/CardMedia';
@@ -205,6 +205,7 @@ function NestedModal() {
   );
 }
 
+
 const Details = () => {
   const { id } = useParams();
   // console.log(id)
@@ -326,12 +327,14 @@ const Details = () => {
             }}
           >
             {/* <Link href="/cart"> */}
-            <IconButton >
+
+              <IconButton >
                <NestedModal/>
               </IconButton>
              
              
              {/* </Link> */}
+
             <Button
               sx={{
                 backgroundColor: "#7B5B3E",
