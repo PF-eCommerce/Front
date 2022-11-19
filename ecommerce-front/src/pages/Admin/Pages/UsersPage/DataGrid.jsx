@@ -6,6 +6,7 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { useDispatch, useSelector } from "react-redux";
 import { DataGrid } from "@mui/x-data-grid";
 import { getAllUsers } from "../../../../redux/actions/adminAction";
+import UserAction from "./UserAction";
 
 const CheckTrue = styled(CheckCircleOutlineIcon)({
     color: "green",
@@ -16,7 +17,9 @@ const CheckFalse = styled(HighlightOffIcon)({
 const Container = styled('div')({
     width: "90%",
     height: "635px",
-    display:"flex"
+    display:"flex",
+    boxShadow:"0px 0px 5px black",
+    borderRadius:"5px"
 })
 
 const columns = [
@@ -42,9 +45,10 @@ const columns = [
     { 
         field: "action", 
         headerName: "Action", 
-        width: 80,
+        width: 105,
         renderCell: (params) => {
-            return <Button variant="contained">Editar</Button>
+            console.log(params.row)
+            return <UserAction datos={params.row} />
         }
     },
 ];

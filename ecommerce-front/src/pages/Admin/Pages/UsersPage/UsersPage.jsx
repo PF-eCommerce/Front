@@ -8,7 +8,7 @@ import DataGridX from "./DataGrid";
 const Container = styled('div')({
     width: "80%",
     height: "635px",
-    display:"flex"
+    display:"flex",
 })
 
 export default function UsersPage() {
