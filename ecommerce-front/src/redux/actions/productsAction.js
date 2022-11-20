@@ -10,9 +10,10 @@ export const DELETE_DETAIL = 'DELETE_DETAIL';
 
 export const getAllProducts = () => {
   return async (dispatch) => {
+    
     try {
       const products = await axios.get(`${process.env.REACT_APP_API_URL}/products`);
-
+      
       return dispatch({
         type: GET_ALL_PRODUCTS,
         payload: products.data,
@@ -25,8 +26,7 @@ export const getAllProducts = () => {
 export const getProductByName = (value) => {
   return async (dispatch) => {
     try {
-      const products = await axios.get(`${process.env.REACT_APP_API_URL}/products/search?search=${value}`);
-      console.log(products.data)
+      const products = await axios.get(`${process.env.REACT_APP_API_URL}/products/search?search=${value}`)
       return dispatch({
         type: GET_PRODUCT_BY_NAME,
         payload: products.data,
