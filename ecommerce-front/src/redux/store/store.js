@@ -4,12 +4,14 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import userReducer from "../reducers/userReducer";
 import cartReducer from "../reducers/CartReducer";
+import adminReducer from "../reducers/adminReducer"
 
 
 const reducer = combineReducers({
     product: productReducer,
     user: userReducer,
     cart: cartReducer,
+    admin: adminReducer,
     // review: reviewReducer,
     // orders: ordersReducer,
   });
