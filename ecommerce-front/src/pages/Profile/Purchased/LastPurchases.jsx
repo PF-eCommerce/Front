@@ -1,5 +1,5 @@
 import React from "react";
-import Card from "./Card/Card";
+import RecipeReviewCard from "../../../components/Cards/Card/Card";
 import { obj as purchases } from "../../../utils/data/productDetail";
 import { Stack } from "@mui/system";
 
