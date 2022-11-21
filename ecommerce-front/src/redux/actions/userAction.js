@@ -56,11 +56,34 @@ export const resetError = () => {
 export const getUserData = () => {
   return async (dispatch) => {
     try {
-      const user = await axios.get("/perfil", {
+      const user = await axios.get("/account/profile", {
         headers: {
           Bearer: localStorage.getItem("token"),
         },
       });
+
+      localStorage.setItem("user", JSON.stringify(user.data));
+      return dispatch({
+        type: USER,
+        payload: user.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+export const updateUserData = (update) => {
+  return async (dispatch) => {
+    try {
+      const user = await axios.put(
+        "/account/profile",
+        {
+          headers: {
+            Bearer: localStorage.getItem("token"),
+          },
+        },
+        update
+      );
 
       localStorage.setItem("user", JSON.stringify(user.data));
       return dispatch({
