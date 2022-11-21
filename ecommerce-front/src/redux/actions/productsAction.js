@@ -107,6 +107,19 @@ export const createProduct = (form) => {
     }
   };
 };
+export const updateProduct = (id, changes) => {
+  return async (dispatch) => {
+    try {
+      const product = await axios.put(`/products/${id}`, changes);
+
+      return dispatch({
+        payload: product,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
 
 export function deleteDetail() {
   return {
