@@ -32,7 +32,7 @@ const Profile = () => {
       config,
       async (error, result) => {
         if (!error && result && result.event === "success") {
-          return setAvatar(result.info.url);
+          setAvatar(result.info.url);
         }
       }
     );
@@ -66,7 +66,7 @@ const Profile = () => {
             }}
           >
             <Avatar
-              src={user?.picture}
+              src={avatar === "" ? user?.picture : avatar}
               sx={{
                 height: 160,
                 mb: 1,
