@@ -18,7 +18,7 @@ import { useEffect } from "react";
 import { useNavigate } from 'react-router-dom'
 
 
-const SubmitButton = styled(Button)({
+export const SubmitButton = styled(Button)({
   width:400,
   color:'white',
   borderRadius:'20px',
@@ -76,7 +76,7 @@ const FormLogin = () => {
 })
 
   useEffect(()=>{
-    
+
     if (registerDone) {
       alert('Usuario creado correctamente')
       setInput({
@@ -87,15 +87,15 @@ const FormLogin = () => {
               })
       dispatch(resetError())
       return navigate('/home')
-    }   
-    
+    }
+
   },[registerDone])
 
   const inputsError = ['userName', 'email', 'password','password2']
 
   function validate(input) {
     let errors = {};
-    
+
     if (!input.userName) {
       errors.userName = 'Nombre de usuario requerido';
     }
@@ -103,46 +103,46 @@ const FormLogin = () => {
       errors.userName = 'Máximo 20 caracteres'
     }
     if (!input.email) {
-      errors.email = 'Email requerido'; 
-    }     
+      errors.email = 'Email requerido';
+    }
     else if (!(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(input.email))) {
       errors.email = 'Email invalido'
     }
-    
+
     if (!input.password) {
       errors.password = 'Contraseña requerida';
-    } 
+    }
     else if (input.password.length<8) {
       errors.password = 'Entre 8 y 20 caracteres';
     }
     if (!input.password2) {
       errors.password2 = 'Repetir contraseña';
-      
+
     }else if (input.password2 !== input.password) {
       errors.password2 = 'La contraseña debe coincidir';
-    } 
-    
+    }
+
     return errors;
   };
 
   function handleChange(e){
     e.preventDefault()
-    
+
     setInput({
         ...input,
         [e.target.name]: e.target.value
     });
     setErrors(validate({
-        ...input, 
+        ...input,
         [e.target.name]:e.target.value
     }))
     dispatch(resetError())
-    
+
     }
     function handleChange2(e){
       e.preventDefault()
       setErrors(validate({
-        ...input, 
+        ...input,
         [e.target.name]:e.target.value
     }))
     }
@@ -151,9 +151,9 @@ const FormLogin = () => {
     e.preventDefault()
     if(!inputsError.some(inp=>errors.hasOwnProperty(inp))&&input.userName.length>0){
           dispatch(userRegister(input))
-          
+
       }
-    } 
+    }
 
   const Item = styled(Paper)(({ theme }) => ({
     //   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -166,11 +166,11 @@ const FormLogin = () => {
     background: "none",
     border: "none",
     boxShadow: 'none',
-    
+
   }));
 
   return (
-    
+
       <Grid container xs={12}
     style={{
       display: 'flex',
@@ -194,7 +194,7 @@ const FormLogin = () => {
         boxShadow: '5px 5px 5px black',
       }}
       >
-        
+
         <Grid container xs={6}>
           <Grid xs={12}>
           <Item
@@ -249,7 +249,7 @@ const FormLogin = () => {
             }}
             />
           }
-          
+
           </Grid>
           <Grid xs={5}
           style={{
@@ -285,7 +285,7 @@ const FormLogin = () => {
           }}
           />
         }
-          
+
           </Grid>
           <Grid container xs={12}
           style={{
@@ -329,7 +329,7 @@ const FormLogin = () => {
           }}
           />
           }
-          
+
           </Grid>
           </Grid>
           {/* <Item
@@ -382,10 +382,10 @@ const FormLogin = () => {
           }}
           />
           }
-          
+
           </Grid>
           </Grid>
-          
+
         </Grid>
         <Grid container xs={6}>
           <Item
@@ -477,7 +477,7 @@ const FormLogin = () => {
             marginBottom: 40,
             marginTop:30
           }}
-          > 
+          >
             {input.userName&&!inputsError.some(inp=>errors.hasOwnProperty(inp))?
             <SubmitButton onClick={handleSubmit}>Registrarse</SubmitButton>
             :
@@ -492,8 +492,8 @@ const FormLogin = () => {
           </Grid>
       </Grid>
     </Grid>
-    
-    
+
+
 
   )
 };

@@ -1,10 +1,11 @@
-import { GET_ALL_PRODUCTS, USE_PAGINATION, GET_PRODUCT_BY_NAME, GET_PRODUCT_BY_COLOR, GET_BY_CATEGORY, GET_PRODUCT_DETAIL, DELETE_DETAIL } from "../actions/productsAction";
+import { GET_ALL_PRODUCTS, USE_PAGINATION, GET_PRODUCT_BY_NAME, GET_PRODUCT_BY_COLOR, LINK_MP, GET_BY_CATEGORY, GET_PRODUCT_DETAIL, DELETE_DETAIL } from "../actions/productsAction";
 
 
 const initialState = {
   products: [],
   detail: [],
   allProducts: [],
+  linkMP:'',
 };
 
 export default function productReducer(state = initialState, action) {
@@ -47,6 +48,12 @@ export default function productReducer(state = initialState, action) {
           ...state,
           detail:[]
       }
+      case LINK_MP:
+        console.log('ACTION PAYLOAD',action.payload)
+        return {
+          ...state,
+          linkMP : action.payload
+        }
     default:
       return {
         ...state,
