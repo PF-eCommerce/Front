@@ -2,7 +2,7 @@ import { Box, Button, Typography, Link, IconButton } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Size from "./Size";
 import Colors from "./Colors";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getProductDetail,
@@ -12,11 +12,14 @@ import Carrusel from "./Carrusel";
 
 import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
 import {addToCart} from "../../redux/actions/cartAction"
+import { selectSize, deleteSize } from "../../redux/actions/cardAction";
 import Alert from "../../components/Cart/Alert";
 import Modal from '@mui/material/Modal';
 import Grid from "@mui/material/Unstable_Grid2";
 import CardMedia from '@mui/material/CardMedia';
 import { styled } from "@mui/material/styles";
+import { SubmitButton } from "../Forms/FormLogin";
+// import e from "express";
 // import Button from '@mui/material/Button';
 
 const style = {
@@ -86,6 +89,37 @@ function ChildModal() {
   const handleClose = () => {
     setOpen(false);
   };
+  const product = useSelector((state) => state.product.detail)
+  
+  const sizee = useSelector(state=> state?.card.size)
+  const [qty, setQty] = React.useState(1)
+  const navigate = useNavigate()
+
+  function handleClick(e){
+    e.preventDefault()
+    
+    if(e.target.value==='less'){
+      if (qty>1){
+        setQty(qty-1)
+      }
+    } else if(e.target.value==='add'){
+      
+      if(qty<10){
+        setQty(qty+1)
+      }
+    }
+  }
+  function sendToCart(e){
+    e.preventDefault()
+    const carro = {
+      _id: product._id,
+      size: sizee,
+      qty
+    }
+    
+    localStorage.setItem('cart', JSON.stringify(carro) )
+    navigate('/home')
+  }
 
   return (
     <React.Fragment>
@@ -97,13 +131,91 @@ function ChildModal() {
         aria-labelledby="child-modal-title"
         aria-describedby="child-modal-description"
       >
-        <Box sx={{ ...style, width: 200 }}>
-          <h2 id="child-modal-title">Text in a child modal</h2>
-          <p id="child-modal-description">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-          </p>
-          <Button onClick={handleClose}>Close Child Modal</Button>
-        </Box>
+        <Grid container
+        sx={{ ...style, width: 700 }}
+        >
+          <Grid xs={12}
+          style={{margin:10}}
+          >
+          <h3 id="parent-modal-title">Lo que llevas en tu carro</h3>
+          </Grid>
+          <Grid container xs={12}>
+            <Grid xs={2}
+            style={{margin:10}}
+            >
+            <CardMedia
+            component="img"
+            height="280"
+            image={product&&product.img?.[0]}
+            style={{
+              height:'80px',
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center center",
+              backgroundAttachment: 'fixed'
+            }}
+              />
+            </Grid>
+            <Grid xs={3}
+            style={{
+              width:'60px',
+              margin:10}}
+            >
+              <p>{product.title}, Talle: {sizee&&sizee}</p>
+            </Grid>
+            <Grid xs={1.2}
+            style={{
+              margin:10}}
+            >
+              <p>${product.price}</p>
+            </Grid>
+            <Grid xs={5}
+            style={{
+              margin:10}}
+            >
+              <Grid xs={12}
+              style={{
+                display:'flex',
+                alignItems:'center',
+                }}
+              >
+                <SizeButton
+                value={'less'}
+                onClick={handleClick}
+                >-</SizeButton>
+                <p>{qty}</p>
+                <SizeButton
+                value={'add'}
+                onClick={handleClick}
+                >+</SizeButton>
+                <p>Máximo 10 unidades</p>
+              </Grid>
+
+            </Grid>
+
+          </Grid>
+          <Grid container xs={12}
+          style={{
+            margin:10}}
+          >
+            <Grid
+            style={{
+              marginLeft:400,
+              }}
+            >
+            <SubmitButton
+            onClick={sendToCart}
+            style={{
+              width:200
+            }}
+            >Ir al carro</SubmitButton>
+            </Grid>
+
+
+          </Grid>
+
+
+        </Grid>
       </Modal>
     </React.Fragment>
   );
@@ -118,7 +230,14 @@ function NestedModal() {
     setOpen(false);
   };
   const product = useSelector((state) => state.product.detail)
-  
+  const dispatch = useDispatch()
+  const sizee = useSelector(state=> state?.card.size)
+
+  const handleSelect = (e) =>{
+    dispatch(selectSize(e.target.value))
+    // dispatch(deleteSize())
+  }
+  console.log('SIZE', sizee)
 
   return (
     <div>
@@ -131,7 +250,7 @@ function NestedModal() {
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
-        <Grid container 
+        <Grid container
         sx={{ ...style, width: 600 }}
         >
           <Grid xs={12}
@@ -171,26 +290,29 @@ function NestedModal() {
             >
               <p>${product.price}</p>
             </Grid>
-          
+
           </Grid>
           <Grid container xs={12}
           style={{margin:10}}
           >
             <Grid container xs={6}>
               <Grid xs={12}>
-                <p>Selecciona tu talle:</p>
+                <p>Selecciona tu talle: {sizee&&sizee}</p>
               </Grid>
               <Grid xs={12}>
                 {product.size?.map(e=>{
                   return(
-                  <SizeButton>{e}</SizeButton>
+                  <SizeButton
+                  value={e}
+                   onClick={e=>handleSelect(e)}
+                   >{e}</SizeButton>
                   )
                 })}
               </Grid>
             </Grid>
-          
+
           </Grid>
-          
+
           <ChildModal />
         </Grid>
         {/* <Box sx={{ ...style, width: 400 }}>
@@ -331,8 +453,8 @@ const Details = () => {
               <IconButton >
                <NestedModal/>
               </IconButton>
-             
-             
+
+
              {/* </Link> */}
 
             <Button
