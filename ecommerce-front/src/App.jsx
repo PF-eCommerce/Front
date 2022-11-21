@@ -14,8 +14,8 @@ import Profile from "./pages/Profile/Profile";
 import FormLogin from "./pages/Forms/FormLogin";
 import ShoppingCart from "./components/Cart/ShoppingCart";
 import Admin from "./pages/Admin/Admin";
-import UsersPage from "./pages/Admin/Pages/UsersPage";
-import Dashboard from "./pages/Admin/Pages/Dashboard";
+import UsersPage from "./pages/Admin/Pages/UsersPage/UsersPage";
+import Dashboard from "./pages/Admin/Pages/Dashboard/Dashboard";
 import Buy from './pages/Forms/Buy/BuyForm';
 
 function App() {
