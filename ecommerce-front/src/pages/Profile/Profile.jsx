@@ -38,7 +38,8 @@ const Profile = () => {
     );
   }
 
-  const handleCloudy = () => {
+  const handleCloudy = (e) => {
+    e.preventDefault()
     setOpen(!open);
     showUploadWidget();
   };
@@ -74,9 +75,9 @@ const Profile = () => {
               }}
             />
             <CardActions>
-              {avatar.length === "" ? (
+              {avatar === "" ? (
                 <Button
-                  onClick={handleCloudy(open)}
+                  onClick={(e)=>handleCloudy(open)}
                   color='primary'
                   variant='outlined'
                 >
