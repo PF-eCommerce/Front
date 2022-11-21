@@ -1,25 +1,25 @@
 import React from "react";
-import Card from "./Card/Card";
-import { obj as purchases } from "../../../utils/data/productDetail";
+
+import { obj } from "../../../utils/data/productDetail";
 import { Stack } from "@mui/system";
+import RecipeReviewCard from "../../../components/Cards/Card/Card";
 
 const LastPurchases = () => {
   /*
     const purchases = useSelector(state => state.orders)
     */
-  const lastPurchases =
-    purchases.length > 4 ? purchases.slice(0, 3) : purchases;
+  // const lastPurchases = purchases?.slice(0, 3)
   return (
     <Stack direction='row' spacing={1}>
-      {lastPurchases?.map((produc) => (
-        <Card
-          key={produc._id}
-          title={produc.title}
-          price={produc.price}
-          img={produc.img}
-          numStock={produc.numStock}
+    
+        <RecipeReviewCard
+          key={obj._id}
+          title={obj.title}
+          price={obj.price}
+          img={obj.img}
+          numStock={obj.numStock}
         />
-      ))}
+    
     </Stack>
   );
 };

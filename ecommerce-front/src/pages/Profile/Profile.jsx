@@ -32,13 +32,14 @@ const Profile = () => {
       config,
       async (error, result) => {
         if (!error && result && result.event === "success") {
-          return setAvatar(result.info.url);
+          setAvatar(result.info.url);
         }
       }
     );
   }
 
-  const handleCloudy = () => {
+  const handleCloudy = (e) => {
+    e.preventDefault()
     setOpen(!open);
     showUploadWidget();
   };
@@ -66,7 +67,7 @@ const Profile = () => {
             }}
           >
             <Avatar
-              src={user?.picture}
+              src={avatar === "" ? user?.picture : avatar}
               sx={{
                 height: 160,
                 mb: 1,
@@ -74,9 +75,9 @@ const Profile = () => {
               }}
             />
             <CardActions>
-              {avatar.length === "" ? (
+              {avatar === "" ? (
                 <Button
-                  onClick={handleCloudy(open)}
+                  onClick={(e)=>handleCloudy(open)}
                   color='primary'
                   variant='outlined'
                 >
