@@ -17,10 +17,10 @@ const Cards = () => {
   const products = useSelector((state) => state?.product.products);
   const productsAll = useSelector(state=>state?.product.allProducts)
   // const products = useSelector((state)=>state.product.products)
-  console.log('PRODUCTOS',products)
+  console.log('PRODUCCC', products)
 
   return (
-    
+
       <Box flex={8} p={1}>
         {products.docs?.length>0?
       <Grid container spacing={2}>
@@ -28,6 +28,7 @@ const Cards = () => {
          <Grid xs={12} md={6} lg={4} p={2}>
            <Link to={`/detail/${produc._id}`}>
            <Card
+             _id={produc._id}
              title={produc.title}
              desc={produc.desc}
              price={produc.price}
@@ -36,7 +37,7 @@ const Cards = () => {
              />
              </Link>
          </Grid>
-         
+
        ))}
        </Grid>
       :
@@ -45,6 +46,7 @@ const Cards = () => {
         <Grid xs={12} md={6} lg={4} p={2}>
           <Link to={`/detail/${produc._id}`}>
           <Card
+            _id={produc._id}
             title={produc.title}
             desc={produc.desc}
             price={produc.price}
@@ -53,14 +55,14 @@ const Cards = () => {
             />
             </Link>
         </Grid>
-        
+
       ))}
       </Grid>
       }
    </Box>
-    
-    
-    
+
+
+
     // <Container>
     //   <Grid container spacing={2}>
     //     {products.docs?.map((produc) => (

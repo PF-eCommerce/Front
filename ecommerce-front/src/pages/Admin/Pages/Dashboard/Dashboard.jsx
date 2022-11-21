@@ -1,6 +1,6 @@
 import { Box } from "@mui/system";
 import React from "react";
-import Users from "../Users";
+import Users from "./Users";
 
 export default function Dashboard(){
     return(
