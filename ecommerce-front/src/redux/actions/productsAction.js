@@ -7,6 +7,7 @@ export const GET_PRODUCT_BY_COLOR = "GET_PRODUCT_BY_COLOR";
 export const GET_BY_CATEGORY = "GET_BY_CATEGORY";
 export const GET_PRODUCT_DETAIL = "GET_PRODUCT_DETAIL";
 export const DELETE_DETAIL = 'DELETE_DETAIL';
+export const LINK_MP='LINK_MP';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL
 
@@ -113,5 +114,26 @@ export const createProduct = (form) => {
 export function deleteDetail() {
   return {
     type: DELETE_DETAIL,
+  }
+}
+
+export const orderProduct = (productArray, id, location, input) => {
+  const data = [productArray, location, input];
+  console.log('DATA', data)
+  console.log('PRODUCTARRAY', productArray)
+  return async (dispatch) => {
+    try {
+      
+      const linkMP = await axios.post(`/post-order/${id}`, data);
+      console.log('PASO EL LINKMP')
+      window.location.replace(linkMP.data)
+      return dispatch({
+        type: LINK_MP,
+        payload: linkMP.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
   }
 }
