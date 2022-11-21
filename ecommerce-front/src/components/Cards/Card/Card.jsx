@@ -29,20 +29,24 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function RecipeReviewCard({title,desc,price,img,numStock}) {
+export default function RecipeReviewCard({_id,title,desc,price,img,numStock}) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
+  const handleClick = (id) =>{
+    localStorage.setItem('favorite', JSON.stringify(id))
+  }
+
   return (
     <Card sx={{ maxWidth: 330 }}>
       <CardHeader
         avatar={
           <Avatar src={logo} />
-            
-          
+
+
         }
         action={
           <IconButton aria-label="settings">
@@ -50,15 +54,16 @@ export default function RecipeReviewCard({title,desc,price,img,numStock}) {
           </IconButton>
         }
         title={title}
-        subheader={`En stock ${numStock}`}
+        subheader={`${numStock}`<10?'Quedan pocas unidades':`${numStock}`===0?'SIN STOCK':null}
+        subheaderTypographyProps={`${numStock}`<10?{backgroundColor:'yellow'}:`${numStock}`===0?{backgroundColor:'red'}:null}
       />
       <CardMedia
         component="img"
         height="280"
         image={img[0]}
         maxWidth="8"
-      
-        
+
+
       />
       <CardContent>
         <Typography variant="h8" color="secondary">
@@ -67,7 +72,7 @@ export default function RecipeReviewCard({title,desc,price,img,numStock}) {
       </CardContent>
       <CardActions disableSpacing >
         <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+          <FavoriteIcon onClik={handleClick(`${_id}`)}/>
         </IconButton>
         <IconButton>
         <AddShoppingCartOutlinedIcon sx={{marginRight:"1rem"}}/>
@@ -83,11 +88,11 @@ export default function RecipeReviewCard({title,desc,price,img,numStock}) {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-        
+
           <Typography paragraph>
            {desc}
           </Typography>
-          
+
         </CardContent>
       </Collapse>
     </Card>

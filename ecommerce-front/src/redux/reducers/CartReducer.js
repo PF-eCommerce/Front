@@ -1,4 +1,4 @@
-import { REMOVE_ONE_FROM_CART,REMOVE_ALL_FROM_CART, CLEAR_CART, ADD_TO_CART} from "../actions/cartAction"
+import { DELETE_FROM_CART, ADD_TO_CART} from "../actions/cartAction"
 
 
 
@@ -19,18 +19,17 @@ const INITIAL_STATE = {
             return {
                 cart: [...action.payload]
             }
+            case DELETE_FROM_CART:
+              return {
+                  cart: [...action.payload]
+              }
         
         
 
         
       
 
-      case REMOVE_ONE_FROM_CART: {} 
-      
-      case REMOVE_ALL_FROM_CART:{}
-
-      case CLEAR_CART:{}
-
+     
       default:
         return state;
     

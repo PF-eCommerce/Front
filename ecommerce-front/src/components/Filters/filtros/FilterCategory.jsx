@@ -18,7 +18,11 @@ export default function SelectVariants() {
     setCategory(dispatch(getCategories(value)));
   };
 
-  const categorias = cates;
+  const categorias = cates.sort((a,b)=>{
+    if (a.nombre>b.nombre) return 1
+    if (b.nombre>a.nombre) return -1
+    return 0
+  })
 
   return (
     <div>
