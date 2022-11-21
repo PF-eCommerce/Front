@@ -2,7 +2,7 @@ import { Box, Button } from "@mui/material";
 import { styled } from "@mui/system";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { payPaypal } from "../../../redux/actions/pasarelaAction";
+import { payPaypal } from "../../../../redux/actions/pasarelaAction";
 import logo from "./Image.png"
 
 const Container = styled(Box)({
