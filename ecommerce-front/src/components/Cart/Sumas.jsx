@@ -2,7 +2,9 @@ import { Box, Button, Divider, Typography } from "@mui/material";
 import React from "react";
 
 
-
+const handleCheckout = () => {
+  console.log("handleCheckout")
+}
 
 const Sumas = ({cart}) => {
     return (
@@ -29,7 +31,8 @@ const Sumas = ({cart}) => {
 										0
 									)
 									.toFixed(2)}</Typography>
-        <Button fullWidth sx={{mt:"2rem"}} variant="contained">Proceder a Pagar</Button>
+        <Button fullWidth sx={{mt:"2rem"}} variant="contained"
+        onClick={handleCheckout}>Proceder a Pagar</Button>
     </Box>
     </Box>
     )

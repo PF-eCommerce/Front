@@ -1,5 +1,7 @@
+import { Close, Upload } from "@mui/icons-material";
 import {
   Box,
+  Avatar,
   Button,
   Chip,
   Input,
@@ -7,24 +9,25 @@ import {
   MenuItem,
   Select,
   TextField,
+  Typography,
 } from "@mui/material";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createProduct } from "../../../redux/actions/productsAction";
-import useUploadWidget from "../../../utils/cloudinary/useUploadWidget";
+import { config } from "../../../utils/cloudinary/cloudinaryConf";
 import { cates } from "../../../utils/data/categories";
 import { talles } from "../../../utils/data/sizes";
 
 const ProductForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const cloudy = useUploadWidget();
   const [open, setOpen] = useState(false);
-  const [tallesOption, setTallesOption] = React.useState([]);
-  const [catesOption, setCatesOption] = React.useState("");
-  const [images, setImages] = useState([""]);
+  const [tallesOption, setTallesOption] = useState([]);
+  const [catesOption, setCatesOption] = useState("");
+  const [images, setImages] = useState([]);
+
   const {
     register,
     formState: { errors },
@@ -33,9 +36,21 @@ const ProductForm = () => {
     defaultValues: {
       color: [],
       size: [],
+      img: [],
     },
   });
 
+  function showUploadWidget() {
+    // eslint-disable-next-line no-unused-vars
+    let cloudbox = window.cloudinary.openUploadWidget(
+      config,
+      async (error, result) => {
+        if (!error && result && result.event === "success") {
+          setImages((prev) => [...prev, result.info.url]);
+        }
+      }
+    );
+  }
   const handleTalle = (event) => {
     const {
       target: { value },
@@ -49,16 +64,21 @@ const ProductForm = () => {
     setCatesOption(typeof value === "string" ? value.split(",") : value);
   };
   const onSubmit = (data) => {
-    console.table(data);
-    dispatch(createProduct(data));
-    navigate("/home");
+    data.img = images;
+    if (data.img !== []) {
+      dispatch(createProduct(data));
+      navigate("/home");
+    }
   };
 
   const handleCloudy = () => {
     setOpen(!open);
-    setImages(cloudy);
+    showUploadWidget();
   };
 
+  const handleDelete = (e) => {
+    setImages(images?.filter((i) => i !== e));
+  };
   return (
     <Box my={2} display='flex' justifyContent='center'>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -103,19 +123,50 @@ const ProductForm = () => {
             </p>
           )}
         </InputLabel>
-        <InputLabel {...register("images")}>
+        <InputLabel>
           Imágenes
-          <Button
-            color='secondary'
-            variant='outlined'
-            onClick={() => handleCloudy()}
-          >
-            Elegir
-          </Button>
-          {images ? images?.map((ima) => <img src={ima} alt='' />) : null}
-          {/* {errors.images?.type === "required" && (
+          {!images.length ? (
+            <Button
+              color='secondary'
+              variant='outlined'
+              onClick={() => handleCloudy(open)}
+            >
+              Cargar imágenes <Upload mr={2} />
+            </Button>
+          ) : null}
+          <Typography variant='caption' display='block' gutterBottom>
+            Verás las imágenes en ésta pestaña
+          </Typography>
+          <Box>
+            {images.length
+              ? images?.map((ima) => (
+                  <>
+                    <Close
+                      sx={{ cursor: "pointer" }}
+                      onClick={(e) => handleDelete(e)}
+                    />
+                    <Avatar
+                      alt='imaLength'
+                      src={ima}
+                      style={{
+                        width: "30%",
+                        borderRadius: "8px",
+                        height: "50%",
+                        cursor: "pointer",
+                      }}
+                    />
+                  </>
+                ))
+              : null}
+          </Box>
+          {errors.img?.type === "required" && (
             <p style={{ color: "red", margin: "0.25rem" }}>Imagen requerida</p>
-          )} */}
+          )}
+          {errors.img?.type === "minLength" && (
+            <p style={{ color: "red", margin: "0.25rem" }}>
+              Sube al menos una imagen
+            </p>
+          )}
         </InputLabel>
         <InputLabel>
           Descripción
