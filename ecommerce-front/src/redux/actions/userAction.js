@@ -1,27 +1,23 @@
-import axios from 'axios';
+import axios from "axios";
 
 export const REGISTER_ERROR = "REGISTER_ERROR";
 export const LOGIN_ERROR = "LOGIN_ERROR";
-export const RESET_ERROR = 'RESET_ERROR';
-export const USER_REGISTER = 'USER_REGISTER';
-export const USER = 'USER'
-export const RESET_USER = 'RESET_USER'
-export const TOKEN = 'TOKEN'
+export const RESET_ERROR = "RESET_ERROR";
+export const USER_REGISTER = "USER_REGISTER";
+export const USER = "USER";
+export const RESET_USER = "RESET_USER";
+export const TOKEN = "TOKEN";
 
-
-axios.defaults.baseURL = "http://localhost:3001";
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 export const userRegister = (user) => {
-
   return async (dispatch) => {
     try {
       await axios.post("/register/user", user);
       return dispatch({
         type: USER_REGISTER,
-      })
-
+      });
     } catch (error) {
-
       return dispatch({
         type: REGISTER_ERROR,
         payload: error.response.data,
@@ -29,7 +25,6 @@ export const userRegister = (user) => {
     }
   };
 };
-
 
 export const userLogin = (user) => {
   return async (dispatch) => {
@@ -85,30 +80,26 @@ export const userLogOut = () => {
         type: RESET_USER,
       });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 };
 
 export const registerUserAuth0 = (user) => {
-  console.log(user)
+  console.log(user);
   return async () => {
     try {
       await axios.post("/register/auth0", user);
-
-
     } catch (error) {
-
-      console.log(error)
+      console.log(error);
     }
   };
-}
+};
 
 export const auth0User = (user) => {
-  console.log(user)
+  console.log(user);
   return {
     type: USER,
     payload: user,
-
-  }
-}
+  };
+};
