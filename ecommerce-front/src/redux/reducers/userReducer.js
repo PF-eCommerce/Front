@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { REGISTER_ERROR, LOGIN_ERROR, RESET_ERROR, USER_REGISTER, USER, RESET_USER, TOKEN, ALL_USERS,} from "../actions/userAction";
-=======
-import { REGISTER_ERROR, LOGIN_ERROR, RESET_ERROR, USER_REGISTER, USER, RESET_USER, TOKEN } from "../actions/userAction";
->>>>>>> 885329d771d8047b85394aae92b668d35de7cdb5
 
 const initialState = {
   error_register: {},
