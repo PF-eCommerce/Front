@@ -73,6 +73,9 @@ export default function PositionedMenu() {
   };
 
   React.useEffect(() => {
+    console.log('ISAUTHENTIC', isAuthenticated)
+    console.log('LOCALSTORAGE', localStorage)
+    console.log('AUTH0', localStorage.getItem('auth0'))
     if (isAuthenticated && localStorage.getItem("auth0") === null) {
       callApiProtected();
     }
