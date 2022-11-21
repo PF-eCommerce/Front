@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import { orderProduct } from '../../../redux/actions/productsAction';
 import Paypal from '../../../utils/Paypal';
 
+
 const ImageButton = styled(Button)({
   boxShadow: "none",
   textTransform: "none",
@@ -237,6 +238,8 @@ export default function HorizontalLinearStepper() {
     e.preventDefault()
     Paypal()
   }
+
+  
 
   return (
     <Box
