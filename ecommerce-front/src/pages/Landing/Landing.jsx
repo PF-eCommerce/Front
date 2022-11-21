@@ -55,6 +55,7 @@ const ImageButton = styled(Button)({
   lineHeight: 1.5,
   backgroundColor: "aquamarine",
   borderColor: "#0063cc",
+  transition: "300ms",
   fontFamily: [
     "-apple-system",
     "BlinkMacSystemFont",
@@ -72,6 +73,7 @@ const ImageButton = styled(Button)({
     borderColor: "#0062cc",
     boxShadow: "none",
     opacity: "0.7",
+    transition: "250ms",
     transform: "scale(1.05)",
   },
   "&:active": {
@@ -294,7 +296,7 @@ const Landing = () => {
             }}
           >
             <ImageButton
-              value="Blusas"
+              value='Blusas'
               onClick={handleSelect}
               style={{
                 backgroundImage: `url(https://img.freepik.com/fotos-premium/chica-adolescente-elegante-ropa-casual-camina-confianza-calle-verano-dia-mundial-turismo_381014-484.jpg)`,
@@ -341,7 +343,7 @@ const Landing = () => {
             }}
           >
             <ImageButton
-              value="Abrigos"
+              value='Abrigos'
               onClick={handleSelect}
               style={{
                 backgroundImage: `url(https://visteconclase.com/imagenes/Puedo-combinar-un-abrigo-beige-de-hombre-con-zapatillas-deportivas.jpg)`,
@@ -402,7 +404,7 @@ const Landing = () => {
             }}
           >
             <ImageButton
-              value="Remeras"
+              value='Remeras'
               onClick={handleSelect}
               style={{
                 backgroundImage: `url(https://media.istockphoto.com/id/857856490/photo/cheerful-black-guy-in-london.jpg?b=1&s=170667a&w=0&k=20&c=7w7Bbt-U7QjHCI5JfZHawd5ivO0PqSWoaU6IxD4Jw68=)`,
@@ -466,7 +468,7 @@ const Landing = () => {
           }
         >
           <ImageButton
-            value="Jeans"
+            value='Jeans'
             onClick={handleSelect}
             style={{
               backgroundImage: `url(https://www.outfit-styles.com/wp-content/uploads/2019/07/Skinny-Jeans-Outfit-2019.jpg)`,
@@ -640,7 +642,7 @@ const Landing = () => {
           }}
         >
           <ImageButton
-            value="Vestidos"
+            value='Vestidos'
             onClick={handleSelect}
             style={{
               backgroundImage: `url(https://i.pinimg.com/originals/18/34/99/183499d64bef2652a041e55bdd3fd7aa.jpg)`,
@@ -701,7 +703,7 @@ const Landing = () => {
           }}
         >
           <ImageButton
-            value="Shorts"
+            value='Shorts'
             onClick={handleSelect}
             style={{
               backgroundImage: `url(https://i.pinimg.com/originals/dc/53/94/dc5394110c2f8ce33f9fc13dc36d8abe.jpg)`,

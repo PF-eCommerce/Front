@@ -9,31 +9,34 @@ import {
   Grid,
   TextField,
 } from "@mui/material";
+import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import {
+  // argentinaProvincias,
+  argentinaDeptos,
+} from "../../../utils/data/argentina";
+import { updateUserData } from "../../../redux/actions/userAction";
 
-const states = [
-  {
-    value: "alabama",
-    label: "Alabama",
-  },
-  {
-    value: "new-york",
-    label: "New York",
-  },
-  {
-    value: "san-francisco",
-    label: "San Francisco",
-  },
-];
+// const datosArgentina = (provincia) => {
+//   if (provincia) {
+//     return argentinaDeptos.includes(provincia);
+//   }
+// };
 
-const ProfileDetails = (props) => {
+const ProfileDetails = (user) => {
+  const dispatch = useDispatch();
   const [values, setValues] = useState({
-    firstName: "Katarina",
-    lastName: "Smith",
-    email: "demo@devias.io",
-    phone: "",
-    state: "Alabama",
-    country: "USA",
+    name: user.name,
+    lastName: user.lastName,
+    email: user.email,
+    city: user.city,
+    country: user.country,
   });
+  const {
+    register,
+    // formState: { errors },
+    handleSubmit,
+  } = useForm({});
 
   const handleChange = (event) => {
     setValues({
@@ -42,8 +45,15 @@ const ProfileDetails = (props) => {
     });
   };
 
+  const onSubmit = (data) => {
+    if (data !== values) {
+      dispatch(updateUserData(data));
+      alert("Cambios guardados");
+    }
+  };
+
   return (
-    <form autoComplete='off' noValidate {...props}>
+    <form onSubmit={handleSubmit(onSubmit)} autoComplete='off' noValidate>
       <Card>
         <CardHeader
           subheader='Proceda a modificar o completar su información'
@@ -57,10 +67,10 @@ const ProfileDetails = (props) => {
                 fullWidth
                 helperText='Indíquenos sus nombres'
                 label='Nombres'
-                name='firstName'
+                {...register("name")}
                 onChange={handleChange}
                 required
-                value={values.firstName}
+                value={values.name}
                 variant='outlined'
               />
             </Grid>
@@ -68,7 +78,7 @@ const ProfileDetails = (props) => {
               <TextField
                 fullWidth
                 label='Apellidos'
-                name='lastName'
+                {...register("lastName")}
                 onChange={handleChange}
                 required
                 value={values.lastName}
@@ -79,29 +89,29 @@ const ProfileDetails = (props) => {
               <TextField
                 fullWidth
                 label='Dirección de Correo Electrónico'
-                name='email'
+                {...register("email")}
                 onChange={handleChange}
                 required
                 value={values.email}
                 variant='outlined'
               />
             </Grid>
-            <Grid item md={6} xs={12}>
+            {/* <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 label='Núm. Telefónico'
-                name='phone'
+               { ...register('phone')}
                 onChange={handleChange}
                 type='number'
                 value={values.phone}
                 variant='outlined'
               />
-            </Grid>
+            </Grid> */}
             <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 label='País'
-                name='country'
+                {...register("country")}
                 onChange={handleChange}
                 required
                 value={values.country}
@@ -111,18 +121,18 @@ const ProfileDetails = (props) => {
             <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
-                label='Estado/Provincia'
-                name='state'
+                label='Estado/Ciudad'
+                {...register("city")}
                 onChange={handleChange}
                 required
                 select
                 SelectProps={{ native: true }}
-                value={values.state}
+                value={values.city}
                 variant='outlined'
               >
-                {states.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
+                {argentinaDeptos.map((option) => (
+                  <option key={option.id} value={option.name}>
+                    {option.name}
                   </option>
                 ))}
               </TextField>
@@ -137,7 +147,7 @@ const ProfileDetails = (props) => {
             p: 1,
           }}
         >
-          <Button color='primary' variant='contained'>
+          <Button type='submit' color='primary' variant='contained'>
             Guardar
           </Button>
         </Box>

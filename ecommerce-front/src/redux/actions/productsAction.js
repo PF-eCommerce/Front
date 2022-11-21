@@ -12,14 +12,13 @@ export const LINK_MP='LINK_MP';
 export const ADD_FAVORITES='ADD_FAVORITES';
 export const SHOW_FAVORITES='SHOW_FAVORITES';
 
-axios.defaults.baseURL = process.env.REACT_APP_API_URL
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 export const getAllProducts = () => {
   return async (dispatch) => {
-    
     try {
-      const products = await axios.get(`${axios.defaults.baseURL}/products`);
-      
+      const products = await axios.get(`/products`);
+
       return dispatch({
         type: GET_ALL_PRODUCTS,
         payload: products.data,
@@ -32,7 +31,8 @@ export const getAllProducts = () => {
 export const getProductByName = (value) => {
   return async (dispatch) => {
     try {
-      const products = await axios.get(`${axios.defaults.baseURL}/products/search?search=${value}`)
+      const products = await axios.get(`/products/search?search=${value}`);
+      console.log(products.data);
       return dispatch({
         type: GET_PRODUCT_BY_NAME,
         payload: products.data,
@@ -43,11 +43,11 @@ export const getProductByName = (value) => {
   };
 };
 export const getItemColor = (value) => {
-  console.log("desde actioncolor", value)
+  console.log("desde actioncolor", value);
   return async (dispatch) => {
     try {
-      const products = await axios.get(`${axios.defaults.baseURL}/products?type&size&color=${value}`);
-      console.log(products.data)
+      const products = await axios.get(`/products?type&size&color=${value}`);
+      console.log(products.data);
       return dispatch({
         type: GET_PRODUCT_BY_COLOR,
         payload: products.data,
@@ -60,9 +60,9 @@ export const getItemColor = (value) => {
 export const getCategories = (value) => {
   return async (dispatch) => {
     try {
-      console.log("desde Action", value)
-      const products = await axios.get(`${axios.defaults.baseURL}/products?type=${value}&size&color`);
-      console.log(products.data)
+      console.log("desde Action", value);
+      const products = await axios.get(`/products?type=${value}&size&color`);
+      console.log(products.data);
       return dispatch({
         type: GET_BY_CATEGORY,
         payload: products.data,
@@ -75,7 +75,7 @@ export const getCategories = (value) => {
 export const getOtherPages = (num) => {
   return async (dispatch) => {
     try {
-      const paginatedProducts = await axios.get(`${axios.defaults.baseURL}/products?page=${num}`);
+      const paginatedProducts = await axios.get(`/products?page=${num}`);
       return dispatch({
         type: USE_PAGINATION,
         payload: paginatedProducts.data,
@@ -89,7 +89,7 @@ export const getOtherPages = (num) => {
 export const getProductDetail = (id) => {
   return async (dispatch) => {
     try {
-      const product = await axios.get(`${axios.defaults.baseURL}/products/${id}`);
+      const product = await axios.get(`/products/${id}`);
       return dispatch({
         type: GET_PRODUCT_DETAIL,
         payload: product.data,
@@ -103,7 +103,20 @@ export const getProductDetail = (id) => {
 export const createProduct = (form) => {
   return async (dispatch) => {
     try {
-      const product = await axios.post(`${axios.defaults.baseURL}/product`, form);
+      const product = await axios.post(`/product`, form);
+
+      return dispatch({
+        payload: product,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+export const updateProduct = (id, changes) => {
+  return async (dispatch) => {
+    try {
+      const product = await axios.put(`/products/${id}`, changes);
 
       return dispatch({
         payload: product,
@@ -117,19 +130,18 @@ export const createProduct = (form) => {
 export function deleteDetail() {
   return {
     type: DELETE_DETAIL,
-  }
+  };
 }
 
 export const orderProduct = (productArray, id, location, input) => {
   const data = [productArray, location, input];
-  console.log('DATA', data)
-  console.log('PRODUCTARRAY', productArray)
+  console.log("DATA", data);
+  console.log("PRODUCTARRAY", productArray);
   return async (dispatch) => {
     try {
-      
       const linkMP = await axios.post(`/post-order/${id}`, data);
-      console.log('PASO EL LINKMP')
-      window.location.replace(linkMP.data)
+      console.log("PASO EL LINKMP");
+      window.location.replace(linkMP.data);
       return dispatch({
         type: LINK_MP,
         payload: linkMP.data,
