@@ -86,12 +86,8 @@ const SizeButton = styled(Button)({
   },
 });
 
-
-
-
-
 function ChildModal() {
-  //const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -336,14 +332,11 @@ function NestedModal() {
 }
 
 
-
-
-
 const Details = () => {
   const { id } = useParams();
- 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const handleGoBackBtn = () => {
     navigate(-1);
   };
@@ -422,6 +415,8 @@ const Details = () => {
   };
   sumaryScore();
 
+  const reviewsTotales = reviewPro?.reviews?.length;
+
   return (
     <Box
       sx={{
@@ -436,6 +431,7 @@ const Details = () => {
         sx={{ margin: "30px", width: "100%" }}
       >
         {product.title}
+        
         <div id={styles.review_block}>
           <span id={styles.review_detail}>
             Rating:{" "}
@@ -462,7 +458,6 @@ const Details = () => {
             {reviewsTotales > 0 ? <span id={styles.review_letter}>{reviewsTotales} reviews</span> : null}
           </div>
         </div>
-        
       </Typography>
       <Box
         sx={{
@@ -535,7 +530,7 @@ const Details = () => {
               <FavoriteIcon 
               // value={`${product._id}`}
               onClick={e=>handleClick(e, {
-                _id:`${product._id}`,
+                id:`${product._id}`,
                 title:`${product.title}`,
                 desc:`${product.desc}`,
                 price:`${product.price}`,
@@ -560,16 +555,9 @@ const Details = () => {
                 },
               }}
               onClick={handleGoBackBtn}
-            >Volver
+            >
+              Volver
             </Button>
-          </Box>
-          <Box
-            sx={{ 
-              marginTop: "10px", 
-              marginBottom: "20px", 
-              display: "flex" 
-            }}>
-            <Reviews id={id} image={product.img} name={product.name} />
           </Box>
         </Box>
       </Box>
