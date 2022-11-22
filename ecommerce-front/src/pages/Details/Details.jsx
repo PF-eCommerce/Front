@@ -559,6 +559,14 @@ const Details = () => {
               Volver
             </Button>
           </Box>
+          <Box
+            sx={{ 
+              marginTop: "10px", 
+              marginBottom: "20px", 
+              display: "flex" 
+            }}>
+            <Reviews id={product._id} image={product.img} name={product.name} />
+          </Box>
         </Box>
       </Box>
       {alert ? <Alert /> : null}
