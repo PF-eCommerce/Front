@@ -22,6 +22,8 @@ import { SubmitButton } from "../Forms/FormLogin";
 // import e from "express";
 // import Button from '@mui/material/Button';
 
+
+
 const style = {
   position: 'absolute',
   top: '50%',
@@ -81,6 +83,7 @@ const SizeButton = styled(Button)({
 });
 
 function ChildModal() {
+  const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -88,9 +91,13 @@ function ChildModal() {
   const handleClose = () => {
     setOpen(false);
   };
+  
   const product = useSelector((state) => state.product.detail)
   
+  
   const sizee = useSelector(state=> state?.card.size)
+  
+  
   const [qty, setQty] = React.useState(1)
   const navigate = useNavigate()
 
@@ -109,14 +116,9 @@ function ChildModal() {
     }
   }
   function sendToCart(e){
-    e.preventDefault()
-    const carro = {
-      _id: product._id,
-      size: sizee,
-      qty
-    }
-    
-    localStorage.setItem('cart', JSON.stringify(carro) )
+   
+    dispatch(addToCart(product))
+   
     navigate('/home')
   }
 
@@ -236,8 +238,7 @@ function NestedModal() {
     dispatch(selectSize(e.target.value))
     // dispatch(deleteSize())
   }
-  console.log('SIZE', sizee)
-
+ 
   return (
     <div>
       <Button onClick={handleOpen}>
@@ -329,7 +330,7 @@ function NestedModal() {
 
 const Details = () => {
   const { id } = useParams();
-  // console.log(id)
+ 
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -341,9 +342,7 @@ const Details = () => {
 
   const product = useSelector((state) => state.product.detail);
   const [alert, setAlert] = useState(false);
-  // console.log(product.img)
-  // console.log(product.id)
-  // console.log(id)
+
 
   const boxStyle = {
     display: { xs: "block", md: "flex" },

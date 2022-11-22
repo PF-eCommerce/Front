@@ -3,7 +3,6 @@ import React from "react";
 
 
 const handleCheckout = () => {
-  console.log("handleCheckout")
 }
 
 const Sumas = ({cart}) => {

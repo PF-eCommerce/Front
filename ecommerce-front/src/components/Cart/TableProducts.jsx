@@ -15,6 +15,7 @@ import {addToCart, deleteFromCart} from "../../redux/actions/cartAction"
 import Input from "./Input"
 import {ADD_TO_CART} from "../../redux/actions/constantes";
 import {styled} from "@mui/system";
+import cartReducer from './../../redux/reducers/CartReducer';
 
 
 export default function BasicTable() {
@@ -31,7 +32,7 @@ export default function BasicTable() {
       }))
 
     const cartItems = useSelector(state=>state.cart.cart)
-    console.log("desdetable", cartItems)
+    
     const dispatch = useDispatch();
 
     const handleQtyChange = (ee , item) => {
@@ -39,18 +40,18 @@ export default function BasicTable() {
         const cart = localStorage.getItem('cart')
               ? JSON.parse(localStorage.getItem('cart'))
               : [];
-  
-          cart.forEach(cartItem => {
+
+              cart.forEach(cartItem => {
               if (cartItem._id === item._id) {
-                  if (ee.target.id === '+' && cartItem.numStock > cartItem.count) {
-            cartItem.count = cartItem.count + 1
+                if (ee.target.id === '+' && cartItem.numStock > cartItem.count) {
+                cartItem.count = cartItem.count + 1
           }else if ( ee.target.id === '-'&& cartItem.count > 1  ) cartItem.count = cartItem.count - 1
           }
               })
 
         localStorage.setItem("cart", JSON.stringify(cart))
 
-        // dispatch(addToCart(cartLocal))
+    
         dispatch({
 			type: ADD_TO_CART,
 			payload: cart,
