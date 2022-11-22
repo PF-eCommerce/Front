@@ -10,20 +10,21 @@ export const DELETE_FROM_CART = "DELETE_FROM_CART";
 
 export const addToCart = item => async dispatch => {
 	// if cart already exists in local storage, use it, otherwise set to empty array
-	console.log("desde action",item)
+	
 	const cart = localStorage.getItem('cart')
 		? JSON.parse(localStorage.getItem('cart'))
 		: [];
-	console.log("desde caraction2",cart)
+	
 	// check if duplicates
 	const duplicates = cart?.filter(cartItem => cartItem._id === item._id);
-	console.log("desde cart action",duplicates)
+	
 	// if no duplicates, proceed
 	if (duplicates.length === 0) {
 		// prep product data
+		
 		const productToAdd = {
 			...item,
-			count: 1,
+			qty : item.qty 
 		};
 
 		// add product data to cart

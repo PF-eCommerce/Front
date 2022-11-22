@@ -25,7 +25,7 @@ const Sumas = ({cart}) => {
         {cart.reduce(
 										(currentSum, currentCartItem) =>
 											currentSum +
-											currentCartItem.count *
+											currentCartItem.qty *
 												currentCartItem.price,
 										0
 									)

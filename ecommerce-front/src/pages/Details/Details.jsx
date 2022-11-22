@@ -96,7 +96,7 @@ function ChildModal() {
     setOpen(false);
   };
   
-  const product = useSelector((state) => state.product.detail)
+  let product = useSelector((state) => state.product.detail)
   
   
   const sizee = useSelector(state=> state?.card.size)
@@ -119,11 +119,15 @@ function ChildModal() {
       }
     }
   }
+  product = {
+    ...product,
+    qty
+  }
   function sendToCart(e){
    
     dispatch(addToCart(product))
    
-    navigate('/home')
+    navigate('/cart')
   }
 
   return (

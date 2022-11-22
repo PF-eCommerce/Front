@@ -1,6 +1,8 @@
 import { styled } from "@mui/system";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { getAllUsers } from "../../../../redux/actions/adminAction";
 
 const Container = styled('div')({
     backgroundColor: "white",
@@ -30,11 +32,19 @@ const SubTitle = styled('p')({
 })
 
 export default function Users() {
+    const info = useSelector((state) => state.admin.users)
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getAllUsers())
+    }, [dispatch]);
+
     return (
         <Container>
             <Link to={"/admin/users"}>
                 <Title>Usuarios</Title>
-                <UserNum>{12}</UserNum>
+                <UserNum>{info.length}</UserNum>
                 <SubTitle>Ver todos</SubTitle>
             </Link>
         </Container>
