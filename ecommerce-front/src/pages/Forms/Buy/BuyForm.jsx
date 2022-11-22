@@ -222,15 +222,18 @@ export default function HorizontalLinearStepper() {
     e.preventDefault()
     // let productArray = JSON.parse(localStorage.getItem('productArray'))
     let productArray = [{
-      name: 'remera',
+      name: 'vestido',
       count: 1,
       image: 'not valid',
-      price: 1000,
-      _id: '63695bfb4b5027a584493892'
+      price: 100,
+      _id: '637695d20cf126c6d70830ae'
     }]
     let id = JSON.parse(localStorage.getItem('auth0'))._id
     let location = JSON.parse(localStorage.getItem('location'))
     let input = JSON.parse(localStorage.getItem('input'))
+    console.log('ID', id)
+    console.log('LOCATION', location)
+    console.log('INPUT', input)
     
     dispatch(orderProduct(productArray, id, location, input))
   }
