@@ -1,13 +1,16 @@
 import axios from "axios";
 
+
 export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
 export const USE_PAGINATION = "USE_PAGINATION";
 export const GET_PRODUCT_BY_NAME = "GET_PRODUCT_BY_NAME";
 export const GET_PRODUCT_BY_COLOR = "GET_PRODUCT_BY_COLOR";
 export const GET_BY_CATEGORY = "GET_BY_CATEGORY";
 export const GET_PRODUCT_DETAIL = "GET_PRODUCT_DETAIL";
-export const DELETE_DETAIL = "DELETE_DETAIL";
-export const LINK_MP = "LINK_MP";
+export const DELETE_DETAIL = 'DELETE_DETAIL';
+export const LINK_MP='LINK_MP';
+export const ADD_FAVORITES='ADD_FAVORITES';
+export const SHOW_FAVORITES='SHOW_FAVORITES';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
@@ -146,5 +149,50 @@ export const orderProduct = (productArray, id, location, input) => {
     } catch (error) {
       console.log(error);
     }
-  };
-};
+
+  }
+}
+
+export function addFavorites (payload){
+  return {
+        type: ADD_FAVORITES,
+        payload
+      }
+    
+}
+
+// export const addFavorites = (ids) => {
+//   console.log('IDSSS', ids)
+  
+//   return async (dispatch) => {
+//     try {
+//       if (Array.isArray(ids)&&ids.length===1 || !Array.isArray(ids)&&ids.length>1){
+//         const product = await axios.get(`${axios.defaults.baseURL}/products/${ids}`);
+//       return dispatch({
+//         type: ADD_FAVORITES,
+//         payload: product.data,
+//       });
+//       } else if (Array.isArray(ids)&&ids.length>1){
+//         console.log('ENTRANDO EN IF')
+//         const product = ids.map(async el=>{
+//           await axios.get(`${axios.defaults.baseURL}/products/${el}`)
+//         })
+//         console.log('PRODUCTOSSS FAV', product)
+//         return dispatch({
+//           type: ADD_FAVORITES,
+//           payload: product.data
+//         })
+//       }
+      
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+// };
+
+export const showFavorites = (payload) =>{
+  return{
+    type: SHOW_FAVORITES,
+    payload
+  }
+}
