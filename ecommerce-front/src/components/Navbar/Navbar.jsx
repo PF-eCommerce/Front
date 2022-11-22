@@ -63,7 +63,7 @@ const Navbar = () => {
           </Link>
         </ButtonNav>
         <Box style={{ position: "relative" }}>
-          <Link href="/cart">
+          <Link to="/cart">
             <IconButton>
               <AddShoppingCartOutlinedIcon fontSize="large" color="secondary" />
             </IconButton>

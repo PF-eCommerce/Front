@@ -37,13 +37,17 @@ export default function RecipeReviewCard({title,desc,price,img,numStock,id}) {
     setExpanded(!expanded);
   };
 
+  // const handleClick = (id) =>{
+  //   localStorage.setItem('favorite', JSON.stringify(id))
+  // }
+
   return (
     <Card sx={{ maxWidth: 330 }}>
       <CardHeader
         avatar={
           <Avatar src={logo} />
-            
-          
+
+
         }
         action={
           <IconButton aria-label="settings">
@@ -60,8 +64,8 @@ export default function RecipeReviewCard({title,desc,price,img,numStock,id}) {
         height="280"
         image={img[0]}
         maxWidth="8"
-      
-        
+
+
       />
       </Link>
       <CardContent>
@@ -71,7 +75,9 @@ export default function RecipeReviewCard({title,desc,price,img,numStock,id}) {
       </CardContent>
       <CardActions disableSpacing >
         <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+          <FavoriteIcon
+          //  onClick={handleClick(`${_id}`)}
+           />
         </IconButton>
         <IconButton>
         <AddShoppingCartOutlinedIcon sx={{marginRight:"1rem"}}/>
@@ -87,11 +93,11 @@ export default function RecipeReviewCard({title,desc,price,img,numStock,id}) {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-        
+
           <Typography paragraph>
            {desc}
           </Typography>
-          
+
         </CardContent>
       </Collapse>
     </Card>

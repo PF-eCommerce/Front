@@ -21,7 +21,7 @@ const OrdersList = () => {
     {
       field: "items",
       headerName: "Productos",
-      width: 80,
+      width: 200,
       renderCell: (params) => {
         return <div>{params.row.items}</div>;
       },
@@ -56,7 +56,7 @@ const OrdersList = () => {
     <Box>
       <DataGrid
         autoHeight
-        sx={{ ml: 2, width: 530 }}
+        sx={{ width: "95%" }}
         rows={rows}
         columns={orderColumns}
         pageSize={4}

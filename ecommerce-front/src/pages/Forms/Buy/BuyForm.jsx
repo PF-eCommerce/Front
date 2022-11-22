@@ -5,9 +5,55 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { Grid, TextField } from '@mui/material';
+import { Grid, inputAdornmentClasses, TextField } from '@mui/material';
 import { styled } from "@mui/material/styles";
+import axios from "axios";
+import {auth0User} from "../../../redux/actions/userAction";
+import { useAuth0 } from "@auth0/auth0-react";
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { orderProduct } from '../../../redux/actions/productsAction';
+import Paypal from "./Paypal/Paypal";
+import Stripe from "./Stripe/Stripe"
 
+
+const ImageButton = styled(Button)({
+  boxShadow: "none",
+  textTransform: "none",
+  // fontSize: 20,
+  padding: "6px 12px",
+  // border: '1px solid',
+  lineHeight: 1.5,
+  backgroundColor: "aquamarine",
+  borderColor: "#0063cc",
+  fontFamily: [
+    "-apple-system",
+    "BlinkMacSystemFont",
+    '"Segoe UI"',
+    "Roboto",
+    '"Helvetica Neue"',
+    "Arial",
+    "sans-serif",
+    '"Apple Color Emoji"',
+    '"Segoe UI Emoji"',
+    '"Segoe UI Symbol"',
+  ].join(","),
+  "&:hover": {
+    backgroundColor: "#0069d9",
+    borderColor: "#0062cc",
+    boxShadow: "none",
+    opacity: "0.7",
+    transform: "scale(1.05)",
+  },
+  "&:active": {
+    boxShadow: "none",
+    backgroundColor: "#0062cc",
+    borderColor: "#005cbf",
+  },
+  "&:focus": {
+    boxShadow: "0 0 0 0.2rem rgba(0,123,255,.5)",
+  },
+});
 
 const steps = ['Carro', 'Entrega', 'Pago'];
 // const mp = new MercadoPago('TEST-2b431a09-2059-4817-981a-382d3a6af349')
@@ -59,6 +105,50 @@ const SubmitButton = styled(Button)({
 export default function HorizontalLinearStepper() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
+  const { loginWithRedirect, logout, isAuthenticated, getAccessTokenSilently, loginWithPopup } = useAuth0();
+  const userLocalStorage = JSON.parse(localStorage.getItem("auth0"));
+  const dispatch = useDispatch()
+  // const [user, setUser] = React.useState(userLocalStorage);
+  const navigate = useNavigate()
+  const [inputs, setInputs] = React.useState({
+    name: '',
+    surname: '',
+    phone: '',
+    country: '',
+    street_name: '',
+    street_number: '',
+    zip_code: '',
+  })
+  const [infoCompleted, setInfoCompleted]= React.useState(false)
+  const mercadoPagoLink = useSelector(state=>state?.product.linkMP)
+
+  const callApiProtected = async () => {
+    try {
+      const token = isAuthenticated && (await getAccessTokenSilently());
+
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/protected`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+      localStorage.setItem("auth0", JSON.stringify(response.data));
+      const userAction = JSON.parse(localStorage.getItem("auth0"));
+      dispatch(auth0User(userAction));
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  React.useEffect(() => {
+    if (isAuthenticated && localStorage.getItem("auth0") === null) {
+      callApiProtected();
+    } else if (isAuthenticated && localStorage.getItem("auth0")!== null && infoCompleted===false) {
+      setActiveStep(1)
+    } else if (isAuthenticated && localStorage.getItem("auth0")!== null && infoCompleted===true){
+      setActiveStep(2)
+    }
+  });
+
 
   const isStepOptional = (step) => {
     return step === 1;
@@ -67,7 +157,7 @@ export default function HorizontalLinearStepper() {
   const isStepSkipped = (step) => {
     return skipped.has(step);
   };
-
+  
   const handleNext = () => {
     let newSkipped = skipped;
     if (isStepSkipped(activeStep)) {
@@ -101,6 +191,52 @@ export default function HorizontalLinearStepper() {
   const handleReset = () => {
     setActiveStep(0);
   };
+
+  function handleChange(e){
+    e.preventDefault()
+    setInputs({
+      ...inputs,
+      [e.target.name]: e.target.value
+  });
+  }
+
+  function handleSubmit(e){
+    
+    e.preventDefault()
+    const location = {
+      country: inputs.country,
+      street_name: inputs.street_name,
+      street_number: inputs.street_number,
+      zip_code: inputs.zip_code
+    }
+    const input = {
+      name: inputs.name,
+      surname: inputs.surname,
+      phone: inputs.phone,
+    }
+    localStorage.setItem('location', JSON.stringify(location) )
+    localStorage.setItem('input', JSON.stringify(input) )
+    setInfoCompleted(true)
+  }
+
+  function linkMP(e){
+    e.preventDefault()
+    // let productArray = JSON.parse(localStorage.getItem('productArray'))
+    let productArray = [{
+      name: 'remera',
+      count: 1,
+      image: 'not valid',
+      price: 1000,
+      _id: '63695bfb4b5027a584493892'
+    }]
+    let id = JSON.parse(localStorage.getItem('auth0'))._id
+    let location = JSON.parse(localStorage.getItem('location'))
+    let input = JSON.parse(localStorage.getItem('input'))
+    
+    dispatch(orderProduct(productArray, id, location, input))
+  }
+
+  
 
   return (
     <Box
@@ -185,7 +321,7 @@ export default function HorizontalLinearStepper() {
                                 marginBottom: 30,
                             }}
                             ></TextField>
-                            <SubmitButton>Continuar</SubmitButton>
+                            <SubmitButton onClick={loginWithPopup}>Continuar</SubmitButton>
                         </Grid>
                         <Grid xs={6}>
                             <Box>
@@ -218,35 +354,109 @@ export default function HorizontalLinearStepper() {
                           
                     </Grid>
                     <Grid container xs={12}>
-                        <Grid container xs={6}>
+                        <Grid container xs={6}
+                        style={{
+                          display:'flex',
+                          alignContent:'flex-start'
+                        }}
+                        >
                             <Grid xs={12}>
-                            <Typography>Pais</Typography>  
+                            <Typography>Nombre</Typography>  
                             </Grid>
-                            
                             <TextField
-                            label="Pais" variant="standard"
+                            name='name'
+                            value={TextField.name}
+                            variant="standard"
+                            // placeholder={localStorage.getItem('auth0')?`${JSON.parse(localStorage.getItem('auth0')).name}`:null}
+                            label={localStorage.getItem('auth0')?`${JSON.parse(localStorage.getItem('auth0')).name}`:'Nombre'}
+                            onChange={handleChange}
                             style={{
                                 width:400,
                                 marginBottom: 30,
                             }}
                             ></TextField>
                           <Grid xs={12}>
-                            <Typography>Calle y numero</Typography>  
+                            <Typography>Apellido</Typography>  
                             </Grid>
                             <TextField
-                            label="Ej: Av. 9 de Julio 123..." variant="standard"
+                            label="Apellido" variant="standard"
+                            name='surname'
+                            value={TextField.name}
+                            onChange={handleChange}
+                            style={{
+                                width:400,
+                                marginBottom: 30,
+                            }}
+                            ></TextField>
+                            <Grid xs={12}>
+                            <Typography>Telefono</Typography>  
+                            </Grid>
+                            <TextField
+                            name='phone'
+                            value={TextField.name}
+                            onChange={handleChange}
+                            label="Telefono" variant="standard"
+                            helperText='Debe ser de 8 digitos'
                             style={{
                                 width:400,
                                 marginBottom: 30,
                             }}
                             ></TextField>
                           </Grid>
-                          <Grid container xs={6}>
+                          
+                          <Grid container xs={6}
+                          style={{
+                            display:'flex',
+                            alignContent:'flex-start'
+                          }}
+                          >
+                            <Grid xs={12}>
+                            <Typography>Pais</Typography>  
+                            </Grid>
+                            <TextField
+                            name='country'
+                            value={TextField.name}
+                            onChange={handleChange}
+                            label="Pais" variant="standard"
+                            style={{
+                                width:400,
+                                marginBottom: 30,
+                            }}
+                            ></TextField>
+                            <Grid xs={12}>
+                            <Typography>Calle y Altura</Typography>  
+                            </Grid>
+                            <TextField
+                            name='street_name'
+                            value={TextField.name}
+                            onChange={handleChange}
+                            label="Ej: 9 de Julio 335..." variant="standard"
+                            style={{
+                                width:400,
+                                marginBottom: 30,
+                            }}
+                            ></TextField>
                             <Grid xs={12}>
                             <Typography>Dpto/Casa/Oficina</Typography>  
                             </Grid>
                             <TextField
+                            name='street_number'
+                            value={TextField.name}
+                            onChange={handleChange}
                             label="Ej: casa, oficina..." variant="standard"
+                            style={{
+                                width:400,
+                                marginBottom: 30,
+                            }}
+                            ></TextField>
+                            <Grid xs={12}>
+                            <Typography>Codigo Postal</Typography>  
+                            </Grid>
+                            <TextField
+                            name='zip_code'
+                            value={TextField.name}
+                            onChange={handleChange}
+                            label="Ej: 1111" variant="standard"
                             style={{
                                 width:400,
                                 marginBottom: 30,
@@ -258,7 +468,7 @@ export default function HorizontalLinearStepper() {
                             
                           </Grid>
                         
-                        <SubmitButton>Continuar</SubmitButton>
+                        <SubmitButton onClick={handleSubmit}>Continuar</SubmitButton>
                     </Grid>
 
                 </Grid>
@@ -273,57 +483,22 @@ export default function HorizontalLinearStepper() {
                     marginTop:20,
                 }}
                 >
-                    {/* <Grid xs={12}>
-                        <Typography
+                    
+                        <ImageButton
+                        name="MercadoPago"
+                        onClick={linkMP}
                         style={{
-                            fontSize:25,
-                            marginBottom:25,
+                          backgroundImage: `url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBUb3s6MFqaj8sB3k4bBzVaiR9exgjoKY1DQ&usqp=CAU)`,
+                          height: "150px",
+                          width: "65%",
+                          borderRadius: "25px",
+                          backgroundSize: "cover",
+                          backgroundRepeat: "no-repeat",
+                          backgroundPosition: "center center",
                         }}
-                        >Completa tus datos para continuar</Typography>
-                          
-                    </Grid>
-                    <Grid container xs={12}>
-                        <Grid container xs={6}>
-                            <Grid xs={12}>
-                            <Typography>Pais</Typography>  
-                            </Grid>
-                            
-                            <TextField
-                            label="Pais" variant="standard"
-                            style={{
-                                width:400,
-                                marginBottom: 30,
-                            }}
-                            ></TextField>
-                          <Grid xs={12}>
-                            <Typography>Calle y numero</Typography>  
-                            </Grid>
-                            <TextField
-                            label="Ej: Av. 9 de Julio 123..." variant="standard"
-                            style={{
-                                width:400,
-                                marginBottom: 30,
-                            }}
-                            ></TextField>
-                          </Grid>
-                          <Grid container xs={6}>
-                            <Grid xs={12}>
-                            <Typography>Dpto/Casa/Oficina</Typography>  
-                            </Grid>
-                            <TextField
-                            label="Ej: casa, oficina..." variant="standard"
-                            style={{
-                                width:400,
-                                marginBottom: 30,
-                            }}
-                            ></TextField>
-                          </Grid> 
-                            
-                            
-                            
-                          </Grid>
-                        
-                        <SubmitButton>Continuar</SubmitButton> */}
+                        ></ImageButton>
+                        <Paypal />
+                        <Stripe />
                     <script src="https://sdk.mercadopago.com/js/v2"></script>
                     </Grid>
 
