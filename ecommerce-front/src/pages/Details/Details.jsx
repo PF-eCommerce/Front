@@ -81,15 +81,15 @@ const SizeButton = styled(Button)({
   },
 });
 
-const {id} = useParams();
-console.log(id)
-const dispatch = useDispatch();
-const navigate = useNavigate();
-const handleGoBackBtn = () => {
-  navigate(-1);
-};
+
+
+
 
 function ChildModal() {
+  
+  
+
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -217,10 +217,17 @@ function NestedModal() {
 }
 
 
+
+
+
 const Details = () => {
   const { id } = useParams();
   // console.log(id)
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleGoBackBtn = () => {
+    navigate(-1);
+  };
 
   useEffect(() => {
     dispatch(getProductDetail(id));
@@ -419,3 +426,4 @@ const Details = () => {
 };
 
 export default Details;
+

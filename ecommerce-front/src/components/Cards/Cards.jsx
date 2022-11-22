@@ -4,13 +4,17 @@ import Card from "./Card/Card";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getAllProducts } from "../../redux/actions/productsAction";
+import { getAllReviews } from "../../redux/actions/reviewActions";
 import { Box } from "@mui/system";
+
 
 const Cards = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllProducts());
+    dispatch(getAllReviews());
+
   }, []);
 
   const products = useSelector((state) => state?.product.products);
@@ -21,40 +25,25 @@ const Cards = () => {
   return (
     
       <Box flex={8} p={1}>
-        {products.docs?.length>0?
-      <Grid container spacing={2}>
-       {products.docs?.map((produc) => (
-         <Grid xs={12} md={6} lg={4} p={2}>
-           <Link to={`/detail/${produc._id}`}>
-           <Card
-             title={produc.title}
-             desc={produc.desc}
-             price={produc.price}
-             img={produc.img}
-             numStock={produc.numStock}
-             />
-             </Link>
-         </Grid>
-         
-       ))}
-       </Grid>
-      :
+        {productsAll.docs?.length>0?
+      
       <Grid container spacing={2}>
       {productsAll.docs?.map((produc) => (
         <Grid xs={12} md={6} lg={4} p={2}>
-          <Link to={`/detail/${produc._id}`}>
+          {/* <Link to={`/detail/${produc._id}`}> */}
           <Card
             title={produc.title}
             desc={produc.desc}
             price={produc.price}
             img={produc.img}
             numStock={produc.numStock}
+            id={produc._id}
             />
-            </Link>
+            {/* </Link> */}
         </Grid>
         
       ))}
-      </Grid>
+      </Grid> : <h1>Opp.. data not found</h1>
       }
    </Box>
     

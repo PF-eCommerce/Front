@@ -10,8 +10,7 @@ import App from "./App.jsx";
 import "./index.css";
 import theme from "./utils/theme";
 import axios from 'axios'
-import dotenv from 'dotenv'
-dotenv.config()
+
 
 axios.defaults.baseURL = process.env.REACT_APP_TRESBIEN || 'http://localhost:3001'
 
