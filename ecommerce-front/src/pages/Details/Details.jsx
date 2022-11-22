@@ -23,7 +23,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 // import e from "express";
 // import Button from '@mui/material/Button';
 import styles from "./Detail.module.css";
-import Reviews from "../../components/Review/Review";
+import Review from "../../components/Review/Review";
 import Rating from "@mui/material/Rating";
 
 
@@ -565,7 +565,7 @@ const Details = () => {
               marginBottom: "20px", 
               display: "flex" 
             }}>
-            <Reviews id={product._id} image={product.img} name={product.name} />
+            <Review id={id} image={product.img} name={product.name} />
           </Box>
         </Box>
       </Box>
