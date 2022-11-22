@@ -19,6 +19,7 @@ import Grid from "@mui/material/Unstable_Grid2";
 import CardMedia from '@mui/material/CardMedia';
 import { styled } from "@mui/material/styles";
 import { SubmitButton } from "../Forms/FormLogin";
+import FavoriteIcon from '@mui/icons-material/Favorite';
 // import e from "express";
 // import Button from '@mui/material/Button';
 
@@ -342,7 +343,7 @@ const Details = () => {
   const product = useSelector((state) => state.product.detail);
   const [alert, setAlert] = useState(false);
   // console.log(product.img)
-  // console.log(product.id)
+  console.log('ID',product._id)
   // console.log(id)
 
   const boxStyle = {
@@ -366,6 +367,29 @@ const Details = () => {
     setAlert(true);
   };
 
+  function handleClick(e, id){
+    e.preventDefault()
+    
+    console.log('LOCAL STORAGE', id)
+    if (JSON.parse(localStorage.getItem('favorite'))&&!Array.isArray(JSON.parse(localStorage.getItem('favorite')))){
+      let idLocal = [JSON.parse(localStorage.getItem('favorite')), id]
+      localStorage.setItem('favorite', JSON.stringify(idLocal))
+    } else if(JSON.parse(localStorage.getItem('favorite'))&&Array.isArray(JSON.parse(localStorage.getItem('favorite')))){
+      let idLocal = [...JSON.parse(localStorage.getItem('favorite')), id]
+      localStorage.setItem('favorite', JSON.stringify(idLocal))
+    } 
+    else{
+      let idLocal = id
+      localStorage.setItem('favorite', JSON.stringify(idLocal))
+    }
+    
+    // localStorage.clear('favorite')
+    
+  }
+  // const imagen = product?.img.map(el=>el)
+  // product.img?.map(el=>console.log('ELEMENTO',el))
+  const imagen = product.img?.map(el=>el)
+  // console.log('IMAGEN',imagen)
   return (
     <Box
       sx={{
@@ -448,7 +472,18 @@ const Details = () => {
             }}
           >
             {/* <Link href="/cart"> */}
-
+             <IconButton aria-label="add to favorites">
+              <FavoriteIcon 
+              // value={`${product._id}`}
+              onClick={e=>handleClick(e, {
+                _id:`${product._id}`,
+                title:`${product.title}`,
+                desc:`${product.desc}`,
+                price:`${product.price}`,
+                img:[`${imagen}`],
+                numStock:`${product.numStock}`,
+                })}/>
+             </IconButton>
               <IconButton >
                <NestedModal/>
               </IconButton>

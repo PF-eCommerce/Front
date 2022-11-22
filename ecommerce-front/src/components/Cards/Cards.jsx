@@ -10,14 +10,16 @@ import { Link } from "react-router-dom";
 const Cards = () => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getAllProducts());
-  }, []);
+  
 
   const products = useSelector((state) => state?.product.products);
   const productsAll = useSelector(state=>state?.product.allProducts)
   // const products = useSelector((state)=>state.product.products)
   console.log('PRODUCCC', products)
+
+  useEffect(() => {
+    dispatch(getAllProducts());
+  }, []);
 
   return (
 
