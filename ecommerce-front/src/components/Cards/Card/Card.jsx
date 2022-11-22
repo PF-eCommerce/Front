@@ -17,6 +17,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import logo from "../../../assets/images/Trés_bien__2_-removebg-preview.png"
 import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
+import { Link } from "react-router-dom";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -29,16 +30,16 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function RecipeReviewCard({_id,title,desc,price,img,numStock}) {
+export default function RecipeReviewCard({title,desc,price,img,numStock,id}) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-  const handleClick = (id) =>{
-    localStorage.setItem('favorite', JSON.stringify(id))
-  }
+  // const handleClick = (id) =>{
+  //   localStorage.setItem('favorite', JSON.stringify(id))
+  // }
 
   return (
     <Card sx={{ maxWidth: 330 }}>
@@ -57,6 +58,7 @@ export default function RecipeReviewCard({_id,title,desc,price,img,numStock}) {
         subheader={`${numStock}`<10?'Quedan pocas unidades':`${numStock}`===0?'SIN STOCK':null}
         subheaderTypographyProps={`${numStock}`<10?{backgroundColor:'yellow'}:`${numStock}`===0?{backgroundColor:'red'}:null}
       />
+      <Link to={`/detail/${id}`}>
       <CardMedia
         component="img"
         height="280"
@@ -65,6 +67,7 @@ export default function RecipeReviewCard({_id,title,desc,price,img,numStock}) {
 
 
       />
+      </Link>
       <CardContent>
         <Typography variant="h8" color="secondary">
           {`$ ${price}`}
@@ -72,7 +75,9 @@ export default function RecipeReviewCard({_id,title,desc,price,img,numStock}) {
       </CardContent>
       <CardActions disableSpacing >
         <IconButton aria-label="add to favorites">
-          <FavoriteIcon onClik={handleClick(`${_id}`)}/>
+          <FavoriteIcon
+          //  onClick={handleClick(`${_id}`)}
+           />
         </IconButton>
         <IconButton>
         <AddShoppingCartOutlinedIcon sx={{marginRight:"1rem"}}/>

@@ -57,13 +57,13 @@ const Navbar = () => {
           <SearchBar />
         </Box>
         <PositionedMenu />
-        <ButtonNav variant="outlined" color="secondary">
-          <Link to={"/admin/dashboard"} underline="none">
-            admin
-          </Link>
-        </ButtonNav>
+        <Link to={"/admin/dashboard"} underline="none">
+          <ButtonNav variant="outlined" color="secondary">
+            Admin
+          </ButtonNav>
+        </Link>
         <Box style={{ position: "relative" }}>
-          <Link href="/cart">
+          <Link to="/cart">
             <IconButton>
               <AddShoppingCartOutlinedIcon fontSize="large" color="secondary" />
             </IconButton>

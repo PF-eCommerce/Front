@@ -2,11 +2,12 @@ import axios from "axios";
 
 export const REGISTER_ERROR = "REGISTER_ERROR";
 export const LOGIN_ERROR = "LOGIN_ERROR";
-export const RESET_ERROR = "RESET_ERROR";
-export const USER_REGISTER = "USER_REGISTER";
-export const USER = "USER";
-export const RESET_USER = "RESET_USER";
-export const TOKEN = "TOKEN";
+export const RESET_ERROR = 'RESET_ERROR';
+export const USER_REGISTER = 'USER_REGISTER';
+export const USER = 'USER'
+export const RESET_USER = 'RESET_USER'
+export const TOKEN = 'TOKEN'
+export const ALL_USERS = "ALL_USERS";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
@@ -124,5 +125,20 @@ export const auth0User = (user) => {
   return {
     type: USER,
     payload: user,
+
+  }
+}
+
+export const getAllUsers = () => {
+  return async (dispatch) => {
+    try {
+      const users = await axios.get("/users");
+      return dispatch({
+        type: ALL_USERS,
+        payload: users.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 };

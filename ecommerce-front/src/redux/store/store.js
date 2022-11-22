@@ -5,7 +5,8 @@ import thunk from "redux-thunk";
 import userReducer from "../reducers/userReducer";
 import cartReducer from "../reducers/CartReducer";
 import cardReducer from "../reducers/cardReducer";
-import adminReducer from "../reducers/adminReducer"
+import adminReducer from "../reducers/adminReducer";
+import reviewReducer from '../reducers/reviewReducer'
 
 
 const reducer = combineReducers({
@@ -13,7 +14,7 @@ const reducer = combineReducers({
     user: userReducer,
     cart: cartReducer,
     admin: adminReducer,
-    // review: reviewReducer,
+    review: reviewReducer,
     // orders: ordersReducer,
     card: cardReducer,
   });

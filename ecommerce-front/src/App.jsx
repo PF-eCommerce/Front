@@ -17,12 +17,8 @@ import Admin from "./pages/Admin/Admin";
 import UsersPage from "./pages/Admin/Pages/UsersPage/UsersPage";
 import Dashboard from "./pages/Admin/Pages/Dashboard/Dashboard";
 import Buy from './pages/Forms/Buy/BuyForm';
-import { ProtectedRoute } from "./utils/protectedRoutes/ProtectedRoutes";
-//import { useSelector } from "react-redux";
 
 function App() {
- // const user_redux = useSelector((state) => state.user.user);
-  const user = JSON.parse(localStorage.getItem("auth0"));
   return (
     <div>
       <Navbar />
@@ -32,31 +28,19 @@ function App() {
           <Route path='/home' element={<Home />} />
           <Route path='/detail/:id' element={<Details />} />
           <Route path='/about' element={<About />} />
-         
+          <Route path='/postproduct' element={<ProductForm />} />
           <Route path='/sucursales' element={<Sucursales />} />
           <Route path='/register' element={<FormLogin />} />
           <Route path='/auth' element={<Auth />} />
           <Route path='/faqs' element={<Preguntas />} />
-         
+          <Route path='/account/profile' element={<Profile />} />
           <Route path='/cart' element={<ShoppingCart />} />
           <Route path='/buy' element={<Buy />}/>
-          
-          <Route path="dashboard" element={<Dashboard />} /> 
+          <Route path='admin' element={<Admin />}>
+            <Route path="dashboard" element={<Dashboard />} />
             <Route path="users" element={<UsersPage />} />
-            // admin Routes
-
-            <Route element={<ProtectedRoute isAllowed={user && user.admin} redirectTo={"/"}/>}>
-               <Route path='admin' element={<Admin />} />
-              {/* ADMIN */}
-               <Route path='/postproduct' element={<ProductForm />} />
-            </Route>
             
-            
-          <Route path='/account/profile' element={<ProtectedRoute isAllowed={user} redirectTo={"/"}>
-            <Profile />
-          </ProtectedRoute>} />
-
-          
+          </Route>
         </Routes>
       </Box>
       <Footer />
