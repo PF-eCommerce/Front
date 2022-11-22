@@ -3,20 +3,22 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Unstable_Grid2";
-import { Button, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { getCategories } from "../../redux/actions/productsAction";
 import { useNavigate } from "react-router-dom";
+import Logos from "./Logos";
 
 const BootstrapButton = styled(Button)({
-  boxShadow: "none",
+  boxShadow: "0px 0px 5px #4C4848",
   textTransform: "none",
   fontSize: 20,
   padding: "6px 12px",
   border: "1px solid",
   lineHeight: 1.5,
-  backgroundColor: "aquamarine",
-  borderColor: "#0063cc",
+  backgroundColor: "#F9F3EE",
+  borderColor: "none",
+  color:"#4C4848",
   fontFamily: [
     "-apple-system",
     "BlinkMacSystemFont",
@@ -30,10 +32,10 @@ const BootstrapButton = styled(Button)({
     '"Segoe UI Symbol"',
   ].join(","),
   "&:hover": {
-    backgroundColor: "#0069d9",
-    borderColor: "#0062cc",
+    backgroundColor: "#F9F3EE",
+    borderColor: "none",
     boxShadow: "none",
-    opacity: "0.5",
+    opacity: "0.9",
     transform: "scale(1)",
   },
   "&:active": {
@@ -113,21 +115,21 @@ const Landing = () => {
     boxShadow: "none",
   }));
 
-  const CustomItem = styled(
-    Paper,
-    {}
-  )({
-    ".MuiButton-root": { color: "#FF0000" },
-  });
+  // const CustomItem = styled(
+  //   Paper,
+  //   {}
+  // )({
+  //   ".MuiButton-root": { color: "#FF0000" },
+  // });
 
-  const Item1 = styled(Paper)(({ theme }) => ({
-    //   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    backgroundColor: "none",
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  }));
+  // const Item1 = styled(Paper)(({ theme }) => ({
+  //   //   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  //   backgroundColor: "none",
+  //   ...theme.typography.body2,
+  //   padding: theme.spacing(1),
+  //   textAlign: "center",
+  //   color: theme.palette.text.secondary,
+  // }));
 
   const handleSelect = (e) => {
     e.preventDefault();
@@ -153,6 +155,7 @@ const Landing = () => {
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center center",
+            width:"100%"
 
             //  backgroundAttachment: 'fixed'
           }}
@@ -518,9 +521,10 @@ const Landing = () => {
           container
           xs={12}
           style={{
-            backgroundColor: "#33c9dc",
-            height: "400px",
+            backgroundColor: "#D9B88D",
+            height: "auto",
             marginTop: 5,
+            width:"100%",
             // marginLeft: 10,
             // marginBottom: 10,
 
@@ -542,6 +546,7 @@ const Landing = () => {
                 justifyContent: "center",
                 color: "white",
                 alignItems: "end",
+                textShadow:"0px 0px 5px #4C4848",
               }}
             >
               En Trés Bien garantizamos:
@@ -556,6 +561,7 @@ const Landing = () => {
                 justifyContent: "center",
                 color: "white",
                 alignItems: "end",
+                textShadow:"0px 0px 5px #4C4848",
               }}
             >
               ENVÍOS GRATIS
@@ -582,6 +588,7 @@ const Landing = () => {
                 justifyContent: "center",
                 color: "white",
                 alignItems: "end",
+                textShadow:"0px 0px 5px #4C4848",
               }}
             >
               CALIDAD
@@ -608,6 +615,7 @@ const Landing = () => {
                 justifyContent: "center",
                 color: "white",
                 alignItems: "end",
+                textShadow:"0px 0px 5px #4C4848",
               }}
             >
               PAGOS SEGUROS
@@ -620,9 +628,11 @@ const Landing = () => {
                 justifyContent: "center",
                 color: "black",
                 alignItems: "end",
+                flexWrap:"wrap",
               }}
             >
               Todas nuestras plataformas son completamente confiables
+              <Logos />
             </Item>
           </Grid>
         </Grid>
@@ -757,6 +767,7 @@ const Landing = () => {
             display: "flex",
             justifyContent: "flex-end",
             alignItems: "center",
+            width:"100%"
           }}
         >
           {/* <Item>Que esperas</Item> */}

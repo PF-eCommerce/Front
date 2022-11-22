@@ -1,0 +1,13 @@
+#review_block2{
+  /* padding-right: 30px; */
+  display: grid;
+}
+#review_detail{
+  font-size: 25px;
+  margin-top: 0;
+  color: #001428c7;
+}
+#review_letter{
+  color: orange;
+}
+

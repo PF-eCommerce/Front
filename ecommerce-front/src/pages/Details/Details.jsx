@@ -22,6 +22,11 @@ import { SubmitButton } from "../Forms/FormLogin";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 // import e from "express";
 // import Button from '@mui/material/Button';
+import styles from "./Detail.module.css";
+import Reviews from "../../components/Review/Review";
+import Rating from "@mui/material/Rating";
+
+
 
 const style = {
   position: 'absolute',
@@ -82,6 +87,7 @@ const SizeButton = styled(Button)({
 });
 
 function ChildModal() {
+  const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -89,9 +95,13 @@ function ChildModal() {
   const handleClose = () => {
     setOpen(false);
   };
-  const product = useSelector((state) => state.product.detail)
+  
+  let product = useSelector((state) => state.product.detail)
+  
   
   const sizee = useSelector(state=> state?.card.size)
+  
+  
   const [qty, setQty] = React.useState(1)
   const navigate = useNavigate()
 
@@ -109,16 +119,15 @@ function ChildModal() {
       }
     }
   }
+  product = {
+    ...product,
+    qty
+  }
   function sendToCart(e){
-    e.preventDefault()
-    const carro = {
-      _id: product._id,
-      size: sizee,
-      qty
-    }
-    
-    localStorage.setItem('cart', JSON.stringify(carro) )
-    navigate('/home')
+   
+    dispatch(addToCart(product))
+   
+    navigate('/cart')
   }
 
   return (
@@ -237,8 +246,7 @@ function NestedModal() {
     dispatch(selectSize(e.target.value))
     // dispatch(deleteSize())
   }
-  console.log('SIZE', sizee)
-
+ 
   return (
     <div>
       <Button onClick={handleOpen}>
@@ -330,8 +338,12 @@ function NestedModal() {
 
 const Details = () => {
   const { id } = useParams();
-  // console.log(id)
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const handleGoBackBtn = () => {
+    navigate(-1);
+  };
 
   useEffect(() => {
     dispatch(getProductDetail(id));
@@ -342,8 +354,9 @@ const Details = () => {
 
   const product = useSelector((state) => state.product.detail);
   const [alert, setAlert] = useState(false);
+
   // console.log(product.img)
-  console.log('ID',product._id)
+  // console.log('ID',product._id)
   // console.log(id)
 
   const boxStyle = {
@@ -390,6 +403,24 @@ const Details = () => {
   // product.img?.map(el=>console.log('ELEMENTO',el))
   const imagen = product.img?.map(el=>el)
   // console.log('IMAGEN',imagen)
+
+  const reviewPro = useSelector((state) => state.review);
+  let score = 0;
+  const reducer = (accumulator, curr) => accumulator + curr;
+  const sumaryScore = () => {
+    const sumary = [];
+    if (reviewPro?.reviews?.length > 0) {
+      reviewPro?.reviews?.map((element) => {
+
+        sumary.push(element.rating);
+      });
+      score = sumary.reduce(reducer) / sumary.length;
+    }
+  };
+  sumaryScore();
+
+  const reviewsTotales = reviewPro?.reviews?.length;
+
   return (
     <Box
       sx={{
@@ -404,6 +435,33 @@ const Details = () => {
         sx={{ margin: "30px", width: "100%" }}
       >
         {product.title}
+        
+        <div id={styles.review_block}>
+          <span id={styles.review_detail}>
+            Rating:{" "}
+            <strong>
+              {score === 0
+                ? "Sin calificación aún"
+                : score.toFixed(1)}
+            </strong>{" "}
+          </span>
+          <div id={styles.review_block2}>
+            <span id={styles.review_detail}>
+              <Box
+                sx={{
+                  '& > legend': { mt: 2 },
+                }}
+              >
+                <Rating
+                  name="half-rating-read" defaultValue={2.5} precision={0.5} readOnly
+                  value={score}
+                />
+              </Box>
+            </span>
+
+            {reviewsTotales > 0 ? <span id={styles.review_letter}>{reviewsTotales} reviews</span> : null}
+          </div>
+        </div>
       </Typography>
       <Box
         sx={{
@@ -476,7 +534,7 @@ const Details = () => {
               <FavoriteIcon 
               // value={`${product._id}`}
               onClick={e=>handleClick(e, {
-                _id:`${product._id}`,
+                id:`${product._id}`,
                 title:`${product.title}`,
                 desc:`${product.desc}`,
                 price:`${product.price}`,
@@ -500,9 +558,18 @@ const Details = () => {
                   backgroundColor: "#927960",
                 },
               }}
+              onClick={handleGoBackBtn}
             >
               Volver
             </Button>
+          </Box>
+          <Box
+            sx={{ 
+              marginTop: "10px", 
+              marginBottom: "20px", 
+              display: "flex" 
+            }}>
+            <Reviews id={product._id} image={product.img} name={product.name} />
           </Box>
         </Box>
       </Box>
@@ -512,3 +579,4 @@ const Details = () => {
 };
 
 export default Details;
+
