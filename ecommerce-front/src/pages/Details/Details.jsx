@@ -22,6 +22,9 @@ import { SubmitButton } from "../Forms/FormLogin";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 // import e from "express";
 // import Button from '@mui/material/Button';
+import styles from "./Detail.module.css";
+import Reviews from "../../components/Review/Review";
+import Rating from "@mui/material/Rating";
 
 
 
@@ -331,8 +334,12 @@ function NestedModal() {
 
 const Details = () => {
   const { id } = useParams();
- 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const handleGoBackBtn = () => {
+    navigate(-1);
+  };
 
   useEffect(() => {
     dispatch(getProductDetail(id));
@@ -392,6 +399,24 @@ const Details = () => {
   // product.img?.map(el=>console.log('ELEMENTO',el))
   const imagen = product.img?.map(el=>el)
   // console.log('IMAGEN',imagen)
+
+  const reviewPro = useSelector((state) => state.review);
+  let score = 0;
+  const reducer = (accumulator, curr) => accumulator + curr;
+  const sumaryScore = () => {
+    const sumary = [];
+    if (reviewPro?.reviews?.length > 0) {
+      reviewPro?.reviews?.map((element) => {
+
+        sumary.push(element.rating);
+      });
+      score = sumary.reduce(reducer) / sumary.length;
+    }
+  };
+  sumaryScore();
+
+  const reviewsTotales = reviewPro?.reviews?.length;
+
   return (
     <Box
       sx={{
@@ -406,6 +431,33 @@ const Details = () => {
         sx={{ margin: "30px", width: "100%" }}
       >
         {product.title}
+        
+        <div id={styles.review_block}>
+          <span id={styles.review_detail}>
+            Rating:{" "}
+            <strong>
+              {score === 0
+                ? "Sin calificación aún"
+                : score.toFixed(1)}
+            </strong>{" "}
+          </span>
+          <div id={styles.review_block2}>
+            <span id={styles.review_detail}>
+              <Box
+                sx={{
+                  '& > legend': { mt: 2 },
+                }}
+              >
+                <Rating
+                  name="half-rating-read" defaultValue={2.5} precision={0.5} readOnly
+                  value={score}
+                />
+              </Box>
+            </span>
+
+            {reviewsTotales > 0 ? <span id={styles.review_letter}>{reviewsTotales} reviews</span> : null}
+          </div>
+        </div>
       </Typography>
       <Box
         sx={{
@@ -478,7 +530,7 @@ const Details = () => {
               <FavoriteIcon 
               // value={`${product._id}`}
               onClick={e=>handleClick(e, {
-                _id:`${product._id}`,
+                id:`${product._id}`,
                 title:`${product.title}`,
                 desc:`${product.desc}`,
                 price:`${product.price}`,
@@ -502,6 +554,7 @@ const Details = () => {
                   backgroundColor: "#927960",
                 },
               }}
+              onClick={handleGoBackBtn}
             >
               Volver
             </Button>
@@ -514,3 +567,4 @@ const Details = () => {
 };
 
 export default Details;
+
