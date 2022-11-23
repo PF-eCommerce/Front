@@ -9,12 +9,10 @@ export const RESET_USER = 'RESET_USER'
 export const TOKEN = 'TOKEN'
 export const ALL_USERS = "ALL_USERS";
 
-axios.defaults.baseURL = process.env.REACT_APP_API_URL;
-
 export const userRegister = (user) => {
   return async (dispatch) => {
     try {
-      await axios.post("/register/user", user);
+      await axios.post(`${process.env.REACT_APP_API_URL}/register/user`, user);
       return dispatch({
         type: USER_REGISTER,
       });
@@ -30,7 +28,7 @@ export const userRegister = (user) => {
 export const userLogin = (user) => {
   return async (dispatch) => {
     try {
-      const token = await axios.post("/login/user", user);
+      const token = await axios.post(`${process.env.REACT_APP_API_URL}/login/user`, user);
 
       localStorage.setItem("token", token.data.token);
 
@@ -57,7 +55,7 @@ export const resetError = () => {
 export const getUserData = () => {
   return async (dispatch) => {
     try {
-      const user = await axios.get("/account/profile", {
+      const user = await axios.get(`${process.env.REACT_APP_API_URL}/account/profile`, {
         headers: {
           Bearer: localStorage.getItem("token"),
         },
@@ -76,8 +74,7 @@ export const getUserData = () => {
 export const updateUserData = (update) => {
   return async (dispatch) => {
     try {
-      const user = await axios.put(
-        "/account/profile",
+      const user = await axios.put(`${process.env.REACT_APP_API_URL}/account/profile`,
         {
           headers: {
             Bearer: localStorage.getItem("token"),
@@ -113,7 +110,7 @@ export const registerUserAuth0 = (user) => {
   console.log(user);
   return async () => {
     try {
-      await axios.post("/register/auth0", user);
+      await axios.post(`${process.env.REACT_APP_API_URL}/register/auth0`, user);
     } catch (error) {
       console.log(error);
     }
@@ -132,7 +129,7 @@ export const auth0User = (user) => {
 export const getAllUsers = () => {
   return async (dispatch) => {
     try {
-      const users = await axios.get("/user/all");
+      const users = await axios.get(`${process.env.REACT_APP_API_URL}/user/all`);
       return dispatch({
         type: ALL_USERS,
         payload: users.data,

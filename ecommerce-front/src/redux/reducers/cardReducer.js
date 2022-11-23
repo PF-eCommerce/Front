@@ -1,8 +1,8 @@
-import { SELECT_SIZE, DELETE_SIZE} from '../actions/cardAction'
+import { SELECT_SIZE, DELETE_SIZE } from '../actions/cardAction'
 
 const initialState = {
   size: '',
-//   product:{}
+  //   product:{}
 };
 
 export default function cardReducer(state = initialState, action) {
@@ -12,17 +12,17 @@ export default function cardReducer(state = initialState, action) {
         ...state,
         size: action.payload
       };
-      case DELETE_SIZE:
-        return{
-            ...state,
-            size:''
-        }
+    case DELETE_SIZE:
+      return {
+        ...state,
+        size: ''
+      }
     //   case PREV_CART:
     //     return{
     //         ...state,
     //         product:[...state.product+action.payload]
     //     }
-      default:
+    default:
       return {
         ...state,
       };
