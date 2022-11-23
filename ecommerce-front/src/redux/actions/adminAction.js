@@ -1,11 +1,9 @@
 export const GET_ALL_USERS = "GET_ALL_USERS"
 
-const base = "http://localhost:3001"
-
 export const getAllUsers = () => {
     return async (dispatch) => {
         try {
-            fetch(`${base}/user/all`)
+            fetch(`${process.env.REACT_APP_API_URL}/user/all`)
                 .then(response => response.json())
                 .then(response => {
                     console.log(response)
