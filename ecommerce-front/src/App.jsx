@@ -45,7 +45,7 @@ function App() {
             <Route path="users" element={<UsersPage />} />
             // admin Routes
 
-            <Route element={<ProtectedRoute isAllowed={user && user.admin} redirectTo={"/"}/>}>
+            <Route element={<ProtectedRoute isAllowed={user && user.admin?.includes('admin')} redirectTo={"/"}/>}>
                <Route path='admin' element={<Admin />} />
               {/* ADMIN */}
                <Route path='/postproduct' element={<ProductForm />} />
