@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-/* import { getReviewByProduct } from "../../redux/actions/reviewActions"; */
+import { getReviewByProduct } from "../../redux/actions/reviewActions";
 import { getAllUsers } from "../../redux/actions/userAction";
 import styles from "./Reviews.module.css";
 import ReviewsRemix from "./ReviewsRemix";
 
-const Reviews = ({ id, name, image }) => {
+const Review = ({ id, name, image }) => {
   const dispatch = useDispatch();
+  
   /* const reviewsByProduct = useSelector((state) => state.review.reviews);
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem("auth0"));
   const allUsers = useSelector((state) => state.user?.users).map((u) => ({
     name: u?.username,
     id: u?._id,
@@ -19,6 +20,16 @@ const Reviews = ({ id, name, image }) => {
     e.preventDefault();
     setBox(!box);
   };
+ 
+  const userLocal = JSON.parse(localStorage.getItem('auth0')) ?
+  JSON.parse(localStorage.getItem('auth0')) 
+  : []
+  const nuevoUserLoc = userLocal._id 
+  const ultimoUserToString = JSON.stringify(nuevoUserLoc)
+  //console.log('userLocalya:', userLocal._id)
+  console.log('ultimoUserToString:', ultimoUserToString)
+  //console.log('localStorage:',localStorage.getItem('auth0'))
+
 /*   const userbyName = (uId) => {
     const userById = allUsers?.find((u) => u.id === uId);
     return userById?.name;
@@ -26,7 +37,7 @@ const Reviews = ({ id, name, image }) => {
  */
   useEffect(() => {
     /* dispatch(getAllUsers()); */
-    /* dispatch(getReviewByProduct(id)); */
+    dispatch(getReviewByProduct(id));
   }, [dispatch]);
   return (
     <>
@@ -67,7 +78,7 @@ const Reviews = ({ id, name, image }) => {
             id={id}
             image={image}
             name={name}
-            /* user={user} */
+            user={ultimoUserToString}
             setBox={setBox}
           />
         </>
@@ -76,4 +87,4 @@ const Reviews = ({ id, name, image }) => {
   );
 };
 
-export default Reviews;
+export default Review;

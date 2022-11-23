@@ -87,6 +87,7 @@ export const getOtherPages = (num) => {
 };
 
 export const getProductDetail = (id) => {
+  console.log("id desde action detail",id)
   return async (dispatch) => {
     try {
       const product = await axios.get(`/products/${id}`);

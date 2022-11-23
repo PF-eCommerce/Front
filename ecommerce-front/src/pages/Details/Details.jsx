@@ -23,7 +23,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 // import e from "express";
 // import Button from '@mui/material/Button';
 import styles from "./Detail.module.css";
-import Reviews from "../../components/Review/Review";
+import Review from "../../components/Review/Review";
 import Rating from "@mui/material/Rating";
 
 
@@ -403,8 +403,8 @@ const Details = () => {
   // product.img?.map(el=>console.log('ELEMENTO',el))
   const imagen = product.img?.map(el=>el)
   // console.log('IMAGEN',imagen)
-
-  const reviewPro = useSelector((state) => state.review);
+  //  asi estaba state.reviews
+  const reviewPro = useSelector((state) => state.reviews);
   let score = 0;
   const reducer = (accumulator, curr) => accumulator + curr;
   const sumaryScore = () => {
@@ -569,7 +569,7 @@ const Details = () => {
               marginBottom: "20px", 
               display: "flex" 
             }}>
-            <Reviews id={product._id} image={product.img} name={product.name} />
+            <Review id={id} image={product.img} name={product.name} />
           </Box>
         </Box>
       </Box>
