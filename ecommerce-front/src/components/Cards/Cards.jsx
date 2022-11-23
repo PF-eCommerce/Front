@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { getAllProducts } from "../../redux/actions/productsAction";
 import { getAllReviews } from "../../redux/actions/reviewActions";
 import { Box } from "@mui/system";
+import { getAllUsers } from "../../redux/actions/userAction";
 
 
 const Cards = () => {
@@ -22,6 +23,7 @@ const Cards = () => {
     products.length===0&&dispatch(getAllProducts());
     // dispatch(getAllProducts());
     dispatch(getAllReviews());
+    dispatch(getAllUsers());
   }, []);
 
   return (
