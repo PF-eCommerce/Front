@@ -36,9 +36,7 @@ function App() {
           <Route path="/faqs" element={<Preguntas />} />
           <Route path="/cart" element={<ShoppingCart />} />
           <Route path="/buy" element={<Buy />} />
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="users" element={<UsersPage />} />
-          // admin Routes
+          {/* // admin Routes */}
           <Route
             element={
               <ProtectedRoute
@@ -47,7 +45,10 @@ function App() {
               />
             }
           >
-            <Route path="admin" element={<Admin />} />
+            <Route path="admin" element={<Admin />}>
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="users" element={<UsersPage />} />
+            </Route>
             {/* ADMIN */}
             <Route path="/postproduct" element={<ProductForm />} />
           </Route>
