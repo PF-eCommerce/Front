@@ -143,7 +143,8 @@ export const orderProduct = (productArray, id, location, input) => {
       console.log('ASDASD')
       const linkMP = await axios.post(`/post-order/${id}`, data);
       console.log("PASO EL LINKMP", linkMP);
-      window.location.replace(linkMP.data);
+      // window.location.replace(linkMP.data);
+      window.open(linkMP.data, "PAGO", "width=300, height=200")
       return dispatch({
         type: LINK_MP,
         payload: linkMP.data,
