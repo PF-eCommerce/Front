@@ -8,13 +8,15 @@ export const getAllUsers = () => {
             fetch(`${base}/user/all`)
                 .then(response => response.json())
                 .then(response => {
+                    console.log(response)
                     const data = response.map(u => {
+                        const isAdmin = u.admin ? u.admin.includes("admin") : false
                         return {
-                            userName: u.userName,
+                            userName: u.nickname,
                             id: u._id,
                             email: u.email,
-                            admin: u.admin, 
-                            confirmed: u.confirmed,
+                            admin: isAdmin, 
+                            confirmed: u.email_verified,
                         }
                     })
                     return dispatch({

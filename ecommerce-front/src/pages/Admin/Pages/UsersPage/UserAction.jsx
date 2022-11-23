@@ -54,9 +54,10 @@ export default function UserAction({ datos }) {
 
     return (
         <Box>
-            <ButtonAction onClick={handleOpen}>
+            {!datos.admin ? <ButtonAction onClick={handleOpen}>
                 Editar
-            </ButtonAction>
+            </ButtonAction> : 
+            <Button disabled variant="contained">Denegado</Button>}
             <Modal
                 open={open}
                 onClose={handleClose}

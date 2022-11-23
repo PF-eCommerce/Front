@@ -21,7 +21,7 @@ import { ProtectedRoute } from "./utils/protectedRoutes/ProtectedRoutes";
 //import { useSelector } from "react-redux";
 
 function App() {
- // const user_redux = useSelector((state) => state.user.user);
+  // const user_redux = useSelector((state) => state.user.user);
   const user = JSON.parse(localStorage.getItem("auth0"));
   return (
     <div>
@@ -32,31 +32,32 @@ function App() {
           <Route path='/home' element={<Home />} />
           <Route path='/detail/:id' element={<Details />} />
           <Route path='/about' element={<About />} />
-         
+
           <Route path='/sucursales' element={<Sucursales />} />
           <Route path='/register' element={<FormLogin />} />
           <Route path='/auth' element={<Auth />} />
           <Route path='/faqs' element={<Preguntas />} />
-         
+
           <Route path='/cart' element={<ShoppingCart />} />
-          <Route path='/buy' element={<Buy />}/>
-          
-          <Route path="dashboard" element={<Dashboard />} /> 
-            <Route path="users" element={<UsersPage />} />
+          <Route path='/buy' element={<Buy />} />
+
             // admin Routes
 
-            <Route element={<ProtectedRoute isAllowed={user && user.admin?.includes('admin')} redirectTo={"/"}/>}>
-               <Route path='admin' element={<Admin />} />
-              {/* ADMIN */}
-               <Route path='/postproduct' element={<ProductForm />} />
+          <Route element={<ProtectedRoute isAllowed={user && user.admin?.includes('admin')} redirectTo={"/"} />}>
+            <Route path='admin' element={<Admin />}>
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="users" element={<UsersPage />} />
             </Route>
-            
-            
+            {/* ADMIN */}
+            <Route path='/postproduct' element={<ProductForm />} />
+          </Route>
+
+
           <Route path='/account/profile' element={<ProtectedRoute isAllowed={user} redirectTo={"/"}>
             <Profile />
           </ProtectedRoute>} />
 
-          
+
         </Routes>
       </Box>
       <Footer />
