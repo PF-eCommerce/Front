@@ -20,12 +20,12 @@ export default function productReducer(state = initialState, action) {
     case USE_PAGINATION:
       return {
         ...state,
-        products: action.payload,
+        allProducts: action.payload,
       };
     case GET_PRODUCT_BY_NAME:
       return {
         ...state,
-        products: action.payload
+        allProducts: action.payload
       }
     case GET_PRODUCT_BY_COLOR:
       return {
@@ -36,7 +36,7 @@ export default function productReducer(state = initialState, action) {
       console.log('action payload', action.payload)
       return {
         ...state,
-        products:action.payload
+        allProducts:action.payload
       }
     case GET_PRODUCT_DETAIL:
       return {
