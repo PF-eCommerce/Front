@@ -403,8 +403,8 @@ const Details = () => {
   // product.img?.map(el=>console.log('ELEMENTO',el))
   const imagen = product.img?.map(el=>el)
   // console.log('IMAGEN',imagen)
-
-  const reviewPro = useSelector((state) => state.review);
+  //  asi estaba state.reviews
+  const reviewPro = useSelector((state) => state.reviews);
   let score = 0;
   const reducer = (accumulator, curr) => accumulator + curr;
   const sumaryScore = () => {

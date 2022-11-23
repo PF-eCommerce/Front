@@ -20,9 +20,11 @@ const Review = ({ id, name, image }) => {
     e.preventDefault();
     setBox(!box);
   };
-
-  const userLocal = JSON.parse(localStorage.getItem('auth0'))
-  const nuevoUserLoc = userLocal._id
+ 
+  const userLocal = JSON.parse(localStorage.getItem('auth0')) ?
+  JSON.parse(localStorage.getItem('auth0')) 
+  : []
+  const nuevoUserLoc = userLocal._id 
   const ultimoUserToString = JSON.stringify(nuevoUserLoc)
   //console.log('userLocalya:', userLocal._id)
   console.log('ultimoUserToString:', ultimoUserToString)
