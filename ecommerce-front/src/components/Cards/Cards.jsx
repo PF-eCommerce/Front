@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { Container, Grid } from "@mui/material";
 import Card from "./Card/Card";
+import { Link } from 'react-router-dom';
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getAllProducts } from "../../redux/actions/productsAction";
@@ -15,8 +16,7 @@ const Cards = () => {
 
   const products = useSelector((state) => state?.product.products);
   const productsAll = useSelector(state=>state?.product.allProducts)
-  // const products = useSelector((state)=>state.product.products)
-  console.log('PRODUCCC', products)
+  
 
   useEffect(() => {
     dispatch(getAllProducts());
@@ -30,8 +30,7 @@ const Cards = () => {
       
       <Grid container spacing={2}>
       {productsAll.docs?.map((produc) => (
-        <Grid xs={12} md={6} lg={4} p={2}>
-          {/* <Link to={`/detail/${produc._id}`}> */}
+        <Grid xs={12} md={6} lg={4} p={2}>        
           <Card
             title={produc.title}
             desc={produc.desc}
@@ -40,7 +39,6 @@ const Cards = () => {
             numStock={produc.numStock}
             id={produc._id}
             />
-            {/* </Link> */}
         </Grid>
 
       ))}
