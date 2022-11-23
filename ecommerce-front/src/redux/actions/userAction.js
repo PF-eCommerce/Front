@@ -132,7 +132,7 @@ export const auth0User = (user) => {
 export const getAllUsers = () => {
   return async (dispatch) => {
     try {
-      const users = await axios.get("/users");
+      const users = await axios.get("/user/all");
       return dispatch({
         type: ALL_USERS,
         payload: users.data,

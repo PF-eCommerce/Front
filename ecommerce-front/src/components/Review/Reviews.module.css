@@ -11,7 +11,7 @@
   transition: all ease-in-out 0.4s;
 }
 .botónReview {
-  width: 100%;
+  width: 768px;
   background-color: var(--background-detail-BtnBuy);
   font-family: "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: var(--color-detail-BtnBuy);
@@ -24,10 +24,8 @@
 .summ {
   border-radius: 15px;
   padding: 1rem;
-  background: radial-gradient(
-    rgba(11, 77, 144, 0.788) 45%,
-    rgba(255, 255, 255, 0) 100%
-  );
+  background: white;
+  font-size: 25px;
 }
 .summUsuario {
   margin-top: 0.25rem;
@@ -41,10 +39,10 @@
   box-shadow: rgba(72, 72, 72, 0.877) 0px 2px 5px 0px;
 }
 .summComment {
-  width: 94%;
+  width: 90%;
   max-height: 20%;
   padding-top: 0.25rem;
-  text-indent: 1.5rem;
+  padding-left: 1.5rem;
   padding-bottom: 0.5rem;
   border-radius: 6px;
   text-align: left;
@@ -53,9 +51,10 @@
   border: 2px solid var(--background-detail-BtnBuy);
   box-shadow: rgba(10, 10, 10, 0.877) 0px 2px 3px 0px;
   margin-bottom: 0.5rem;
+  font-size: 15px;
 }
 
-@media (max-width: 375px) {
+@media (max-width: 768px) {
   .buttonReviewRemix {
     width: 23rem;
     padding: 1rem;
@@ -69,7 +68,7 @@
     transition: all ease-in-out 0.4s;
   }
   .botónReview {
-    width: 26.5rem;
+    width: 23rem;
     background-color: var(--background-detail-BtnBuy);
     font-family: "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: var(--color-detail-BtnBuy);
@@ -82,10 +81,8 @@
   .summ {
     border-radius: 15px;
     padding: 1rem;
-    background: radial-gradient(
-      rgba(11, 77, 144, 0.788) 45%,
-      rgba(255, 255, 255, 0) 100%
-    );
+    background: white;
+    font-size: 15px;
   }
   .summUsuario {
     margin-top: 0.25rem;
@@ -102,7 +99,7 @@
     width: 94%;
     max-height: 20%;
     padding-top: 0.25rem;
-    text-indent: 1.5rem;
+    padding-left: 1.5rem;
     padding-bottom: 0.5rem;
     border-radius: 6px;
     text-align: left;
@@ -111,5 +108,21 @@
     border: 2px solid var(--background-detail-BtnBuy);
     box-shadow: rgba(10, 10, 10, 0.877) 0px 2px 3px 0px;
     margin-bottom: 0.5rem;
+  }
+}
+@media (max-width: 425px) {
+  .buttonReviewRemix {
+  width: 25rem;
+}
+  .botónReview {
+    width: 24rem;
+  }
+}
+@media (max-width: 375px) {
+   .buttonReviewRemix {
+  width: 23rem;
+}
+  .botónReview {
+    width: 21rem;
   }
 }
