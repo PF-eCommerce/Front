@@ -79,9 +79,12 @@ export default function RecipeReviewCard({title,desc,price,img,numStock,id}) {
           //  onClick={handleClick(`${_id}`)}
            />
         </IconButton>
+        <Link to={`/detail/${id}`}>
         <IconButton>
         <AddShoppingCartOutlinedIcon sx={{marginRight:"1rem"}}/>
       </IconButton>
+        </Link>
+        
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
