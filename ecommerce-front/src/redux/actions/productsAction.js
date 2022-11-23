@@ -1,6 +1,5 @@
 import axios from "axios";
 
-
 export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
 export const USE_PAGINATION = "USE_PAGINATION";
 export const GET_PRODUCT_BY_NAME = "GET_PRODUCT_BY_NAME";
@@ -12,12 +11,10 @@ export const LINK_MP='LINK_MP';
 export const ADD_FAVORITES='ADD_FAVORITES';
 export const SHOW_FAVORITES='SHOW_FAVORITES';
 
-axios.defaults.baseURL = process.env.REACT_APP_API_URL;
-
 export const getAllProducts = () => {
   return async (dispatch) => {
     try {
-      const products = await axios.get(`/products`);
+      const products = await axios.get(`${process.env.REACT_APP_API_URL}/products`);
 
       return dispatch({
         type: GET_ALL_PRODUCTS,
@@ -31,7 +28,7 @@ export const getAllProducts = () => {
 export const getProductByName = (value) => {
   return async (dispatch) => {
     try {
-      const products = await axios.get(`/products/search?search=${value}`);
+      const products = await axios.get(`${process.env.REACT_APP_API_URL}/products/search?search=${value}`);
       console.log(products.data);
       return dispatch({
         type: GET_PRODUCT_BY_NAME,
@@ -46,7 +43,7 @@ export const getItemColor = (value) => {
   console.log("desde actioncolor", value);
   return async (dispatch) => {
     try {
-      const products = await axios.get(`/products?type&size&color=${value}`);
+      const products = await axios.get(`${process.env.REACT_APP_API_URL}/products?type&size&color=${value}`);
       console.log(products.data);
       return dispatch({
         type: GET_PRODUCT_BY_COLOR,
@@ -61,7 +58,7 @@ export const getCategories = (value) => {
   return async (dispatch) => {
     try {
       console.log("desde Action", value);
-      const products = await axios.get(`/products?type=${value}&size&color`);
+      const products = await axios.get(`${process.env.REACT_APP_API_URL}/products?type=${value}&size&color`);
       console.log(products.data);
       return dispatch({
         type: GET_BY_CATEGORY,
@@ -75,7 +72,7 @@ export const getCategories = (value) => {
 export const getOtherPages = (num) => {
   return async (dispatch) => {
     try {
-      const paginatedProducts = await axios.get(`/products?page=${num}`);
+      const paginatedProducts = await axios.get(`${process.env.REACT_APP_API_URL}/products?page=${num}`);
       return dispatch({
         type: USE_PAGINATION,
         payload: paginatedProducts.data,
@@ -87,9 +84,10 @@ export const getOtherPages = (num) => {
 };
 
 export const getProductDetail = (id) => {
+  console.log("id desde action detail",id)
   return async (dispatch) => {
     try {
-      const product = await axios.get(`/products/${id}`);
+      const product = await axios.get(`${process.env.REACT_APP_API_URL}/products/${id}`);
       return dispatch({
         type: GET_PRODUCT_DETAIL,
         payload: product.data,
@@ -103,7 +101,7 @@ export const getProductDetail = (id) => {
 export const createProduct = (form) => {
   return async (dispatch) => {
     try {
-      const product = await axios.post(`/product`, form);
+      const product = await axios.post(`${process.env.REACT_APP_API_URL}/product`, form);
 
       return dispatch({
         payload: product,
@@ -116,7 +114,7 @@ export const createProduct = (form) => {
 export const updateProduct = (id, changes) => {
   return async (dispatch) => {
     try {
-      const product = await axios.put(`/products/${id}`, changes);
+      const product = await axios.put(`${process.env.REACT_APP_API_URL}/products/${id}`, changes);
 
       return dispatch({
         payload: product,
@@ -139,7 +137,7 @@ export const orderProduct = (productArray, id, location, input) => {
   console.log("PRODUCTARRAY", productArray);
   return async (dispatch) => {
     try {
-      const linkMP = await axios.post(`/post-order/${id}`, data);
+      const linkMP = await axios.post(`${process.env.REACT_APP_API_URL}/post-order/${id}`, data);
       console.log("PASO EL LINKMP");
       window.location.replace(linkMP.data);
       return dispatch({

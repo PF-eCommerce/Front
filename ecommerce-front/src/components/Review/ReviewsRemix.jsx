@@ -4,20 +4,21 @@ import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { postReview } from "../../redux/actions/reviewActions";
 
-export default function ReviewsRemix({ id, name, image, /* user, */ setBox }) {
+export default function ReviewsRemix({ id, name, image, user, setBox }) {
 
   const [hoverStar, setHoverStar] = useState(undefined);
   const [error , /* setError */] = useState({})
+
 
   const dispatch = useDispatch();
   const [input, setInput] = useState({
     product: id,
     comment: "",
     rating: 0,
-    userId: "63698e7e4b5027a58449ah6" /*localStorage.getItem(aut0) user._id, */,
+    userId: user,
   });
+ 
   
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (input.comment.length >= 4 && input.rating >= 1  /* && user */) {
@@ -27,7 +28,7 @@ export default function ReviewsRemix({ id, name, image, /* user, */ setBox }) {
         product: id,
         comment: "",
         rating: 0,
-        userId: "63698e7e4b5027a58449ah6"/* user._id, */,
+        userId: "637bba63a79922ad03ecb4e4" /* user._id, */,
       });
       alert('Review completada!')
     } else {

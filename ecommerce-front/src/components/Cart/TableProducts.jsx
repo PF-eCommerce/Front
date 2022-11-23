@@ -16,7 +16,7 @@ import Input from "./Input"
 import {ADD_TO_CART} from "../../redux/actions/constantes";
 import {styled} from "@mui/system";
 import cartReducer from './../../redux/reducers/CartReducer';
-
+import ModalAvisoDelete from "./ModalAvisoDelete"
 
 export default function BasicTable() {
 
@@ -97,18 +97,20 @@ export default function BasicTable() {
               <TableCell align="left"> <Button align="left" id="-" onClick={(ee) => handleQtyChange(ee , item)} >-</Button>
                   {item.qty }
                 <Button align="left" id="+" onClick={(ee) => handleQtyChange(ee , item)} >+</Button>  
-       
-													
+{/*        
+									  			 */}
                </TableCell>
-              <TableCell align="left"><DeleteForeverIcon
-              onClick={()=>dispatch(deleteFromCart(item))}/></TableCell>
+              <TableCell align="left">
+                <ModalAvisoDelete
+                item={item}/>
+              </TableCell>
 
             </TableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
-  
+
             
      <BoxSuma>
         <Sumas cart={cartItems}/>

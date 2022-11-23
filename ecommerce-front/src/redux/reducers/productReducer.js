@@ -1,12 +1,11 @@
 import { GET_ALL_PRODUCTS, USE_PAGINATION, GET_PRODUCT_BY_NAME, GET_PRODUCT_BY_COLOR, LINK_MP, ADD_FAVORITES, SHOW_FAVORITES, GET_BY_CATEGORY, GET_PRODUCT_DETAIL, DELETE_DETAIL } from "../actions/productsAction";
 
-
 const initialState = {
   products: [],
   detail: [],
   allProducts: [],
-  linkMP:'',
-  favorites:[],
+  linkMP: '',
+  favorites: [],
 };
 
 export default function productReducer(state = initialState, action) {
@@ -20,12 +19,12 @@ export default function productReducer(state = initialState, action) {
     case USE_PAGINATION:
       return {
         ...state,
-        products: action.payload,
+        allProducts: action.payload,
       };
     case GET_PRODUCT_BY_NAME:
       return {
         ...state,
-        products: action.payload
+        allProducts: action.payload
       }
     case GET_PRODUCT_BY_COLOR:
       return {
@@ -36,7 +35,7 @@ export default function productReducer(state = initialState, action) {
       console.log('action payload', action.payload)
       return {
         ...state,
-        products:action.payload
+        allProducts: action.payload
       }
     case GET_PRODUCT_DETAIL:
       return {
@@ -44,16 +43,16 @@ export default function productReducer(state = initialState, action) {
         detail: action.payload
       }
     case DELETE_DETAIL:
-            
-      return{
-          ...state,
-          detail:[]
+
+      return {
+        ...state,
+        detail: []
       }
-      case LINK_MP:
-        return {
-          ...state,
-          linkMP : action.payload
-        }
+    case LINK_MP:
+      return {
+        ...state,
+        linkMP: action.payload
+      }
     case ADD_FAVORITES:
       // const allProducts = state.allProducts
       // console.log('PRODUCTOS', allProducts.docs)
@@ -62,17 +61,17 @@ export default function productReducer(state = initialState, action) {
       // }
       //   ))
       console.log('FAVORITESSS', action.payload)
-      const asd ={docs: action.payload}
-      return{
+      const asd = { docs: action.payload }
+      return {
         ...state,
         products: asd
       }
     case SHOW_FAVORITES:
-      return{
+      return {
         ...state,
         products: action.payload
       }
-    
+
     default:
       return {
         ...state,

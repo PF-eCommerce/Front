@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-/* import { getReviewByProduct } from "../../redux/actions/reviewActions"; */
+import { useDispatch, /* useSelector */ } from "react-redux";
+import { getReviewByProduct } from "../../redux/actions/reviewActions";
 import { getAllUsers } from "../../redux/actions/userAction";
 import styles from "./Reviews.module.css";
 import ReviewsRemix from "./ReviewsRemix";
 
-const Reviews = ({ id, name, image }) => {
+const Review = ({ id, name, image }) => {
   const dispatch = useDispatch();
+  
   /* const reviewsByProduct = useSelector((state) => state.review.reviews);
-  const user = JSON.parse(localStorage.getItem("user"));
   const allUsers = useSelector((state) => state.user?.users).map((u) => ({
     name: u?.username,
     id: u?._id,
@@ -19,40 +19,25 @@ const Reviews = ({ id, name, image }) => {
     e.preventDefault();
     setBox(!box);
   };
-/*   const userbyName = (uId) => {
+
+  const userLocal = JSON.parse(localStorage.getItem('auth0'))
+  const nuevoUserLoc = userLocal._id
+  //console.log('localStorage:',localStorage.getItem('auth0'))
+  //console.log('userLocal:', userLocal._id)
+/* hastaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaccaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa */
+/* meeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeennn enenen enenenenenne  */
+  /* const userbyName = (uId) => {
     const userById = allUsers?.find((u) => u.id === uId);
     return userById?.name;
-  };
- */
+  }; */
+
   useEffect(() => {
     /* dispatch(getAllUsers()); */
-    /* dispatch(getReviewByProduct(id)); */
+    dispatch(getReviewByProduct(id));
   }, [dispatch]);
   return (
     <>
-      {/* {reviewsByProduct ? (
-        <details id="detalles" title="Reviews" className={styles.botónReview}>
-          <summary id="reviewsDe" className={styles.summ}>
-            Comentarios
-          </summary>
-          {reviewsByProduct?.map((r) => (
-            <>
-              <p
-                className={styles.summUsuario}
-                id={"usuarioEnReview" + r?.user}
-              >
-                {userbyName(r?.user)} :
-              </p>
-              <p
-                className={styles.summComment}
-                id={"commentEnReview" + r?.user}
-              >
-                {r?.comment}
-              </p>
-            </>
-          ))}
-        </details>
-      ) : null} */}
+      
       {/* user?.admin === false && */ (
         <button
           className={styles.buttonReviewRemix}
@@ -67,7 +52,7 @@ const Reviews = ({ id, name, image }) => {
             id={id}
             image={image}
             name={name}
-            /* user={user} */
+            user={nuevoUserLoc}
             setBox={setBox}
           />
         </>
@@ -76,4 +61,4 @@ const Reviews = ({ id, name, image }) => {
   );
 };
 
-export default Reviews;
+export default Review;
