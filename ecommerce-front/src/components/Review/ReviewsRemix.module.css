@@ -1,0 +1,81 @@
+.AppReviews {
+    font-family: sans-serif;
+    text-align: center;
+}
+  
+.popupReviews {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+.contentReviews {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 405px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.productReviews {
+    display: flex;
+    align-items: center;
+}
+.productReviews h1 {
+    font-size: 20px;
+}
+.contentReviews textarea {
+    width: 100%;
+    border-radius: 6px;
+    padding: 10px;
+    outline-color: orange;
+}
+.contentReviews button {
+    background: blue;
+    color: #fff;
+    margin-top: 10px;
+    width: 100%;
+    border-radius: 6px;
+    padding: 10px 0;
+    border: none;
+    font-weight: bolder;
+    cursor: pointer;
+    font-family: "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.btnX{
+    display: grid;
+    width: 25px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    align-self: end;
+    cursor: pointer;
+}
+
+.h1X{
+    color: black;
+}
+.h1Num{
+    color: black;
+    font-size: 25px;
+}
+
+@media (max-width: 425px) {
+    .contentReviews {
+        width: 300px;
+    }
+ }
