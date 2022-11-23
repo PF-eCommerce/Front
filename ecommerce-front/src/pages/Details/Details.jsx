@@ -124,7 +124,7 @@ function ChildModal() {
     qty
   }
   function sendToCart(e){
-   
+    console.log('PRODUCTO',product)
     dispatch(addToCart(product))
    
     navigate('/cart')
