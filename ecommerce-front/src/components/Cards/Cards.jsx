@@ -16,20 +16,21 @@ const Cards = () => {
   const products = useSelector((state) => state?.product.products);
   const productsAll = useSelector(state=>state?.product.allProducts)
   // const products = useSelector((state)=>state.product.products)
-  console.log('PRODUCCC', products)
+  
 
   useEffect(() => {
-    dispatch(getAllProducts());
+    products.length===0&&dispatch(getAllProducts());
+    // dispatch(getAllProducts());
     dispatch(getAllReviews());
   }, []);
 
   return (
 
       <Box flex={8} p={1}>
-        {productsAll.docs?.length>0?
+        {products.docs?.length>0?
       
       <Grid container spacing={2}>
-      {productsAll.docs?.map((produc) => (
+      {products.docs?.map((produc) => (
         <Grid xs={12} md={6} lg={4} p={2}>
           {/* <Link to={`/detail/${produc._id}`}> */}
           <Card

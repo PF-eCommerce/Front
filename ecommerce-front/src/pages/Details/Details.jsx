@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getProductDetail,
   deleteDetail,
+  addFavorites,
 } from "../../redux/actions/productsAction";
 import Carrusel from "./Carrusel";
 
@@ -25,6 +26,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import styles from "./Detail.module.css";
 import Review from "../../components/Review/Review";
 import Rating from "@mui/material/Rating";
+import { addToFavorite } from "../../redux/actions/favoriteAction";
 
 
 
@@ -382,19 +384,20 @@ const Details = () => {
 
   function handleClick(e, id){
     e.preventDefault()
+    dispatch(addToFavorite(product))
     
-    console.log('LOCAL STORAGE', id)
-    if (JSON.parse(localStorage.getItem('favorite'))&&!Array.isArray(JSON.parse(localStorage.getItem('favorite')))){
-      let idLocal = [JSON.parse(localStorage.getItem('favorite')), id]
-      localStorage.setItem('favorite', JSON.stringify(idLocal))
-    } else if(JSON.parse(localStorage.getItem('favorite'))&&Array.isArray(JSON.parse(localStorage.getItem('favorite')))){
-      let idLocal = [...JSON.parse(localStorage.getItem('favorite')), id]
-      localStorage.setItem('favorite', JSON.stringify(idLocal))
-    } 
-    else{
-      let idLocal = id
-      localStorage.setItem('favorite', JSON.stringify(idLocal))
-    }
+    // console.log('LOCAL STORAGE', id)
+    // if (JSON.parse(localStorage.getItem('favorite'))&&!Array.isArray(JSON.parse(localStorage.getItem('favorite')))){
+    //   let idLocal = [JSON.parse(localStorage.getItem('favorite')), id]
+    //   localStorage.setItem('favorite', JSON.stringify(idLocal))
+    // } else if(JSON.parse(localStorage.getItem('favorite'))&&Array.isArray(JSON.parse(localStorage.getItem('favorite')))){
+    //   let idLocal = [...JSON.parse(localStorage.getItem('favorite')), id]
+    //   localStorage.setItem('favorite', JSON.stringify(idLocal))
+    // } 
+    // else{
+    //   let idLocal = id
+    //   localStorage.setItem('favorite', JSON.stringify(idLocal))
+    // }
     
     // localStorage.clear('favorite')
     
