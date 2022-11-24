@@ -20,6 +20,10 @@ import { updateUserData, getUserData } from "../../redux/actions/userAction";
 import { config } from "../../utils/cloudinary/cloudinaryConf";
 import LastPurchases from "./Purchased/LastPurchases";
 import { useParams } from "react-router-dom";
+import {
+  getOrdersByUser,
+  getUsersPurchasedProducts,
+} from "../../redux/actions/ordersAction";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -29,6 +33,8 @@ const Profile = () => {
   const [avatar, setAvatar] = useState("");
   useEffect(() => {
     dispatch(getUserData(id));
+    dispatch(getOrdersByUser(id));
+    dispatch(getUsersPurchasedProducts(id));
   }, [dispatch, id]);
 
   function showUploadWidget() {
