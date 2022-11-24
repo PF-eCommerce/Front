@@ -16,7 +16,7 @@ import ShoppingCart from "./components/Cart/ShoppingCart";
 import Admin from "./pages/Admin/Admin";
 import UsersPage from "./pages/Admin/Pages/UsersPage/UsersPage";
 import Dashboard from "./pages/Admin/Pages/Dashboard/Dashboard";
-import Buy from './pages/Forms/Buy/BuyForm';
+import Buy from "./pages/Forms/Buy/BuyForm";
 
 function App() {
   return (
@@ -33,13 +33,12 @@ function App() {
           <Route path='/register' element={<FormLogin />} />
           <Route path='/auth' element={<Auth />} />
           <Route path='/faqs' element={<Preguntas />} />
-          <Route path='/account/profile' element={<Profile />} />
+          <Route path='/account/:id/profile' element={<Profile />} />
           <Route path='/cart' element={<ShoppingCart />} />
-          <Route path='/buy' element={<Buy />}/>
+          <Route path='/buy' element={<Buy />} />
           <Route path='admin' element={<Admin />}>
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="users" element={<UsersPage />} />
-            
+            <Route path='dashboard' element={<Dashboard />} />
+            <Route path='users' element={<UsersPage />} />
           </Route>
         </Routes>
       </Box>
