@@ -9,8 +9,6 @@ import {deleteFromCart} from "../../redux/actions/cartAction"
 import { useDispatch } from 'react-redux';
 
 
-
-//#F9F3EE
 const style = {
   position: 'absolute',
   top: '50%',
