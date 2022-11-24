@@ -16,7 +16,8 @@ const Cards = () => {
   const productsAll = useSelector((state) => state?.product.allProducts);
 
   useEffect(() => {
-    dispatch(getAllProducts());
+    products.length===0&&dispatch(getAllProducts());
+    // dispatch(getAllProducts());
     dispatch(getAllReviews());
     dispatch(getAllUsers());
   }, [dispatch]);

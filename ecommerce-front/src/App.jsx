@@ -39,14 +39,8 @@ function App() {
           <Route path='/buy' element={<Buy />} />
           <Route path='*' element={<Error404 />} />
           {/* // admin Routes */}
-          <Route
-            element={
-              <ProtectedRoute
-                isAllowed={user && user.admin?.includes("admin")}
-                redirectTo={"/"}
-              />
-            }
-          >
+          <Route element={<ProtectedRoute isAllowed={user && user.length>0 && user.admin?.includes('admin')} redirectTo={"/"}/>}>
+               <Route path='admin' element={<Admin />} />
             <Route path='admin' element={<Admin />}>
               <Route path='dashboard' element={<Dashboard />} />
               <Route path='users' element={<UsersPage />} />
