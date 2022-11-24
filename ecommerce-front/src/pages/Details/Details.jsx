@@ -362,17 +362,11 @@ const Details = () => {
   const [alert, setAlert] = useState(false);
   
   const reviewsByProduct = useSelector((state) => state.review?.reviews);
-  const allUsers = useSelector((state) => state.user?.users).map((u) => ({
-    name: u?.username,
+  const allUsers = useSelector((state) => state.user?.users)?.map((u) => ({
+    name: u?.name,
     id: u?._id,
   }));
 
- /*  const newAllUsers = async ()=>{
-    const allUser = await useSelector((state) => state.user?.users).map((u) => ({
-      name: u?.username,
-      id: u?._id,
-    }));
-  } */
 
   const boxStyle = {
     display: { xs: "block", md: "flex" },

@@ -37,6 +37,7 @@
   color: var(--color-detail-BtnBuy);
   background-color: rgba(0, 71, 212, 0.142);
   box-shadow: rgba(72, 72, 72, 0.877) 0px 2px 5px 0px;
+  font-size: 15px;
 }
 .summComment {
   width: 90%;
@@ -94,6 +95,7 @@
     color: var(--color-detail-BtnBuy);
     background-color: rgba(0, 71, 212, 0.142);
     box-shadow: rgba(72, 72, 72, 0.877) 0px 2px 5px 0px;
+    font-size: 15px;
   }
   .summComment {
     width: 94%;
