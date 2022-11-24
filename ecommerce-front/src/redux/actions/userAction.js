@@ -2,11 +2,11 @@ import axios from "axios";
 
 export const REGISTER_ERROR = "REGISTER_ERROR";
 export const LOGIN_ERROR = "LOGIN_ERROR";
-export const RESET_ERROR = 'RESET_ERROR';
-export const USER_REGISTER = 'USER_REGISTER';
-export const USER = 'USER'
-export const RESET_USER = 'RESET_USER'
-export const TOKEN = 'TOKEN'
+export const RESET_ERROR = "RESET_ERROR";
+export const USER_REGISTER = "USER_REGISTER";
+export const USER = "USER";
+export const RESET_USER = "RESET_USER";
+export const TOKEN = "TOKEN";
 export const ALL_USERS = "ALL_USERS";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
@@ -54,16 +54,10 @@ export const resetError = () => {
   };
 };
 
-export const getUserData = () => {
+export const getUserData = (id) => {
   return async (dispatch) => {
     try {
-      const user = await axios.get("/account/profile", {
-        headers: {
-          Bearer: localStorage.getItem("token"),
-        },
-      });
-
-      localStorage.setItem("user", JSON.stringify(user.data));
+      const user = await axios.get(`/account/${id}/profile`);
       return dispatch({
         type: USER,
         payload: user.data,
@@ -73,20 +67,10 @@ export const getUserData = () => {
     }
   };
 };
-export const updateUserData = (update) => {
+export const updateUserData = (id, update) => {
   return async (dispatch) => {
     try {
-      const user = await axios.put(
-        "/account/profile",
-        {
-          headers: {
-            Bearer: localStorage.getItem("token"),
-          },
-        },
-        update
-      );
-
-      localStorage.setItem("user", JSON.stringify(user.data));
+      const user = await axios.put(`/account/${id}/profile`, update);
       return dispatch({
         type: USER,
         payload: user.data,
@@ -125,10 +109,8 @@ export const auth0User = (user) => {
   return {
     type: USER,
     payload: user,
-
-  }
-}
-
+  };
+};
 export const getAllUsers = () => {
   return async (dispatch) => {
     try {
