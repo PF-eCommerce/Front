@@ -98,7 +98,7 @@ export default function BasicTable() {
                   {item.qty }
                 <Button align="left" id="+" onClick={(ee) => handleQtyChange(ee , item)} >+</Button>  
 {/*        
-									onClick={()=>dispatch(deleteFromCart(item))}				 */}
+									  			 */}
                </TableCell>
               <TableCell align="left">
                 <ModalAvisoDelete
@@ -110,7 +110,7 @@ export default function BasicTable() {
         </TableBody>
       </Table>
     </TableContainer>
-    <ModalAvisoDelete/>
+
             
      <BoxSuma>
         <Sumas cart={cartItems}/>
