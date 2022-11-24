@@ -20,7 +20,8 @@ const Cards = () => {
   
 
   useEffect(() => {
-    dispatch(getAllProducts());
+    products.length===0&&dispatch(getAllProducts());
+    // dispatch(getAllProducts());
     dispatch(getAllReviews());
     dispatch(getAllUsers());
   }, []);
@@ -28,11 +29,12 @@ const Cards = () => {
   return (
 
       <Box flex={8} p={1}>
-        {productsAll.docs?.length>0?
+        {products.docs?.length>0?
       
       <Grid container spacing={2}>
-      {productsAll.docs?.map((produc) => (
-        <Grid xs={12} md={6} lg={4} p={2}>        
+      {products.docs?.map((produc) => (
+        <Grid xs={12} md={6} lg={4} p={2}>
+          {/* <Link to={`/detail/${produc._id}`}> */}
           <Card
             title={produc.title}
             desc={produc.desc}

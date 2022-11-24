@@ -14,6 +14,7 @@ export default function FilterSide(){
 
     function filterFavorites(e){
         e.preventDefault()
+        console.log('FAVORITOS', JSON.parse(localStorage.getItem('favorite')))
         dispatch(addFavorites(JSON.parse(localStorage.getItem('favorite'))))
         // const favoritos = (JSON.parse(localStorage.getItem('favorite'))).map(elem=>{
         //     dispatch(addFavorites(elem))
