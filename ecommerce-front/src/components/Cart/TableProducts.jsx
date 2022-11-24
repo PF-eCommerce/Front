@@ -16,7 +16,7 @@ import Input from "./Input"
 import {ADD_TO_CART} from "../../redux/actions/constantes";
 import {styled} from "@mui/system";
 import cartReducer from './../../redux/reducers/CartReducer';
-
+import ModalAvisoDelete from "./ModalAvisoDelete"
 
 export default function BasicTable() {
 
@@ -43,9 +43,9 @@ export default function BasicTable() {
 
               cart.forEach(cartItem => {
               if (cartItem._id === item._id) {
-                if (ee.target.id === '+' && cartItem.numStock > cartItem.count) {
-                cartItem.count = cartItem.count + 1
-          }else if ( ee.target.id === '-'&& cartItem.count > 1  ) cartItem.count = cartItem.count - 1
+                if (ee.target.id === '+' && cartItem.numStock > cartItem.qty ) {
+                cartItem.qty  = cartItem.qty  + 1
+          }else if ( ee.target.id === '-'&& cartItem.qty > 1  ) cartItem.qty  = cartItem.qty  - 1
           }
               })
 
@@ -95,20 +95,22 @@ export default function BasicTable() {
               <TableCell align="left">{item.numStock}</TableCell>
               <TableCell align="left">${item.price}.00</TableCell>
               <TableCell align="left"> <Button align="left" id="-" onClick={(ee) => handleQtyChange(ee , item)} >-</Button>
-                  {item.count}
+                  {item.qty }
                 <Button align="left" id="+" onClick={(ee) => handleQtyChange(ee , item)} >+</Button>  
-       
-													
+{/*        
+									  			 */}
                </TableCell>
-              <TableCell align="left"><DeleteForeverIcon
-              onClick={()=>dispatch(deleteFromCart(item))}/></TableCell>
+              <TableCell align="left">
+                <ModalAvisoDelete
+                item={item}/>
+              </TableCell>
 
             </TableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
-  
+
             
      <BoxSuma>
         <Sumas cart={cartItems}/>

@@ -9,9 +9,9 @@ import Collapse from "@mui/material/Collapse";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import { red } from "@mui/material/colors";
+// import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
+// import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import logo from "../../../assets/images/Trés_bien__2_-removebg-preview.png";
@@ -91,9 +91,12 @@ export default function RecipeReviewCard({
           //  onClick={handleClick(`${_id}`)}
           />
         </IconButton>
-        <IconButton>
-          <AddShoppingCartOutlinedIcon sx={{ marginRight: "1rem" }} />
-        </IconButton>
+        <Link to={`/detail/${id}`}>
+          <IconButton>
+            <AddShoppingCartOutlinedIcon sx={{ marginRight: "1rem" }} />
+          </IconButton>
+        </Link>
+
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}

@@ -4,34 +4,35 @@ import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { postReview } from "../../redux/actions/reviewActions";
 
-export default function ReviewsRemix({ id, name, image, /* user, */ setBox }) {
+export default function ReviewsRemix({ id, name, image, user, setBox }) {
 
   const [hoverStar, setHoverStar] = useState(undefined);
   const [error , /* setError */] = useState({})
+
 
   const dispatch = useDispatch();
   const [input, setInput] = useState({
     product: id,
     comment: "",
     rating: 0,
-    userId: "63698e7e4b5027a58449ah6" /*localStorage.getItem(aut0) user._id, */,
+    userId: user,
   });
+ 
   
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (input.comment.length >= 4 && input.rating >= 1  /* && user */) {
+    if (input.comment.length >= 4 && input.rating >= 1  && user) {
       dispatch(postReview(id, input));
       setBox(false)
       setInput({
         product: id,
         comment: "",
         rating: 0,
-        userId: "63698e7e4b5027a58449ah6"/* user._id, */,
+        userId: user,
       });
       alert('Review completada!')
     } else {
-      alert("Comentarios de mínimo 4 caracteres, y mínimo 1 estrella");
+      alert("Debes iniciar sesion o comentarios de mínimo 4 caracteres, y mínimo 1 estrella");
     }
   };
 

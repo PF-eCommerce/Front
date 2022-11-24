@@ -17,8 +17,11 @@ import Admin from "./pages/Admin/Admin";
 import UsersPage from "./pages/Admin/Pages/UsersPage/UsersPage";
 import Dashboard from "./pages/Admin/Pages/Dashboard/Dashboard";
 import Buy from "./pages/Forms/Buy/BuyForm";
+import { ProtectedRoute } from "./utils/protectedRoutes/ProtectedRoutes";
+import Error404 from "./components/Error404/Error404";
 
 function App() {
+  const user = JSON.parse(localStorage.getItem("auth0"));
   return (
     <div>
       <Navbar />
@@ -28,18 +31,37 @@ function App() {
           <Route path='/home' element={<Home />} />
           <Route path='/detail/:id' element={<Details />} />
           <Route path='/about' element={<About />} />
-          <Route path='/postproduct' element={<ProductForm />} />
           <Route path='/sucursales' element={<Sucursales />} />
           <Route path='/register' element={<FormLogin />} />
           <Route path='/auth' element={<Auth />} />
           <Route path='/faqs' element={<Preguntas />} />
-          <Route path='/account/:id/profile' element={<Profile />} />
           <Route path='/cart' element={<ShoppingCart />} />
           <Route path='/buy' element={<Buy />} />
-          <Route path='admin' element={<Admin />}>
-            <Route path='dashboard' element={<Dashboard />} />
-            <Route path='users' element={<UsersPage />} />
+          <Route path='*' element={<Error404 />} />
+          {/* // admin Routes */}
+          <Route
+            element={
+              <ProtectedRoute
+                isAllowed={user && user.admin?.includes("admin")}
+                redirectTo={"/"}
+              />
+            }
+          >
+            <Route path='admin' element={<Admin />}>
+              <Route path='dashboard' element={<Dashboard />} />
+              <Route path='users' element={<UsersPage />} />
+            </Route>
+            {/* ADMIN */}
+            <Route path='/postproduct' element={<ProductForm />} />
           </Route>
+          <Route
+            path='/account/:id/profile'
+            element={
+              <ProtectedRoute isAllowed={user} redirectTo={"/"}>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </Box>
       <Footer />

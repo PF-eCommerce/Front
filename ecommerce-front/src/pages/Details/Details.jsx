@@ -23,8 +23,10 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 // import e from "express";
 // import Button from '@mui/material/Button';
 import styles from "./Detail.module.css";
-import Reviews from "../../components/Review/Review";
+import Review from "../../components/Review/Review";
 import Rating from "@mui/material/Rating";
+import Comentarios from '../../components/Review/Comentarios';
+import { getAllUsers } from "../../redux/actions/userAction";
 
 
 
@@ -96,7 +98,7 @@ function ChildModal() {
     setOpen(false);
   };
   
-  const product = useSelector((state) => state.product.detail)
+  let product = useSelector((state) => state.product.detail)
   
   
   const sizee = useSelector(state=> state?.card.size)
@@ -119,11 +121,15 @@ function ChildModal() {
       }
     }
   }
+  product = {
+    ...product,
+    qty
+  }
   function sendToCart(e){
    
     dispatch(addToCart(product))
    
-    navigate('/home')
+    navigate('/cart')
   }
 
   return (
@@ -336,24 +342,31 @@ const Details = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  
+
+  const [loading, setLoading] = useState(false)
 
   const handleGoBackBtn = () => {
     navigate(-1);
   };
 
   useEffect(() => {
+    dispatch(getAllUsers());
     dispatch(getProductDetail(id));
     return function () {
       dispatch(deleteDetail());
     };
   }, [dispatch, id]);
 
-  const product = useSelector((state) => state.product.detail);
+  const product = useSelector((state) => state.product?.detail);
   const [alert, setAlert] = useState(false);
+  
+  const reviewsByProduct = useSelector((state) => state.review?.reviews);
+  const allUsers = useSelector((state) => state.user?.users)?.map((u) => ({
+    name: u?.name,
+    id: u?._id,
+  }));
 
-  // console.log(product.img)
-  // console.log('ID',product._id)
-  // console.log(id)
 
   const boxStyle = {
     display: { xs: "block", md: "flex" },
@@ -395,10 +408,9 @@ const Details = () => {
     // localStorage.clear('favorite')
     
   }
-  // const imagen = product?.img.map(el=>el)
-  // product.img?.map(el=>console.log('ELEMENTO',el))
+ 
   const imagen = product.img?.map(el=>el)
-  // console.log('IMAGEN',imagen)
+
 
   const reviewPro = useSelector((state) => state.review);
   let score = 0;
@@ -559,10 +571,35 @@ const Details = () => {
               Volver
             </Button>
           </Box>
+          <Box
+            sx={{ 
+              marginTop: "10px", 
+              marginBottom: "20px", 
+              display: "flex" 
+            }}>
+            <Review id={id} image={product.img} name={product.name} />
+          </Box>
         </Box>
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+        }}
+      >
+        <Typography
+          variant='h4'
+          align='center'
+          sx={{ marginTop: "10px",
+          marginBottom: "20px", width: "100%" }}
+        >
+          { reviewsTotales > 0 ? <Comentarios allUsers={allUsers} reviewsByProduct={reviewsByProduct} /> : null }
+        </Typography>
       </Box>
       {alert ? <Alert /> : null}
     </Box>
+    
   );
 };
 
