@@ -78,7 +78,7 @@ const Profile = () => {
             }}
           >
             <Avatar
-              src={avatar === "" ? user?.picture : avatar}
+              src={avatar === "" ? user?.image : avatar}
               sx={{
                 height: 160,
                 mb: 1,
