@@ -21,18 +21,18 @@ export default function ReviewsRemix({ id, name, image, user, setBox }) {
   
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (input.comment.length >= 4 && input.rating >= 1  /* && user */) {
+    if (input.comment.length >= 4 && input.rating >= 1  && user) {
       dispatch(postReview(id, input));
       setBox(false)
       setInput({
         product: id,
         comment: "",
         rating: 0,
-        userId: "637bba63a79922ad03ecb4e4" /* user._id, */,
+        userId: user,
       });
       alert('Review completada!')
     } else {
-      alert("Comentarios de mínimo 4 caracteres, y mínimo 1 estrella");
+      alert("Debes iniciar sesion o comentarios de mínimo 4 caracteres, y mínimo 1 estrella");
     }
   };
 

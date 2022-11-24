@@ -33,6 +33,7 @@ function Comentarios({allUsers, reviewsByProduct}) {
                 className={styles.summUsuario}
                 id={"usuarioEnReview" + r?.user}
               >
+                {console.log('userrrrrR:',r.user)}
                 {userbyName(r?.user)} :
               </p>
               <p

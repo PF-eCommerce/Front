@@ -18,6 +18,7 @@ import UsersPage from "./pages/Admin/Pages/UsersPage/UsersPage";
 import Dashboard from "./pages/Admin/Pages/Dashboard/Dashboard";
 import Buy from "./pages/Forms/Buy/BuyForm";
 import { ProtectedRoute } from "./utils/protectedRoutes/ProtectedRoutes";
+import Error404 from './components/Error404/Error404'
 
 function App() {
   const user = JSON.parse(localStorage.getItem("auth0"));
@@ -38,6 +39,7 @@ function App() {
           <Route path="/buy" element={<Buy />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="users" element={<UsersPage />} />
+          <Route path="*" element={<Error404 />} />
           // admin Routes
           <Route
             element={
@@ -48,7 +50,7 @@ function App() {
             }
           >
             <Route path="admin" element={<Admin />} />
-            {/* ADMIN */}
+             // ADMIN 
             <Route path="/postproduct" element={<ProductForm />} />
           </Route>
           <Route
@@ -59,7 +61,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-        </Routes>
+        </Routes> 
       </Box>
       <Footer />
     </div>
