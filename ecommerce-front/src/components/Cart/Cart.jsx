@@ -1,48 +1,39 @@
 import { useReducer } from "react";
-import { cartReducer , cartIntialState } from "../../redux/reducers/cartReducers";
+import {
+  cartReducer,
+  cartIntialState,
+} from "../../redux/reducers/cartReducers";
 
+const Cart = (product) => {
+  const [state, dispatch] = useReducer(cartReducer, Cart);
+  // console.log('Cart reducer: ____', cartReducer)
+  // console.log('Cart: ____' ,Cart)
+  const { products, cart } = state; // destructuring del state / cartReducer
 
+  // console.log(products , 'PRODUCT')
+  // console.log('cart del state' , cart)
 
-const Cart = (product) =>{
-    const [state , dispatch] = useReducer(cartReducer, Cart);
-    console.log('Cart reducer: ____', cartReducer)
-    console.log('Cart: ____' ,Cart)
-    const { products , cart } = state // destructuring del state / cartReducer
-    
-    console.log(products , 'PRODUCT') 
-    console.log('cart del state' , cart)
-    
-    
-    const addToCart = () =>  {
-        
-    }
+  const addToCart = () => {};
 
-    const deleteFromCart = () => {
+  const deleteFromCart = () => {};
 
-    }
+  const clearCart = () => {};
 
-    const clearCart = () => {
-
-    }
-    
-    return(
-        <div>
-            <h2>Carrito de compras</h2>
-            <h3>Productos</h3>
-            <article className="box">
-            {}
-            {/* {products.map((product => <PruebaProduct key={id} data={product} addToCart={addToCart}/>))}*/}
-            </article> 
-            <h3>Carrito</h3>
-            <article className="box"></article>
-        </div>
-    )
-
-}
+  return (
+    <div>
+      <h2>Carrito de compras</h2>
+      <h3>Productos</h3>
+      <article className='box'>
+        {}
+        {/* {products.map((product => <PruebaProduct key={id} data={product} addToCart={addToCart}/>))}*/}
+      </article>
+      <h3>Carrito</h3>
+      <article className='box'></article>
+    </div>
+  );
+};
 
 export default Cart;
-
-
 
 // import React, { useState } from 'react';
 // import { useSelector, useDispatch } from 'react-redux';
@@ -61,10 +52,9 @@ export default Cart;
 // 	const [error , setError] = useState(true)
 // 	let value = 0;
 // 	let navigate = useNavigate();
-	
+
 // 	const { cart } = useSelector(state => state.cart);
 // 	const linkMP = useSelector(state => state.product.linkMP)
-
 
 // 	const dispatch = useDispatch();
 
@@ -106,9 +96,9 @@ export default Cart;
 // 	const handleCheckout = evt => {
 // 		if (localStorage.getItem('user')) {
 // 			const productArray = JSON.parse(localStorage.getItem('cart'))
-			
+
 // 			const id = JSON.parse(localStorage.getItem('user'))
-			
+
 // 			dispatch(orderProduct(productArray, id._id, location))
 // 			localStorage.removeItem('cart')
 
@@ -117,18 +107,16 @@ export default Cart;
 // 			},1500)
 // 		} else {
 // 			navigate('/account/login')
-			
+
 // 		}
 // 	};
-     
 
 // 	useEffect(()=>{
 // 		if(linkMP?.length > 0){
 // 			window.open(linkMP, "PAGO", "width=300, height=200")
 // 		}
 // 	} , [linkMP])
-    
-	
+
 // 	return (
 // 		<div className={s.container}>
 // 			<section className='cart-page m-4'>
@@ -151,7 +139,7 @@ export default Cart;
 // 							<div>
 // 								<h2 className={s.titleCart}> <img className={s.imagencarrito} src={carrito} alt="carrito" /> Carrito</h2>
 // 								<div className={s.tableSection}>
-									
+
 // 									<table >
 // 										<thead>
 // 											<tr className={s.tableTh}>
@@ -217,10 +205,9 @@ export default Cart;
 // 										</tbody>
 // 									</table>
 // 								</div>
-								
+
 // 							</div>
 
-							
 // 							<div className={s.summary}>
 // 								<h2 className={s.resumen}>Resumen del pedido</h2>
 // 								<p className={s.item}>
@@ -247,8 +234,8 @@ export default Cart;
 // 									setLocation={setLocation}
 // 									error = {error}
 // 									setError = {setError}
-									
-// 									/>: 
+
+// 									/>:
 // 									<button
 // 									className={s.btnCheck}
 // 									onClick={handleCheckout}
@@ -270,15 +257,15 @@ export default Cart;
 // 									</button>
 // 								</div>
 // 							</div>
-							
+
 // 						</div>}
 // 					</div>
 // 				)}
-				
+
 // 			</section>
 // 			<BuyForm/>
 // 		</div>
-		
+
 // 	)
 // }
 

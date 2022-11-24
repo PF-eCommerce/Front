@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Accordion,
   AccordionDetails,
@@ -16,15 +16,20 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import ReviewsList from "./Reviews/ReviewsList";
 import ProfileDetails from "./Settings/ProfileDetails";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUserData } from "../../redux/actions/userAction";
+import { updateUserData, getUserData } from "../../redux/actions/userAction";
 import { config } from "../../utils/cloudinary/cloudinaryConf";
 import LastPurchases from "./Purchased/LastPurchases";
+import { useParams } from "react-router-dom";
 
 const Profile = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
+  const { id } = useParams();
   const [open, setOpen] = useState(false);
   const [avatar, setAvatar] = useState("");
+  useEffect(() => {
+    dispatch(getUserData(id));
+  }, [dispatch, id]);
 
   function showUploadWidget() {
     // eslint-disable-next-line no-unused-vars
@@ -39,7 +44,7 @@ const Profile = () => {
   }
 
   const handleCloudy = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     setOpen(!open);
     showUploadWidget();
   };
@@ -67,7 +72,7 @@ const Profile = () => {
             }}
           >
             <Avatar
-              src={avatar === "" ? user?.picture : avatar}
+              src={avatar === "" ? user?.image : avatar}
               sx={{
                 height: 160,
                 mb: 1,
@@ -77,7 +82,7 @@ const Profile = () => {
             <CardActions>
               {avatar === "" ? (
                 <Button
-                  onClick={(e)=>handleCloudy(open)}
+                  onClick={(e) => handleCloudy(open)}
                   color='primary'
                   variant='outlined'
                 >
