@@ -133,13 +133,14 @@ export function deleteDetail() {
 
 export const orderProduct = (productArray, id, location, input) => {
   const data = [productArray, location, input];
-  console.log("DATA", data);
-  console.log("PRODUCTARRAY", productArray);
+  // console.log('ID', id)
+  // console.log("DATA", data);
+  // console.log("PRODUCTARRAY", productArray);
   return async (dispatch) => {
     try {
       const linkMP = await axios.post(`${process.env.REACT_APP_API_URL}/post-order/${id}`, data);
       console.log("PASO EL LINKMP");
-      window.location.replace(linkMP.data);
+      window.open(linkMP.data, "PAGO", "width=300, height=200");
       return dispatch({
         type: LINK_MP,
         payload: linkMP.data,
