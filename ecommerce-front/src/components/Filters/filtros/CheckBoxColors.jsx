@@ -20,7 +20,7 @@ export default function CheckboxLabels() {
     setChecked(!checked)
     setInput(dispatch(getItemColor(value)))
    
-    // console.log("checked",checked)
+    console.log("checked",checked)
    
   }
   
