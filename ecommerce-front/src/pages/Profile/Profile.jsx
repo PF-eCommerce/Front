@@ -11,15 +11,15 @@ import {
   CardContent,
   Typography,
 } from "@mui/material";
+import { config } from "../../utils/cloudinary/cloudinaryConf";
 import OrdersList from "./Orders/Orders";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import ReviewsList from "./Reviews/ReviewsList";
 import ProfileDetails from "./Settings/ProfileDetails";
-import { useDispatch, useSelector } from "react-redux";
-import { updateUserData, getUserData } from "../../redux/actions/userAction";
-import { config } from "../../utils/cloudinary/cloudinaryConf";
 import LastPurchases from "./Purchased/LastPurchases";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { getUserData, updateUserData } from "../../redux/actions/userAction";
 import {
   getOrdersByUser,
   getUsersPurchasedProducts,
@@ -78,7 +78,7 @@ const Profile = () => {
             }}
           >
             <Avatar
-              src={avatar === "" ? user?.image : avatar}
+              src={avatar === "" ? user?.picture : avatar}
               sx={{
                 height: 160,
                 mb: 1,
