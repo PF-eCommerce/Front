@@ -26,8 +26,7 @@ import axios from "axios";
 import { useState } from "react";
 
 export default function PositionedMenu() {
-  const { loginWithRedirect, logout, isAuthenticated, getAccessTokenSilently } =
-    useAuth0();
+  const { loginWithRedirect, logout, isAuthenticated, getAccessTokenSilently } = useAuth0();
   const userLocalStorage = JSON.parse(localStorage.getItem("auth0"));
   const [user, setUser] = React.useState(userLocalStorage);
   const userRedux = useSelector((state) => state.user.user);
@@ -60,14 +59,11 @@ export default function PositionedMenu() {
     try {
       const token = isAuthenticated && (await getAccessTokenSilently());
 
-      const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/protected`,
-        {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/protected`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
       localStorage.setItem("auth0", JSON.stringify(response.data));
       const userAction = JSON.parse(localStorage.getItem("auth0"));
       dispatch(auth0User(userAction));
@@ -77,15 +73,15 @@ export default function PositionedMenu() {
   };
 
   React.useEffect(() => {
-    // console.log('ISAUTHENTIC', isAuthenticated)
-    // console.log('LOCALSTORAGE', localStorage)
-    // console.log('AUTH0', localStorage.getItem('auth0'))
+    console.log('ISAUTHENTIC', isAuthenticated)
+    console.log('LOCALSTORAGE', localStorage)
+    console.log('AUTH0', localStorage.getItem('auth0'))
     if (isAuthenticated && localStorage.getItem("auth0") === null) {
       callApiProtected();
     }
   });
 
-  // console.log(user);
+  console.log(user);
   return (
     <div>
       {(localStorage.getItem("auth0") === null) |
@@ -95,7 +91,7 @@ export default function PositionedMenu() {
           <Box
             sx={{ display: "flex", alignItems: "center", textAlign: "center" }}
           >
-            <Button onClick={loginWithRedirect} variant='text'>
+            <Button onClick={loginWithRedirect} variant="text">
               Iniciar Sesion
             </Button>
             <LoginIcon />{" "}
@@ -116,10 +112,10 @@ export default function PositionedMenu() {
             >
               <IconButton
                 onClick={handleClick}
-                size='small'
+                size="small"
                 sx={{ ml: 2 }}
                 aria-controls={open ? "account-menu" : undefined}
-                aria-haspopup='true'
+                aria-haspopup="true"
                 aria-expanded={open ? "true" : undefined}
               >
                 <Avatar sx={{ width: 32, height: 32 }}>
@@ -132,7 +128,7 @@ export default function PositionedMenu() {
           </Box>
           <Menu
             anchorEl={anchorEl}
-            id='account-menu'
+            id="account-menu"
             open={open}
             onClose={handleClose}
             onClick={handleClose}
@@ -174,19 +170,19 @@ export default function PositionedMenu() {
             <Divider />
             <MenuItem>
               <ListItemIcon>
-                <PersonAdd fontSize='small' />
+                <PersonAdd fontSize="small" />
               </ListItemIcon>
               Add another account
             </MenuItem>
             <MenuItem>
               <ListItemIcon>
-                <Settings fontSize='small' />
+                <Settings fontSize="small" />
               </ListItemIcon>
               Settings
             </MenuItem>
             <MenuItem onClick={handleLogout}>
               <ListItemIcon>
-                <Logout fontSize='small' />
+                <Logout fontSize="small" />
               </ListItemIcon>
               Logout
             </MenuItem>

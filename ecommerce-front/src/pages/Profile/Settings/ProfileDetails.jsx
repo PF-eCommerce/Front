@@ -30,7 +30,6 @@ const ProfileDetails = (user) => {
     lastName: user.lastName,
     email: user.email,
     city: user.city,
-    phone: user.phone,
     country: user.country,
   });
   const {
@@ -97,17 +96,17 @@ const ProfileDetails = (user) => {
                 variant='outlined'
               />
             </Grid>
-            <Grid item md={6} xs={12}>
+            {/* <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
                 label='Núm. Telefónico'
-                {...register("phone")}
+               { ...register('phone')}
                 onChange={handleChange}
                 type='number'
                 value={values.phone}
                 variant='outlined'
               />
-            </Grid>
+            </Grid> */}
             <Grid item md={6} xs={12}>
               <TextField
                 fullWidth
