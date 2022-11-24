@@ -1,6 +1,6 @@
 import React from "react";
-
-import { obj } from "../../../utils/data/productDetail";
+import RecipeReviewCard from "../../../components/Cards/Card/Card";
+import { obj as purchases } from "../../../utils/data/productDetail";
 import { Stack } from "@mui/system";
 import RecipeReviewCard from "../../../components/Cards/Card/Card";
 
