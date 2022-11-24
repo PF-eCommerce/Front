@@ -2,6 +2,7 @@ import { Button, Modal, styled, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { setAdmin } from "../../../../redux/actions/adminAction";
 
 const ButtonAction = styled(Button)({
     backgroundColor: "#94744F",
@@ -10,53 +11,54 @@ const ButtonAction = styled(Button)({
         backgroundColor: "#4C4034"
     }
 })
-
+const AdminWindows = styled('div')({
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    backgroundColor: "white",
+    paddingBottom: "20px",
+    display: "flex",
+    justifyContent: "center",
+    flexWrap: "wrap",
+})
+const Title = styled(Typography)({
+    width: "100%",
+    textAlign: "center",
+    fontSize: "20px",
+    fontWeight: "400",
+    paddingTop: "30px"
+})
+const SubTitle = styled(Typography)({
+    width: "100%",
+    textAlign: "center"
+})
+const Verified = styled(SubTitle)({
+    fontWeight: "500"
+})
 export default function UserAction({ datos }) {
+    console.log(datos)
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const handleSetAdmin = () => {
-        // dispatch()
-        console.log("Este boton da privilegios de administrador")
+        dispatch(setAdmin(datos.id))
+        .then(window.location.reload());
+        // console.log("Este boton da privilegios de administrador")
     }
-
-    const AdminWindows = styled('div')({
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: 400,
-        bgcolor: 'background.paper',
-        border: '2px solid #000',
-        boxShadow: 24,
-        backgroundColor: "white",
-        paddingBottom: "20px",
-        display: "flex",
-        justifyContent: "center",
-        flexWrap: "wrap",
-    })
-    const Title = styled(Typography)({
-        width: "100%",
-        textAlign: "center",
-        fontSize: "20px",
-        fontWeight: "400",
-        paddingTop: "30px"
-    })
-    const SubTitle = styled(Typography)({
-        width: "100%",
-        textAlign: "center"
-    })
-    const Verified = styled(SubTitle)({
-        fontWeight: "500"
-    })
 
 
     return (
         <Box>
-            <ButtonAction onClick={handleOpen}>
+            {!datos.admin ? <ButtonAction onClick={handleOpen}>
                 Editar
-            </ButtonAction>
+            </ButtonAction> : 
+            <Button disabled variant="contained">Editar</Button>}
             <Modal
                 open={open}
                 onClose={handleClose}
