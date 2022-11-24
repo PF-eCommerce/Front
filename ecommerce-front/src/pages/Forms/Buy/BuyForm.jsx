@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import { orderProduct } from '../../../redux/actions/productsAction';
 import Paypal from "./Paypal/Paypal";
 import Stripe from "./Stripe/Stripe"
+import Sumas from '../../../components/Cart/Sumas';
 
 
 const ImageButton = styled(Button)({
@@ -121,6 +122,19 @@ export default function HorizontalLinearStepper() {
   })
   const [infoCompleted, setInfoCompleted]= React.useState(false)
   const mercadoPagoLink = useSelector(state=>state?.product.linkMP)
+  const cartItems = useSelector(state=>state.cart.cart)
+  console.log('CARTITEMS', cartItems)
+  const productArray = cartItems.map(el=>{
+    return{
+      name: el.title,
+      count: el.qty,
+      image: el.img&&el.img[0],
+      price: el.price,
+      _id: el._id
+    }
+  })
+  
+  
 
   const callApiProtected = async () => {
     try {
@@ -222,18 +236,26 @@ export default function HorizontalLinearStepper() {
   function linkMP(e){
     e.preventDefault()
     // let productArray = JSON.parse(localStorage.getItem('productArray'))
-    let productArray = [{
-      name: 'remera',
-      count: 1,
-      image: 'not valid',
-      price: 1000,
-      _id: '63695bfb4b5027a584493892'
-    }]
+    // let productArray = [{
+    //   name: 'vestido',
+    //   count: 1,
+    //   image: 'not valid',
+    //   price: 100,
+    //   _id: '637695d20cf126c6d70830ae'
+    // }]
+    console.log ('PRODUCTARRAY', productArray)
     let id = JSON.parse(localStorage.getItem('auth0'))._id
     let location = JSON.parse(localStorage.getItem('location'))
     let input = JSON.parse(localStorage.getItem('input'))
+    console.log('ID', id)
+    console.log('LOCATION', location)
+    console.log('INPUT', input)
     
     dispatch(orderProduct(productArray, id, location, input))
+  }
+  function paypal(e){
+    e.preventDefault()
+    Paypal()
   }
 
   
@@ -471,6 +493,16 @@ export default function HorizontalLinearStepper() {
                         <SubmitButton onClick={handleSubmit}>Continuar</SubmitButton>
                     </Grid>
 
+                    <Grid container xs={2}
+                    style={{
+                      margin:10,
+                      marginTop:60
+                    }}
+                    >
+                      <Sumas cart={cartItems}
+                      
+                      />
+                    </Grid>
                 </Grid>
             
             : activeStep===2?
