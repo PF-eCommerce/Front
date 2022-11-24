@@ -16,12 +16,11 @@ import ShoppingCart from "./components/Cart/ShoppingCart";
 import Admin from "./pages/Admin/Admin";
 import UsersPage from "./pages/Admin/Pages/UsersPage/UsersPage";
 import Dashboard from "./pages/Admin/Pages/Dashboard/Dashboard";
-import Buy from './pages/Forms/Buy/BuyForm';
+import Buy from "./pages/Forms/Buy/BuyForm";
 import { ProtectedRoute } from "./utils/protectedRoutes/ProtectedRoutes";
-//import { useSelector } from "react-redux";
+import Error404 from './components/Error404/Error404'
 
 function App() {
- // const user_redux = useSelector((state) => state.user.user);
   const user = JSON.parse(localStorage.getItem("auth0"));
   return (
     <div>
@@ -50,14 +49,18 @@ function App() {
               {/* ADMIN */}
                <Route path='/postproduct' element={<ProductForm />} />
             </Route>
-            
-            
-          <Route path='/account/profile' element={<ProtectedRoute isAllowed={user} redirectTo={"/"}>
-            <Profile />
-          </ProtectedRoute>} />
-
-          
-        </Routes>
+            {/* ADMIN */}
+            <Route path="/postproduct" element={<ProductForm />} />
+          </Route>
+          <Route
+            path="/account/profile"
+            element={
+              <ProtectedRoute isAllowed={user} redirectTo={"/"}>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+        </Routes> 
       </Box>
       <Footer />
     </div>

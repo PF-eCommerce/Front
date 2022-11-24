@@ -1,6 +1,5 @@
 import { GET_ALL_PRODUCTS, USE_PAGINATION, GET_PRODUCT_BY_NAME, GET_PRODUCT_BY_COLOR, LINK_MP, ADD_FAVORITES, SHOW_FAVORITES, GET_BY_CATEGORY, GET_PRODUCT_DETAIL, DELETE_DETAIL } from "../actions/productsAction";
 
-
 const initialState = {
   products: [],
   detail: [],
@@ -44,16 +43,16 @@ export default function productReducer(state = initialState, action) {
         detail: action.payload
       }
     case DELETE_DETAIL:
-            
-      return{
-          ...state,
-          detail:[]
+
+      return {
+        ...state,
+        detail: []
       }
-      case LINK_MP:
-        return {
-          ...state,
-          linkMP : action.payload
-        }
+    case LINK_MP:
+      return {
+        ...state,
+        linkMP: action.payload
+      }
     case ADD_FAVORITES:
       const docs = {
         docs: action.payload
@@ -63,11 +62,11 @@ export default function productReducer(state = initialState, action) {
         products: docs
       }
     case SHOW_FAVORITES:
-      return{
+      return {
         ...state,
         products: action.payload
       }
-    
+
     default:
       return {
         ...state,

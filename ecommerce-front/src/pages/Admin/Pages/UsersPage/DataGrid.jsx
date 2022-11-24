@@ -46,6 +46,7 @@ const columns = [
         headerName: "Action", 
         width: 105,
         renderCell: (params) => {
+            // console.log(params.row)
             return <UserAction datos={params.row} />
         }
     },

@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { Container, Grid } from "@mui/material";
 import Card from "./Card/Card";
+import { Link } from 'react-router-dom';
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getAllProducts } from "../../redux/actions/productsAction";
@@ -16,7 +17,6 @@ const Cards = () => {
 
   const products = useSelector((state) => state?.product.products);
   const productsAll = useSelector(state=>state?.product.allProducts)
-  // const products = useSelector((state)=>state.product.products)
   
 
   useEffect(() => {
@@ -43,7 +43,6 @@ const Cards = () => {
             numStock={produc.numStock}
             id={produc._id}
             />
-            {/* </Link> */}
         </Grid>
 
       ))}

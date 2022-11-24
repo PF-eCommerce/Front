@@ -3,13 +3,11 @@ export const ALL_REVIEWS = "ALL_REVIEWS";
 export const GET_USER_REVIEWS = "GET_USER_REVIEWS";
 export const GET_PRODUCT_REVIEWS = "GET_PRODUCT_REVIEWS";
 
-axios.defaults.baseURL = "http://localhost:3001";
-
 export const postReview = (productId, review) => {
   return async (dispatch) => {
-    console.log('review:',review)
+    console.log('review:', review)
     try {
-      await axios.post(`/products/${productId}/review`, review);
+      await axios.post(`${process.env.REACT_APP_API_URL}/products/${productId}/review`, review);
     } catch (error) {
       console.log(error);
     }
@@ -19,7 +17,7 @@ export const postReview = (productId, review) => {
 export const getAllReviews = () => {
   return async (dispatch) => {
     try {
-      const json = await axios.get("/reviews");
+      const json = await axios.get(`${process.env.REACT_APP_API_URL}/reviews`);
       return dispatch({
         type: ALL_REVIEWS,
         payload: json.data,
@@ -33,7 +31,7 @@ export const getAllReviews = () => {
 export function getReviewByUser(userId) {
   return async function (dispatch) {
     try {
-      let user = await axios.get(`/user/${userId}/reviews`);
+      let user = await axios.get(`${process.env.REACT_APP_API_URL}/user/${userId}/reviews`);
 
       return dispatch({
         type: GET_USER_REVIEWS,
@@ -48,7 +46,7 @@ export function getReviewByUser(userId) {
 export function getReviewByProduct(productId) {
   return async function (dispatch) {
     try {
-      let product = await axios.get(`/products/${productId}/reviews`);
+      let product = await axios.get(`${process.env.REACT_APP_API_URL}/products/${productId}/reviews`);
 
       return dispatch({
         type: GET_PRODUCT_REVIEWS,
@@ -63,7 +61,7 @@ export function getReviewByProduct(productId) {
 export const deleteReview = (productId, reviewId) => {
   return async () => {
     try {
-      await axios.delete(`/products/${productId}/review/${reviewId}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/products/${productId}/review/${reviewId}`);
     } catch (error) {
       console.log(error);
     }
@@ -72,7 +70,7 @@ export const deleteReview = (productId, reviewId) => {
 export const deleteReviewByUser = (id) => {
   return async () => {
     try {
-      await axios.delete("/review/" + id);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/review/` + id);
     } catch (error) {
       console.log(error);
     }
