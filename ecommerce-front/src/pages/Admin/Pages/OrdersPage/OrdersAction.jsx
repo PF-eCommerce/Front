@@ -17,10 +17,10 @@ export default function OrdersAction({ text, action, datos }) {
     const handleClick = () => {
         switch (action) {
             case "order":
-                navigate(`/admin/orders/${datos.id}`)
+                navigate(`/admin/orders/${datos.id}`);
                 break;
             case "user":
-                alert("sin implementar")
+                alert("sin implementar");
                 break;
             default:
                 break;
