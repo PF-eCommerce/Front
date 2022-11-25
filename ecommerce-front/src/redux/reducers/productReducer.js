@@ -3,9 +3,9 @@ import { GET_ALL_PRODUCTS, USE_PAGINATION, GET_PRODUCT_BY_NAME, GET_PRODUCT_BY_C
 const initialState = {
   products: [],
   detail: [],
-  allProducts: [],
-  linkMP: '',
-  favorites: [],
+  // allProducts: [],
+  linkMP:'',
+  favorites:[],
 };
 
 export default function productReducer(state = initialState, action) {
@@ -13,18 +13,18 @@ export default function productReducer(state = initialState, action) {
     case GET_ALL_PRODUCTS:
       return {
         ...state,
-        // products: action.payload,
-        allProducts: action.payload,
+        products: action.payload,
+        // allProducts: action.payload,
       };
     case USE_PAGINATION:
       return {
         ...state,
-        allProducts: action.payload,
+        products: action.payload,
       };
     case GET_PRODUCT_BY_NAME:
       return {
         ...state,
-        allProducts: action.payload
+        products: action.payload
       }
     case GET_PRODUCT_BY_COLOR:
       return {
@@ -32,10 +32,10 @@ export default function productReducer(state = initialState, action) {
         products: action.payload
       }
     case GET_BY_CATEGORY:
-      console.log('action payload', action.payload)
+      // console.log('action payload', action.payload)
       return {
         ...state,
-        allProducts: action.payload
+        products:action.payload
       }
     case GET_PRODUCT_DETAIL:
       return {
@@ -54,17 +54,12 @@ export default function productReducer(state = initialState, action) {
         linkMP: action.payload
       }
     case ADD_FAVORITES:
-      // const allProducts = state.allProducts
-      // console.log('PRODUCTOS', allProducts.docs)
-      // const favorites = action.payload.map(el=>allProducts.docs.map(elem=>{
-      //   if (elem._id===el) return elem
-      // }
-      //   ))
-      console.log('FAVORITESSS', action.payload)
-      const asd = { docs: action.payload }
-      return {
+      const docs = {
+        docs: action.payload
+      }
+      return{
         ...state,
-        products: asd
+        products: docs
       }
     case SHOW_FAVORITES:
       return {

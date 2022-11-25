@@ -29,24 +29,46 @@ function App() {
       <Navbar />
       <Box>
         <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/detail/:id" element={<Details />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/sucursales" element={<Sucursales />} />
-          <Route path="/register" element={<FormLogin />} />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/faqs" element={<Preguntas />} />
-          <Route path="/cart" element={<ShoppingCart />} />
-          <Route path="/buy" element={<Buy />} />
-          <Route path="*" element={<Error404 />} />
-          {/* // admin Routes */}
+          <Route path='/' element={<Landing />} />
+          <Route path='/home' element={<Home />} />
+          <Route path='/detail/:id' element={<Details />} />
+          <Route path='/about' element={<About />} />
+
+          <Route path='/sucursales' element={<Sucursales />} />
+          <Route path='/register' element={<FormLogin />} />
+          <Route path='/auth' element={<Auth />} />
+          <Route path='/faqs' element={<Preguntas />} />
+
+          <Route path='/cart' element={<ShoppingCart />} />
+          <Route path='/buy' element={<Buy />} />
+          <Route path='*' element={<Error404 />} />
+          <Route path='dashboard' element={<Dashboard />} />
+          <Route path='users' element={<UsersPage />}>
+            <Route
+              element={
+                <ProtectedRoute
+                  isAllowed={
+                    user && user.length > 0 && user.admin?.includes("admin")
+                  }
+                  redirectTo={"/"}
+                />
+              }
+            >
+              <Route path='admin' element={<Admin />} />
+              {/* ADMIN */}
+            </Route>
+          </Route>
           <Route
+            path='/postproduct'
             element={
               <ProtectedRoute
-                isAllowed={user && user.admin?.includes("admin")}
+                isAllowed={
+                  user && user.length > 0 && user.admin?.includes("admin")
+                }
                 redirectTo={"/"}
-              />
+              >
+                <ProductForm />
+              </ProtectedRoute>
             }
           >
             <Route path="admin" element={<Admin />}>
@@ -59,7 +81,7 @@ function App() {
             <Route path="/postproduct" element={<ProductForm />} />
           </Route>
           <Route
-            path="/account/profile"
+            path='/account/:id/profile'
             element={
               <ProtectedRoute isAllowed={user} redirectTo={"/"}>
                 <Profile />
