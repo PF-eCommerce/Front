@@ -1,0 +1,126 @@
+import { styled } from "@mui/material/styles";
+import { Button } from "@mui/material";
+
+export const BootstrapButton = styled(Button)({
+    boxShadow: "0px 0px 5px #4C4848",
+    textTransform: "none",
+    fontSize: 20,
+    padding: "6px 12px",
+    border: "1px solid",
+    lineHeight: 1.5,
+    backgroundColor: "#F9F3EE",
+    borderColor: "none",
+    color:"#4C4848",
+    fontFamily: [
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(","),
+    "&:hover": {
+      backgroundColor: "#F9F3EE",
+      borderColor: "none",
+      boxShadow: "none",
+      opacity: "0.9",
+      transform: "scale(1)",
+    },
+    "&:active": {
+      boxShadow: "none",
+      backgroundColor: "#0062cc",
+      borderColor: "#005cbf",
+    },
+    "&:focus": {
+      boxShadow: "0 0 0 0.2rem rgba(0,123,255,.5)",
+    },
+  });
+  
+export const ImageButton = styled(Button)({
+    boxShadow: "none",
+    textTransform: "none",
+    // fontSize: 20,
+    padding: "6px 12px",
+    // border: '1px solid',
+    lineHeight: 1.5,
+    backgroundColor: "aquamarine",
+    borderColor: "#0063cc",
+    transition: "300ms",
+    fontFamily: [
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(","),
+    "&:hover": {
+      backgroundColor: "#0069d9",
+      borderColor: "#0062cc",
+      boxShadow: "none",
+      opacity: "0.7",
+      transition: "250ms",
+      transform: "scale(1.05)",
+    },
+    "&:active": {
+      boxShadow: "none",
+      backgroundColor: "#0062cc",
+      borderColor: "#005cbf",
+    },
+    "&:focus": {
+      boxShadow: "0 0 0 0.2rem rgba(0,123,255,.5)",
+    },
+  });
+
+  export const SubmitButton = styled(Button)({
+    width:400,
+    color:'white',
+    borderRadius:'20px',
+    boxShadow: '0 0 7px black',
+    textTransform: 'none',
+    fontSize: 20,
+    padding: '6px 12px',
+    border: 'none',
+    lineHeight: 1.5,
+    backgroundColor: 'rgb( 255, 107, 107)',
+    borderColor: '#0063cc',
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+    '&:hover': {
+      backgroundColor: 'rgb( 23, 87, 45)',
+      borderColor: '#0062cc',
+      boxShadow: 'none',
+      opacity: '0.5',
+      transform: 'scale(1)',
+      boxShadow: '0 0 10px white',
+      // transition: 'all .3s',
+      // cursor: 'pointer',
+    },
+    '&:active': {
+      boxShadow: 'none',
+      backgroundColor: '#0062cc',
+      borderColor: '#005cbf',
+    },
+    '&:focus': {
+      boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
+    },
+  });
+  
