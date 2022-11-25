@@ -10,6 +10,8 @@ export const DELETE_DETAIL = "DELETE_DETAIL";
 export const LINK_MP = "LINK_MP";
 export const ADD_FAVORITES = "ADD_FAVORITES";
 export const SHOW_FAVORITES = "SHOW_FAVORITES";
+export const ALL_PRODUCTS = "ALL_PRODUCTS"
+
 
 export const getAllProducts = () => {
   return async (dispatch) => {
@@ -27,6 +29,21 @@ export const getAllProducts = () => {
     }
   };
 };
+
+export const getAllProductsNoPaginate = () => {
+  return async (dispatch) => {
+    try {
+      const products = await axios.get(`http://localhost:3001/productsAll`);
+ 
+      return dispatch({
+        type : ALL_PRODUCTS,
+        payload : products.data
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
 export const getProductByName = (value) => {
   return async (dispatch) => {
     try {
@@ -230,3 +247,4 @@ export const showFavorites = (payload) => {
     payload,
   };
 };
+
