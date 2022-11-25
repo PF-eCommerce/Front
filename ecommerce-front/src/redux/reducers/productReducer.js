@@ -1,5 +1,5 @@
 
-import { GET_ALL_PRODUCTS, USE_PAGINATION, GET_PRODUCT_BY_NAME, GET_PRODUCT_BY_COLOR, LINK_MP,FILTER_BY_RATING, ADD_FAVORITES, SHOW_FAVORITES, GET_BY_CATEGORY, GET_PRODUCT_DETAIL, DELETE_DETAIL } from "../actions/productsAction";
+import { GET_ALL_PRODUCTS, USE_PAGINATION, GET_PRODUCT_BY_NAME,ALL_PRODUCTS, GET_PRODUCT_BY_COLOR, LINK_MP,FILTER_BY_RATING, ADD_FAVORITES, SHOW_FAVORITES, GET_BY_CATEGORY, GET_PRODUCT_DETAIL, DELETE_DETAIL } from "../actions/productsAction";
 
 const initialState = {
   products: [],
@@ -7,6 +7,7 @@ const initialState = {
   // allProducts: [],
   linkMP:'',
   favorites:[],
+  allProductsNoLimit : [],
 };
 
 export default function productReducer(state = initialState, action) {
@@ -17,6 +18,11 @@ export default function productReducer(state = initialState, action) {
         products: action.payload,
         // allProducts: action.payload,
       };
+    case ALL_PRODUCTS:
+        return {
+          ...state,
+          allProductsNoLimit : action.payload
+        }  
     case USE_PAGINATION:
       return {
         ...state,
