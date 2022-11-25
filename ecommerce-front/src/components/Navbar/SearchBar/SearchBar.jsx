@@ -50,7 +50,7 @@ const SearchBar = () =>{
         e.preventDefault();
         dispatch(getProductByName(input))
         setInputChange("")
-
+       
     }
 
     return(
