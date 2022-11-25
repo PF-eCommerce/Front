@@ -1,11 +1,11 @@
 import { styled } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { useDispatch, useSelector } from "react-redux";
 import { DataGrid } from "@mui/x-data-grid";
-import { getAllUsers } from "../../../../redux/actions/adminAction";
-import UserAction from "./UserAction";
+import Action from "./action";
+import {getAllProductsNoPaginate } from "../../../../redux/actions/productsAction";
 
 const CheckTrue = styled(CheckCircleOutlineIcon)({
     color: "green",
@@ -14,7 +14,7 @@ const CheckFalse = styled(HighlightOffIcon)({
     color: "red"
 })
 const Container = styled('div')({
-    width: "100%",
+    width: "90%",
     height: "635px",
     display:"flex",
     boxShadow:"0px 0px 5px black",
@@ -22,23 +22,24 @@ const Container = styled('div')({
 })
 
 const columns = [
-    { field: "id", headerName: "ID", width: 200 },
-    { field: "userName", headerName: "Usuario", width: 250 },
-    { field: "email", headerName: "Email", width: 250 },
+    { field: "id", headerName: "id", width: 200 },
+    { field: "title", headerName: "Titulo", width: 250 },
+    { field: "price", headerName: "Precio", width: 250 },
     {
-        field: "confirmed",
-        headerName: "Verificado",
+        field: "img",
+        type : "image",
+        headerName: "Imagen",
         width: 85,
-        renderCell: (params) => {
-            return params.row.confirmed ? <CheckTrue /> : <CheckFalse />
-        }
+        renderCell: (params) => <img style={{width : '50px', height: '50px'}} src={params.value}/>,
+       
     },
+
     {
-        field: "admin",
-        headerName: "Admin",
+        field: "inStock",
+        headerName: "Stock",
         width: 65,
         renderCell: (params) => {
-            return params.row.admin ? <CheckTrue /> : <CheckFalse />
+            return params.row.inStock? <CheckTrue /> : <CheckFalse />
         }
     },
     { 
@@ -46,25 +47,31 @@ const columns = [
         headerName: "Action", 
         width: 105,
         renderCell: (params) => {
-            // console.log(params.row)
-            return <UserAction datos={params.row} />
+          
+            return <Action datos={params.row} />
         }
     },
 ];
 
-export default function DataGridX(){
-    const info = useSelector((state) => state.admin.users)
-
+export default function Data(){
+    const products = useSelector((state) => state.product.allProductsNoLimit)
+     
+    
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getAllUsers())
+        
+        
+            dispatch(getAllProductsNoPaginate())
+        
+         
+         
     }, [dispatch])
-
+   
     return(
         <Container>
-            {info ? <DataGrid
-                rows={info}
+            {products ? <DataGrid
+                rows={products}
                 columns={columns}
                 pageSize={10}
                 rowsPerPageOptions={[10]}

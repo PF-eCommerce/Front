@@ -1,11 +1,14 @@
 import { Box, Button, Divider, Typography } from "@mui/material";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 
-const handleCheckout = () => {
-}
 
 const Sumas = ({cart}) => {
+    const navigate = useNavigate()
+    const handleCheckout = () => {
+     navigate('/buy')
+    }
     return (
         <Box  justifyContent="center"display={"flex"} pl={2} pr={4}>
         <Box  
