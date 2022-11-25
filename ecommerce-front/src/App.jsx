@@ -23,6 +23,7 @@ import OrdersPage from "./pages/Admin/Pages/OrdersPage/OrdersPage";
 import OrderDetails from "./pages/Admin/Pages/OrdersPage/OrderDetails";
 import ProductPage from "./pages/Admin/Pages/productsPage/ProductPage";
 
+
 function App() {
   const user = JSON.parse(localStorage.getItem("auth0"));
   return (
@@ -59,6 +60,7 @@ function App() {
               <Route path="orders" element={<OrdersPage />} />
               <Route path="orders/:id" element={<OrderDetails />} />
               <Route path="products" element={<ProductPage />} />
+
             </Route>
             {/* ADMIN */}
           </Route>
