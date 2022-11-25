@@ -42,7 +42,6 @@ function App() {
           <Route path='*' element={<Error404 />} />
           <Route path='dashboard' element={<Dashboard />} />
           <Route path='users' element={<UsersPage />}>
-            // admin Routes
             <Route
               element={
                 <ProtectedRoute
@@ -55,11 +54,21 @@ function App() {
             >
               <Route path='admin' element={<Admin />} />
               {/* ADMIN */}
-              <Route path='/postproduct' element={<ProductForm />} />
             </Route>
-            {/* ADMIN */}
-            <Route path='/postproduct' element={<ProductForm />} />
           </Route>
+          <Route
+            path='/postproduct'
+            element={
+              <ProtectedRoute
+                isAllowed={
+                  user && user.length > 0 && user.admin?.includes("admin")
+                }
+                redirectTo={"/"}
+              >
+                <ProductForm />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path='/account/:id/profile'
             element={
