@@ -59,6 +59,7 @@ function App() {
               <Route path="orders" element={<OrdersPage />} />
               <Route path="orders/:id" element={<OrderDetails />} />
               <Route path="products" element={<ProductPage />} />
+
             </Route>
             {/* ADMIN */}
           </Route>

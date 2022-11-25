@@ -7,8 +7,6 @@ const initialState = {
   linkMP:'',
   favorites:[],
   allProductsNoLimit : [],
-  flag : true,
-
 };
 
 export default function productReducer(state = initialState, action) {
