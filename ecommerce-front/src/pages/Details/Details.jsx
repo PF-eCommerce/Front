@@ -8,7 +8,7 @@ import {
   getProductDetail,
   deleteDetail,
 } from "../../redux/actions/productsAction";
-import Carrusel from "./Carrusel";
+
 
 import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
 import {addToCart} from "../../redux/actions/cartAction"
@@ -27,8 +27,8 @@ import Review from "../../components/Review/Review";
 import Rating from "@mui/material/Rating";
 import Comentarios from '../../components/Review/Comentarios';
 import { getAllUsers } from "../../redux/actions/userAction";
-
-
+import ZoomDetail from './ZoomDetail';
+import './Detail.css'
 
 const style = {
   position: 'absolute',
@@ -344,7 +344,6 @@ const Details = () => {
   const dispatch = useDispatch();
   
 
-  const [loading, setLoading] = useState(false)
 
   const handleGoBackBtn = () => {
     navigate(-1);
@@ -360,7 +359,9 @@ const Details = () => {
 
   const product = useSelector((state) => state.product?.detail);
   const [alert, setAlert] = useState(false);
-  
+
+  const images = product?.img ? product.img : []
+
   const reviewsByProduct = useSelector((state) => state.review?.reviews);
   const allUsers = useSelector((state) => state.user?.users)?.map((u) => ({
     name: u?.name,
@@ -410,7 +411,6 @@ const Details = () => {
   }
  
   const imagen = product.img?.map(el=>el)
-
 
   const reviewPro = useSelector((state) => state.review);
   let score = 0;
@@ -478,11 +478,12 @@ const Details = () => {
           flexWrap: "wrap",
         }}
       >
-        {product._id === id ? (
-          <Carrusel images={product.img ? product.img : []} autoplay={true} />
-        ) : null}
+        
+        <ZoomDetail images={images} />
         <Typography
           sx={{
+            marginTop: { xs: "200px", sm: "200px", md: "0px" },
+            marginBottom: { xs: "50px", sm: "50px", md: "0px" },
             padding: "10px",
             width: { xs: "100%", sm: "50%", md: "25%" },
             textAlign: "center",
