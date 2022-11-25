@@ -18,7 +18,9 @@ import UsersPage from "./pages/Admin/Pages/UsersPage/UsersPage";
 import Dashboard from "./pages/Admin/Pages/Dashboard/Dashboard";
 import Buy from "./pages/Forms/Buy/BuyForm";
 import { ProtectedRoute } from "./utils/protectedRoutes/ProtectedRoutes";
-import Error404 from "./components/Error404/Error404";
+import Error404 from './components/Error404/Error404'
+import OrdersPage from "./pages/Admin/Pages/OrdersPage/OrdersPage";
+import OrderDetails from "./pages/Admin/Pages/OrdersPage/OrderDetails";
 
 function App() {
   const user = JSON.parse(localStorage.getItem("auth0"));
@@ -40,35 +42,41 @@ function App() {
           <Route path='/cart' element={<ShoppingCart />} />
           <Route path='/buy' element={<Buy />} />
           <Route path='*' element={<Error404 />} />
-          <Route path='dashboard' element={<Dashboard />} />
-          <Route path='users' element={<UsersPage />}>
-            <Route
-              element={
-                <ProtectedRoute
-                  isAllowed={
-                    user && user.length > 0 && user.admin?.includes("admin")
-                  }
-                  redirectTo={"/"}
-                />
-              }
-            >
-              <Route path='admin' element={<Admin />} />
-              {/* ADMIN */}
+          <Route
+            element={
+              <ProtectedRoute
+                isAllowed={
+                  (user && user.admin) ? user.admin.includes("admin") : false
+                }
+                redirectTo={"/"}
+              />
+            }
+          >
+            <Route path="admin" element={<Admin />}>
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="users" element={<UsersPage />} />
+              <Route path="orders" element={<OrdersPage />} />
+              <Route path="orders/:id" element={<OrderDetails />} />
             </Route>
+            {/* ADMIN */}
           </Route>
           <Route
             path='/postproduct'
             element={
               <ProtectedRoute
                 isAllowed={
-                  user && user.length > 0 && user.admin?.includes("admin")
+                  (user && user.admin) ? user.admin.includes("admin") : false
                 }
                 redirectTo={"/"}
               >
                 <ProductForm />
               </ProtectedRoute>
             }
-          />
+          >
+
+            {/* ADMIN */}
+            <Route path="/postproduct" element={<ProductForm />} />
+          </Route>
           <Route
             path='/account/:id/profile'
             element={
