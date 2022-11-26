@@ -36,15 +36,22 @@ export default function Stripe(){
     //     }
     // ]
     const cart = JSON.parse(localStorage.getItem("cart"))
-    const data = cart.map(p => {
-        return {
-            name: p.title,
-            price: p.price,
-            units: p.qty,
-        }
-    })
-    console.log(cart)
+    const location = JSON.parse(localStorage.getItem("location"))
+    const user = JSON.parse(localStorage.getItem("input"));
+    const idUser = JSON.parse(localStorage.getItem("auth0"))._id
+    // console.log(idUser)
+    const data = {
+        data: cart,
+        user:{
+            id: idUser,
+            ...location,
+            ...user,
+        },
+        PaymentMethod: "Stripe"
+    }
+  
     const handleClick = () => {
+        console.log(data)
         dispatch(payStripe(data))
     }
     return(
