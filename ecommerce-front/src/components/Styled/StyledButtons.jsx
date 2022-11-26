@@ -124,3 +124,46 @@ export const ImageButton = styled(Button)({
     },
   });
   
+export const SizeButton = styled(Button)({
+    // width:400,
+    color:'white',
+    borderRadius:'2px',
+    boxShadow: '0 0 4px black',
+    textTransform: 'none',
+    fontSize: 15,
+    padding: '6px 12px',
+    border: 'none',
+    lineHeight: 1.5,
+    backgroundColor: 'rgb( 23, 87, 45)',
+    borderColor: '#0063cc',
+    margin: 7,
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+    '&:hover': {
+      backgroundColor: 'rgb( 23, 87, 45)',
+      borderColor: '#0062cc',
+      opacity: '0.5',
+      transform: 'scale(1)',
+      boxShadow: '0 0 10px white',
+      // transition: 'all .3s',
+      // cursor: 'pointer',
+    },
+    '&:active': {
+      boxShadow: 'none',
+      backgroundColor: '#0062cc',
+      borderColor: '#005cbf',
+    },
+    '&:focus': {
+      boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
+    },
+  });

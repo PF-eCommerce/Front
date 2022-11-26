@@ -43,10 +43,15 @@ export const Cart = ({cart}) => {
                 <Grid xs={7}
                 style={{
                 width:'60px',
+                fontSize:'13px',
                 margin:10}}
                 >
+                {/* <p>{el.title}</p> */}
+                {el.size.length>0?
+                <p>{el.title}, Talle: {el.size}</p>
+                :
                 <p>{el.title}</p>
-                {/* <p>{el.title}, Talle: {sizee&&sizee}</p> */}
+                }
                 </Grid>
                 <Grid xs={1.2}
                 style={{

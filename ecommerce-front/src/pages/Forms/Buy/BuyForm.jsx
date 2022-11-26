@@ -4,15 +4,14 @@ import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Typography from '@mui/material/Typography';
-import { Grid, inputAdornmentClasses, TextField } from '@mui/material';
+import { Grid, TextField } from '@mui/material';
 import axios from "axios";
 import {auth0User, boolean} from "../../../redux/actions/userAction";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch, useSelector } from 'react-redux';
-import { isRouteErrorResponse, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Paypal from "./Paypal/Paypal";
 import Stripe from "./Stripe/Stripe"
-import Sumas from '../../../components/Cart/Sumas';
 import { SubmitButton } from '../../../components/Styled/StyledButtons';
 import { MercadoPago } from './MercadoPago';
 import { Cart } from './CartComponent';
@@ -144,8 +143,6 @@ export default function HorizontalLinearStepper() {
     ...inputs,
     [e.target.name]:e.target.value
 }))
-console.log('INPUTS', inputs)
-console.log('ERRORS', errors)
   }
 
   function handleSubmit(e){
