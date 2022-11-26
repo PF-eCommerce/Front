@@ -6,7 +6,7 @@ import StepLabel from '@mui/material/StepLabel';
 import Typography from '@mui/material/Typography';
 import { Grid, inputAdornmentClasses, TextField } from '@mui/material';
 import axios from "axios";
-import {auth0User} from "../../../redux/actions/userAction";
+import {auth0User, boolean} from "../../../redux/actions/userAction";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch, useSelector } from 'react-redux';
 import { isRouteErrorResponse, useNavigate } from 'react-router-dom';
@@ -39,16 +39,18 @@ export default function HorizontalLinearStepper() {
   const mercadoPagoLink = useSelector(state=>state?.product.linkMP)
   const cartItems = useSelector(state=>state.cart.cart)
   const [errors, setErrors] = React.useState('')
+  const booleano = useSelector(state=>state.user.boolean)
 
   React.useEffect(() => {
     if (isAuthenticated && localStorage.getItem("auth0") === null) {
       callApiProtected();
     } else if (isAuthenticated && localStorage.getItem("auth0")!== null && infoCompleted===false) {
+      console.log('ASFASFFSAASF')
       setActiveStep(1)
     } else if (isAuthenticated && localStorage.getItem("auth0")!== null && infoCompleted===true){
       setActiveStep(2)
     }
-  },[isAuthenticated, infoCompleted]);
+  },[isAuthenticated, infoCompleted, booleano ]);
   
   const inputsError = ['name', 'surname', 'phone','country', 'street_name', 'street_number', 'zip_code']
 
@@ -120,6 +122,7 @@ export default function HorizontalLinearStepper() {
       localStorage.setItem("auth0", JSON.stringify(response.data));
       const userAction = JSON.parse(localStorage.getItem("auth0"));
       dispatch(auth0User(userAction));
+      dispatch(boolean())
     } catch (error) {
       console.log(error.message);
     }
