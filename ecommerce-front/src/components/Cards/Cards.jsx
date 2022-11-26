@@ -8,13 +8,13 @@ import { getAllProducts } from "../../redux/actions/productsAction";
 import { getAllReviews } from "../../redux/actions/reviewActions";
 import { Box } from "@mui/system";
 import { getAllUsers } from "../../redux/actions/userAction";
-
+import CardSkeleton from "../CardSkeleton/CardSkeleton";
 const Cards = () => {
   const dispatch = useDispatch();
 
   const products = useSelector((state) => state?.product.products);
   const productsAll = useSelector((state) => state?.product.allProducts);
-
+  
   useEffect(() => {
     products.length === 0 && dispatch(getAllProducts());
     // dispatch(getAllProducts());
@@ -42,7 +42,14 @@ const Cards = () => {
           ))}
         </Grid>
       ) : (
-        <h1>Opp.. data not found</h1>
+        <Grid container spacing={2}>
+          {[1,2,3,4,5,6,7,9,10].map(() => (
+            <Grid xs={12} md={6} lg={4} p={2}>
+          
+              <CardSkeleton/>
+            </Grid>
+          ))}
+        </Grid>
       )}
     </Box>
 
