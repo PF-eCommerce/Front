@@ -10,6 +10,7 @@ export const DELETE_DETAIL = "DELETE_DETAIL";
 export const LINK_MP = "LINK_MP";
 export const ADD_FAVORITES = "ADD_FAVORITES";
 export const SHOW_FAVORITES = "SHOW_FAVORITES";
+export const FILTER_BY_RATING = "FILTER_BY_RATING"
 export const ALL_PRODUCTS = "ALL_PRODUCTS"
 
 
@@ -60,6 +61,14 @@ export const getProductByName = (value) => {
     }
   };
 };
+export const filterRating = ()=> {
+  return (dispatch)=> {
+    return dispatch({
+      type: FILTER_BY_RATING,
+      
+    })
+  }
+}
 export const getItemColor = (value) => {
   console.log("desde actioncolor", value);
   return async (dispatch) => {

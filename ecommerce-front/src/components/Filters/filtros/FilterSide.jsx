@@ -5,6 +5,7 @@ import CheckBoxColors from "./CheckBoxColors"
 import FilterCategory from "./FilterCategory"
 import { addFavorites,showFavorites } from "../../../redux/actions/productsAction";
 import { useDispatch, useSelector } from "react-redux";
+import {filterRating} from "../../../redux/actions/productsAction"
 
 
 export default function FilterSide(){
@@ -19,6 +20,11 @@ export default function FilterSide(){
         // const favoritos = (JSON.parse(localStorage.getItem('favorite'))).map(elem=>{
         //     dispatch(addFavorites(elem))
         // })
+    }
+
+    function handleRating(e){
+        e.preventDefault()
+        dispatch(filterRating())
     }
     return (
         <Box flex={1} p={2} sx={{display:{xs: "none", sm:"block"}}}>
@@ -39,8 +45,9 @@ export default function FilterSide(){
              <ListItemButton component="a" >
                  <Typography>Lo mas Comprado</Typography>
              </ListItemButton>   
-             <ListItemButton component="a" >
-                 <Typography>Con mas Review</Typography>
+             <ListItemButton component="a"
+             onClick={handleRating} >
+                 <Typography>Con mas Rating</Typography>
              </ListItemButton> 
              <ListItemButton component="a" 
              onClick={filterFavorites}

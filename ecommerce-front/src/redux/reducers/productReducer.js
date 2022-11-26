@@ -1,4 +1,5 @@
-import { GET_ALL_PRODUCTS, USE_PAGINATION, GET_PRODUCT_BY_NAME, GET_PRODUCT_BY_COLOR, LINK_MP, ADD_FAVORITES, SHOW_FAVORITES, GET_BY_CATEGORY, GET_PRODUCT_DETAIL, DELETE_DETAIL, ALL_PRODUCTS } from "../actions/productsAction";
+
+import { GET_ALL_PRODUCTS, USE_PAGINATION, GET_PRODUCT_BY_NAME,ALL_PRODUCTS, GET_PRODUCT_BY_COLOR, LINK_MP,FILTER_BY_RATING, ADD_FAVORITES, SHOW_FAVORITES, GET_BY_CATEGORY, GET_PRODUCT_DETAIL, DELETE_DETAIL } from "../actions/productsAction";
 
 const initialState = {
   products: [],
@@ -72,7 +73,17 @@ export default function productReducer(state = initialState, action) {
         ...state,
         products: action.payload
       }
-   
+    case FILTER_BY_RATING:
+    const productsFilter = state.products
+    console.log(productsFilter)
+    const productsByRating = productsFilter.docs.filter(product=>product.rating>=3)
+    productsByRating.docs = productsByRating
+
+      return{
+        ...state,
+        products:productsByRating
+      }
+
     default:
       return {
         ...state,
