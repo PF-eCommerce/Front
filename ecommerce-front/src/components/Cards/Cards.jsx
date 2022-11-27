@@ -21,7 +21,7 @@ const Cards = () => {
     dispatch(getAllReviews());
     dispatch(getAllUsers());
   }, []);
-
+  console.log('PRODUCTOSS', products)
   return (
     <Box flex={8} p={1}>
       {products.docs?.length > 0 ? (

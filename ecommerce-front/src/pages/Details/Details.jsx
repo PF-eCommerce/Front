@@ -12,14 +12,20 @@ import Carrusel from "./Carrusel";
 import {addToCart} from "../../redux/actions/cartAction"
 import Alert from "../../components/Cart/Alert";
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import styles from "./Detail.module.css";
 import Review from "../../components/Review/Review";
 import Rating from "@mui/material/Rating";
 import Comentarios from '../../components/Review/Comentarios';
 import { getAllUsers } from "../../redux/actions/userAction";
-import { addToFavorite } from "../../redux/actions/favoriteAction";
+import { addToFavorite, deleteFromFavorite } from "../../redux/actions/favoriteAction";
 import { NestedModal } from "../../components/Modals/ModalToCart";
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
+const Alerta = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const style = {
   position: 'absolute',
@@ -40,8 +46,10 @@ const Details = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   
-
-  const [loading, setLoading] = useState(false)
+  
+  const favoritos = JSON.parse(localStorage.getItem('favorite'))
+  const [open, setOpen] = React.useState(false);
+  const [remove, setRemove] = React.useState(false)
 
   const handleGoBackBtn = () => {
     navigate(-1);
@@ -86,12 +94,31 @@ const Details = () => {
     setAlert(true);
   };
 
-  function handleClick(e, id){
+  function addFav(e){
     e.preventDefault()
     dispatch(addToFavorite(product))
-    
+    setOpen(true);
   }
- 
+  
+  function deleteFav(e){
+    e.preventDefault()
+    dispatch(deleteFromFavorite(product))
+    setRemove(true)
+  }
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+    setRemove(false)
+  };
+
   const imagen = product.img?.map(el=>el)
 
 
@@ -112,6 +139,11 @@ const Details = () => {
 
   const reviewsTotales = reviewPro?.reviews?.length;
 
+  // const handleClickVariant = (sucess) => () => {
+  //   // variant could be success, error, warning, info, or default
+  //   enqueueSnackbar('Producto agregado a favoritos', { sucess });
+  // };
+  
   return (
     <Box
       sx={{
@@ -119,12 +151,22 @@ const Details = () => {
         flexWrap: "wrap",
         justifyContent: "space-around",
       }}
-    >
+    > 
+      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+        <Alerta onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+          Producto agregado a Favoritos
+        </Alerta>
+      </Snackbar>
+      <Snackbar open={remove} autoHideDuration={3000} onClose={handleClose}>
+        <Alerta onClose={handleClose} severity="warning" sx={{ width: '100%' }}>
+          Producto removido de Favoritos
+        </Alerta>
+      </Snackbar>
       <Typography
         variant='h4'
         align='center'
         sx={{ margin: "30px", width: "100%" }}
-      >
+      > 
         {product.title}
         
         <div id={styles.review_block}>
@@ -220,16 +262,24 @@ const Details = () => {
               display: "flex",
             }}
           >
-             <IconButton aria-label="add to favorites">
-              <FavoriteIcon 
-              onClick={e=>handleClick(e, {
-                id:`${product._id}`,
-                title:`${product.title}`,
-                desc:`${product.desc}`,
-                price:`${product.price}`,
-                img:[`${imagen}`],
-                numStock:`${product.numStock}`,
-                })}/>
+            <IconButton aria-label="add to favorites">
+             {(favoritos?.filter(el=>el._id===product._id))?.length>0?
+              <FavoriteIcon onClick={deleteFav}/>
+             :
+             <FavoriteBorderIcon onClick={addFav}/>
+              }
+              {/* <FavoriteIcon 
+              onClick={e=>addFav
+                // (e,{
+                // id:`${product._id}`,
+                // title:`${product.title}`,
+                // desc:`${product.desc}`,
+                // price:`${product.price}`,
+                // img:[`${imagen}`],
+                // numStock:`${product.numStock}`,
+                // })
+              }
+                /> */}
              </IconButton>
               <IconButton >
                <NestedModal/>

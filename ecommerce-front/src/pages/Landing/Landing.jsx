@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import { ImageTrends, ImageButton1, ImageButton2, ImageButton4, ImageButton5, ImageInfo, ImageButton6, ImageButton7, ImageMessage } from "./ImageButtons";
 
+
 const Landing = () => {
 
   return (

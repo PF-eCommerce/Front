@@ -8,6 +8,7 @@ import { ImageButton } from "../../components/Styled/StyledButtons";
 import Logos from "./Logos";
 
 
+
 export const ImageTrends = ()=> {
     return(
         <Grid
@@ -147,11 +148,12 @@ export const ImageButton1 = ()=> {
 
   const handleSelect = (e) => {
       e.preventDefault();
-      console.log("TARGET VALUE", e.target.value);
       const value = e.target.value;
       dispatch(getCategories(value));
-  
-      navigate("/home");
+      setTimeout( ()=>{
+        navigate("/home");
+    }, 1000)
+      
     };
 
   return(
@@ -196,11 +198,12 @@ export const ImageButton2 = () =>{
 
   const handleSelect = (e) => {
       e.preventDefault();
-      console.log("TARGET VALUE", e.target.value);
       const value = e.target.value;
       dispatch(getCategories(value));
   
-      navigate("/home");
+      setTimeout( ()=>{
+        navigate("/home");
+    }, 1000)
     };
   return(
     <ImageButton
@@ -244,11 +247,12 @@ export const ImageButton4 = () =>{
 
   const handleSelect = (e) => {
       e.preventDefault();
-      console.log("TARGET VALUE", e.target.value);
       const value = e.target.value;
       dispatch(getCategories(value));
   
-      navigate("/home");
+      setTimeout( ()=>{
+        navigate("/home");
+    }, 1000)
     };
   return(
     <ImageButton
@@ -293,11 +297,12 @@ export const ImageButton5 = () =>{
 
   const handleSelect = (e) => {
       e.preventDefault();
-      console.log("TARGET VALUE", e.target.value);
       const value = e.target.value;
       dispatch(getCategories(value));
   
-      navigate("/home");
+      setTimeout( ()=>{
+        navigate("/home");
+    }, 1000)
     };
   return(
     <ImageButton
@@ -341,11 +346,12 @@ export const ImageButton6 = () =>{
 
   const handleSelect = (e) => {
       e.preventDefault();
-      console.log("TARGET VALUE", e.target.value);
       const value = e.target.value;
       dispatch(getCategories(value));
   
-      navigate("/home");
+      setTimeout( ()=>{
+        navigate("/home");
+    }, 1000)
     };
   return(
     <ImageButton
@@ -390,11 +396,12 @@ export const ImageButton7 = () =>{
 
   const handleSelect = (e) => {
       e.preventDefault();
-      console.log("TARGET VALUE", e.target.value);
       const value = e.target.value;
       dispatch(getCategories(value));
   
-      navigate("/home");
+      setTimeout( ()=>{
+        navigate("/home");
+    }, 1000)
     };
   return(
     <ImageButton

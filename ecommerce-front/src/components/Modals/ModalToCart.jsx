@@ -1,6 +1,6 @@
-import { Button} from "@mui/material";
+import { Button, Typography} from "@mui/material";
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
 import {addToCart} from "../../redux/actions/cartAction"
@@ -9,6 +9,8 @@ import Modal from '@mui/material/Modal';
 import Grid from "@mui/material/Unstable_Grid2";
 import CardMedia from '@mui/material/CardMedia';
 import { SizeButton, SubmitButton} from "../../components/Styled/StyledButtons";
+import { useEffect } from "react";
+import { closeChildModal, closeNestModal } from "../../redux/actions/modalsAction";
 
 const style = {
     position: 'absolute',
@@ -24,6 +26,8 @@ const style = {
     pb: 3,
   };
 
+  
+
 export function ChildModal() {
     const dispatch = useDispatch();
     const [open, setOpen] = React.useState(false);
@@ -32,6 +36,7 @@ export function ChildModal() {
     };
     const handleClose = () => {
       setOpen(false);
+      // dispatch(closeChildModal())
     };
     
     let product = useSelector((state) => state.product.detail)
@@ -63,10 +68,16 @@ export function ChildModal() {
       size: sizee
     }
     function sendToCart(e){
-      console.log('PRODUCTO',product)
       dispatch(addToCart(product))
      
       navigate('/cart')
+    }
+
+    function continueShopping(e){
+      e.preventDefault()
+      dispatch(addToCart(product))
+      setOpen(false);
+      dispatch(closeChildModal())
     }
   
     return (
@@ -146,9 +157,24 @@ export function ChildModal() {
             style={{
               margin:10}}
             >
-              <Grid
+              <Grid xs={3}
               style={{
-                marginLeft:400,
+                marginLeft:230,
+                display:'flex',
+                alignItems:'center',
+                textAlign: 'center',
+                }}
+              >
+              <Link>
+              <Typography onClick={continueShopping}>
+                Agregar y seguir comprando
+              </Typography>
+              </Link>
+              
+              </Grid>
+              <Grid xs={3}
+              style={{
+                marginLeft:20,
                 }}
               >
               <SubmitButton
@@ -171,6 +197,14 @@ export function ChildModal() {
   
 export function NestedModal() {
     const [open, setOpen] = React.useState(false);
+    const childClosed = useSelector(state=>state.modal.closed)
+    useEffect(()=>{
+      if (childClosed){
+        dispatch(closeNestModal())
+        setOpen(false)
+      }
+      
+    },)
     const handleOpen = () => {
       setOpen(true);
     };
@@ -180,7 +214,7 @@ export function NestedModal() {
     const product = useSelector((state) => state.product.detail)
     const dispatch = useDispatch()
     const sizee = useSelector(state=> state?.card.size)
-  
+    
     const handleSelect = (e) =>{
       dispatch(selectSize(e.target.value))
     }
@@ -259,7 +293,7 @@ export function NestedModal() {
   
             </Grid>
   
-            <ChildModal />
+            <ChildModal/>
           </Grid>
           {/* <Box sx={{ ...style, width: 400 }}>
             <h3 id="parent-modal-title">Selecciona tus opciones para agregar el producto al carro</h3>
