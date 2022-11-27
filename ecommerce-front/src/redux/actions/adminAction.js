@@ -2,6 +2,7 @@ export const GET_ALL_USERS = "GET_ALL_USERS"
 export const SET_ADMIN = "SET_ADMIN"
 export const GET_ALL_ORDERS = "GET_ALL_ORDERS";
 export const GET_ORDER_DETAILS = "GET_ORDER_DETAILS";
+export const EDIT_ORDER = "EDIT_ORDER";
 
 export const getAllUsers = () => {
     return async (dispatch) => {
@@ -61,6 +62,7 @@ export const getOrders = () => {
                             status: o.status,
                             delivered: o.isDelivered,
                             price: o.totalPrice,
+                            date: o.date.substring(0, 10),
                         }
                     })
                     console.log(data)
@@ -87,6 +89,29 @@ export const getOrderDetails = (id) => {
                 })
         } catch (error) {
             console.log("actions/adminAction/getOrderDetails", error)
+        }
+    }
+}
+export const editOrder = (id, datos) => {
+    return async (dispatch) => {
+        try {
+            await fetch(`${process.env.REACT_APP_API_URL}/order/${id}`, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                method: "PUT",
+                body: JSON.stringify(datos)
+            })
+                .then(response => response.json())
+                .then(response => {
+                    return dispatch({
+                        type: GET_ORDER_DETAILS,
+                        payload: response,
+                    })
+                })
+        } catch (error) {
+            console.log(error)
         }
     }
 }

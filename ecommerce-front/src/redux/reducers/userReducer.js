@@ -1,11 +1,12 @@
-import { REGISTER_ERROR, LOGIN_ERROR, RESET_ERROR, USER_REGISTER, USER, RESET_USER, TOKEN, ALL_USERS, } from "../actions/userAction";
+import { REGISTER_ERROR, LOGIN_ERROR, RESET_ERROR, USER_REGISTER, USER, RESET_USER, TOKEN, ALL_USERS, BOOLEAN } from "../actions/userAction";
 
 const initialState = {
   error_register: {},
   error_login: {},
   user: {},
   register_done: false,
-  token: {}
+  token: {},
+  boolean: false,
 };
 
 export default function productReducer(state = initialState, action) {
@@ -56,6 +57,11 @@ export default function productReducer(state = initialState, action) {
       return {
         ...state,
         token: action.payload
+      }
+    case BOOLEAN:
+      return{
+        ...state,
+        boolean: state.booleano===true? false : true
       }
     default:
       return {

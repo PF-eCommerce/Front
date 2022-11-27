@@ -203,7 +203,7 @@ export const orderProduct = (productArray, id, location, input) => {
         data
       );
       console.log("PASO EL LINKMP");
-      window.open(linkMP.data, "PAGO", "width=300, height=200");
+      window.open(linkMP.data, "PAGO", "width=600, height=400");
       return dispatch({
         type: LINK_MP,
         payload: linkMP.data,

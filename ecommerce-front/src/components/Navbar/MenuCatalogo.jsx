@@ -16,7 +16,7 @@ import StorefrontIcon from '@mui/icons-material/Storefront';
 import { useDispatch } from 'react-redux';
 import { getAllProducts } from '../../redux/actions/productsAction';
 import { useNavigate } from 'react-router-dom';
-// import { Link } from 'react-router-dom';
+import { StyledMenuLateral } from './MenuComponents';
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -58,6 +58,8 @@ const StyledMenu = styled((props) => (
     },
   },
 }));
+
+
 
 
 
@@ -119,6 +121,15 @@ export default function CustomizedMenus() {
         <Man2Icon/>
           Calzado Hombre
         </MenuItem>
+        {/* <StyledMenuLateral
+        id="demo-customized-menu"
+        MenuListProps={{
+          'aria-labelledby': 'demo-customized-button',
+        }}
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+      ></StyledMenuLateral> */}
         <MenuItem onClick={handleClose} disableRipple>
           <Woman2Icon/>
           Calzado Mujer

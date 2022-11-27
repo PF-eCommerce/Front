@@ -8,10 +8,11 @@ import OrdersAction from "./OrdersAction";
 const columns = [
     { field: 'id', headerName: 'ID', width: 70 },
     { field: 'user', headerName: 'Usuario', width: 130 },
-    { field: 'status', headerName: 'Estado', width: 130 },
+    { field: 'status', headerName: 'Estado', width: 80 },
     { field: 'payment', headerName: 'Metodo', width: 130 },
     { field: 'price', headerName: 'Monto', width: 130 },
-    { field: 'delivered', headerName: 'Entregado', width: 130 },
+    { field: 'delivered', headerName: 'Entregado', width: 80 },
+    { field: 'date', headerName: 'Fecha', width: 100 },
     {
         field: 'userAction',
         headerName: 'Ordenes del usuario',
@@ -29,7 +30,7 @@ const columns = [
         headerName: 'Detalles de orden',
         description: 'No se puede ordenar esta columna',
         sortable: false,
-        width: 160,
+        width: 140,
         renderCell: (params) => {
             // console.log(params.row)
             return <OrdersAction datos={params.row} text={"Editar"} action={"order"} />

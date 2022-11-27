@@ -39,7 +39,6 @@ export default function productReducer(state = initialState, action) {
         products: action.payload
       }
     case GET_BY_CATEGORY:
-      // console.log('action payload', action.payload)
       return {
         ...state,
         products:action.payload

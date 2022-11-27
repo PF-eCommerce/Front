@@ -8,6 +8,7 @@ import cardReducer from "../reducers/cardReducer";
 import adminReducer from "../reducers/adminReducer";
 import reviewReducer from "../reducers/reviewReducer";
 import ordersReducer from "../reducers/orderReducer";
+import modalReducer from '../reducers/modalsReducer';
 
 const reducer = combineReducers({
   product: productReducer,
@@ -17,6 +18,7 @@ const reducer = combineReducers({
   review: reviewReducer,
   orders: ordersReducer,
   card: cardReducer,
+  modal: modalReducer,
 });
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
 
