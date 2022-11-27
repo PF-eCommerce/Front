@@ -19,6 +19,7 @@ import logo from "../../../assets/images/Trés_bien__2_-removebg-preview.png";
 import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 import { Link } from "react-router-dom";
 import PutModal from "../../PutModal/PutModal";
+import Skeleton from '@mui/material/Skeleton';
 import { NestedModal } from "../../Modals/ModalToCart";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductDetail } from "../../../redux/actions/productsAction";
@@ -88,7 +89,7 @@ export default function RecipeReviewCard({
   return (
     <Card sx={{ maxWidth: 330 }}>
       <CardHeader
-        avatar={<Avatar src={logo} />}
+        avatar={logo.length > 0 ? <Avatar src={logo} /> :  <Skeleton animation="wave" variant="circular" width={40} height={40} />}
         action={
           admin(user) === true ? (
             <IconButton aria-label='settings'>
@@ -96,7 +97,12 @@ export default function RecipeReviewCard({
             </IconButton>
           ) : null
         }
-        title={title}
+        title={title ? title : <Skeleton
+          animation="wave"
+          height={10}
+          width="80%"
+          style={{ marginBottom: 6 }}
+        />}
         subheader={
           `${numStock}` < 10
             ? "Quedan pocas unidades"
@@ -113,11 +119,11 @@ export default function RecipeReviewCard({
         }
       />
       <Link to={`/detail/${id}`}>
-        <CardMedia component='img' height='280' image={img[0]} maxWidth='8' />
+        <CardMedia component='img' height='280' image={img[0] ? img[0] : <Skeleton sx={{ height: 190 }} animation="wave" variant="rectangular" />} maxWidth='8' />
       </Link>
       <CardContent>
         <Typography variant='h8' color='secondary'>
-          {`$ ${price}`}
+          {`$ ${price ? price :  <Skeleton animation="wave" height={10} width="40%" />}`}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
