@@ -11,6 +11,7 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -19,6 +20,10 @@ import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutl
 import { Link } from "react-router-dom";
 import PutModal from "../../PutModal/PutModal";
 import Skeleton from '@mui/material/Skeleton';
+import { NestedModal } from "../../Modals/ModalToCart";
+import { useDispatch, useSelector } from "react-redux";
+import { getProductDetail } from "../../../redux/actions/productsAction";
+import { addToFavorite, deleteFromFavorite } from "../../../redux/actions/favoriteAction";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -41,8 +46,10 @@ export default function RecipeReviewCard({
   product,
 }) {
   const [expanded, setExpanded] = React.useState(false);
+  const dispatch = useDispatch()
   const user = JSON.parse(localStorage.getItem("auth0"));
   //Función inspectora de billet----privilegios
+  const favoritos = JSON.parse(localStorage.getItem('favorite'))
   const admin = (user) => {
     if (user && user.admin) {
       if (user.admin.includes("admin")) return true;
@@ -51,6 +58,7 @@ export default function RecipeReviewCard({
       return false;
     }
   };
+  const productDet = useSelector(state => state.product.detail)
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -59,6 +67,25 @@ export default function RecipeReviewCard({
   //   localStorage.setItem('favorite', JSON.stringify(id))
   // }
 
+  function modalToCart(e){
+    e.preventDefault()
+    dispatch(getProductDetail(id))
+  }
+
+  function hover(e){
+    e.preventDefault()
+    dispatch(getProductDetail(id))
+  }
+  function addFav(e){
+    e.preventDefault()
+    // dispatch(getProductDetail(id))
+    dispatch(addToFavorite(productDet))
+  }
+
+  function deleteFav(e){
+    e.preventDefault()
+    dispatch(deleteFromFavorite(productDet))
+  }
   return (
     <Card sx={{ maxWidth: 330 }}>
       <CardHeader
@@ -100,16 +127,21 @@ export default function RecipeReviewCard({
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label='add to favorites'>
-          <FavoriteIcon
-          //  onClick={handleClick(`${_id}`)}
-          />
+        <IconButton aria-label='add to favorites' onMouseOver={hover}>
+          {(favoritos?.filter(el=>el._id===id))?.length>0?
+            <FavoriteIcon onClick={deleteFav}/>
+            :            
+            <FavoriteBorderIcon onClick={addFav}/>
+          }
         </IconButton>
-        <Link to={`/detail/${id}`}>
-          <IconButton>
-            <AddShoppingCartOutlinedIcon sx={{ marginRight: "1rem" }} />
+        {/* <Link to={`/detail/${id}`}> */}
+          <IconButton
+          onClick={modalToCart}
+          >
+            <NestedModal/>
+            {/* <AddShoppingCartOutlinedIcon sx={{ marginRight: "1rem" }} /> */}
           </IconButton>
-        </Link>
+        {/* </Link> */}
 
         <ExpandMore
           expand={expanded}

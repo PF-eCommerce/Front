@@ -1,5 +1,4 @@
 import axios from "axios";
-
 export const REGISTER_ERROR = "REGISTER_ERROR";
 export const LOGIN_ERROR = "LOGIN_ERROR";
 export const RESET_ERROR = "RESET_ERROR";
@@ -8,6 +7,7 @@ export const USER = "USER";
 export const RESET_USER = "RESET_USER";
 export const TOKEN = "TOKEN";
 export const ALL_USERS = "ALL_USERS";
+export const BOOLEAN = 'BOOLEAN';
 
 export const userRegister = (user) => {
   return async (dispatch) => {
@@ -147,3 +147,9 @@ export const getAllUsers = () => {
     }
   };
 };
+
+export const boolean = () => {
+  return{
+    type: BOOLEAN
+  }
+}

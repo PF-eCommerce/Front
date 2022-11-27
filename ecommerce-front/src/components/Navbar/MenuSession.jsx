@@ -68,14 +68,14 @@ export default function PositionedMenu() {
       const userAction = JSON.parse(localStorage.getItem("auth0"));
       dispatch(auth0User(userAction));
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.message);
     }
   };
 
   React.useEffect(() => {
-    console.log('ISAUTHENTIC', isAuthenticated)
-    console.log('LOCALSTORAGE', localStorage)
-    console.log('AUTH0', localStorage.getItem('auth0'))
+    // console.log('ISAUTHENTIC', isAuthenticated)
+    // console.log('LOCALSTORAGE', localStorage)
+    // console.log('AUTH0', localStorage.getItem('auth0'))
     if (isAuthenticated && localStorage.getItem("auth0") === null) {
       callApiProtected();
     }

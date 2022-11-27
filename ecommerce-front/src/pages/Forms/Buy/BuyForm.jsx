@@ -3,105 +3,20 @@ import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { Grid, inputAdornmentClasses, TextField } from '@mui/material';
-import { styled } from "@mui/material/styles";
+import { Grid, TextField } from '@mui/material';
 import axios from "axios";
-import {auth0User} from "../../../redux/actions/userAction";
+import {auth0User, boolean} from "../../../redux/actions/userAction";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { orderProduct } from '../../../redux/actions/productsAction';
 import Paypal from "./Paypal/Paypal";
 import Stripe from "./Stripe/Stripe"
-import Sumas from '../../../components/Cart/Sumas';
+import { SubmitButton } from '../../../components/Styled/StyledButtons';
+import { MercadoPago } from './MercadoPago';
+import { Cart } from './CartComponent';
 
-
-const ImageButton = styled(Button)({
-  boxShadow: "none",
-  textTransform: "none",
-  // fontSize: 20,
-  padding: "6px 12px",
-  // border: '1px solid',
-  lineHeight: 1.5,
-  backgroundColor: "aquamarine",
-  borderColor: "#0063cc",
-  fontFamily: [
-    "-apple-system",
-    "BlinkMacSystemFont",
-    '"Segoe UI"',
-    "Roboto",
-    '"Helvetica Neue"',
-    "Arial",
-    "sans-serif",
-    '"Apple Color Emoji"',
-    '"Segoe UI Emoji"',
-    '"Segoe UI Symbol"',
-  ].join(","),
-  "&:hover": {
-    backgroundColor: "#0069d9",
-    borderColor: "#0062cc",
-    boxShadow: "none",
-    opacity: "0.7",
-    transform: "scale(1.05)",
-  },
-  "&:active": {
-    boxShadow: "none",
-    backgroundColor: "#0062cc",
-    borderColor: "#005cbf",
-  },
-  "&:focus": {
-    boxShadow: "0 0 0 0.2rem rgba(0,123,255,.5)",
-  },
-});
-
-const steps = ['Carro', 'Entrega', 'Pago'];
-// const mp = new MercadoPago('TEST-2b431a09-2059-4817-981a-382d3a6af349')
-
-const SubmitButton = styled(Button)({
-    width:400,
-    color:'white',
-    borderRadius:'20px',
-    boxShadow: '0 0 7px black',
-    textTransform: 'none',
-    fontSize: 20,
-    padding: '6px 12px',
-    border: 'none',
-    lineHeight: 1.5,
-    backgroundColor: 'rgb( 255, 107, 107)',
-    borderColor: '#0063cc',
-    fontFamily: [
-      '-apple-system',
-      'BlinkMacSystemFont',
-      '"Segoe UI"',
-      'Roboto',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(','),
-    '&:hover': {
-      backgroundColor: 'rgb( 23, 87, 45)',
-      borderColor: '#0062cc',
-      boxShadow: 'none',
-      opacity: '0.5',
-      transform: 'scale(1)',
-      boxShadow: '0 0 10px white',
-      // transition: 'all .3s',
-      // cursor: 'pointer',
-    },
-    '&:active': {
-      boxShadow: 'none',
-      backgroundColor: '#0062cc',
-      borderColor: '#005cbf',
-    },
-    '&:focus': {
-      boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
-    },
-  });
+const steps = ['Login', 'Datos', 'Pago'];
 
 export default function HorizontalLinearStepper() {
   const [activeStep, setActiveStep] = React.useState(0);
@@ -109,7 +24,6 @@ export default function HorizontalLinearStepper() {
   const { loginWithRedirect, logout, isAuthenticated, getAccessTokenSilently, loginWithPopup } = useAuth0();
   const userLocalStorage = JSON.parse(localStorage.getItem("auth0"));
   const dispatch = useDispatch()
-  // const [user, setUser] = React.useState(userLocalStorage);
   const navigate = useNavigate()
   const [inputs, setInputs] = React.useState({
     name: '',
@@ -123,16 +37,75 @@ export default function HorizontalLinearStepper() {
   const [infoCompleted, setInfoCompleted]= React.useState(false)
   const mercadoPagoLink = useSelector(state=>state?.product.linkMP)
   const cartItems = useSelector(state=>state.cart.cart)
-  console.log('CARTITEMS', cartItems)
-  const productArray = cartItems.map(el=>{
-    return{
-      name: el.title,
-      count: el.qty,
-      image: el.img&&el.img[0],
-      price: el.price,
-      _id: el._id
+  const [errors, setErrors] = React.useState('')
+  const booleano = useSelector(state=>state.user.boolean)
+
+  React.useEffect(() => {
+    if (isAuthenticated && localStorage.getItem("auth0") === null) {
+      callApiProtected();
+    } else if (isAuthenticated && localStorage.getItem("auth0")!== null && infoCompleted===false) {
+      console.log('ASFASFFSAASF')
+      setActiveStep(1)
+    } else if (isAuthenticated && localStorage.getItem("auth0")!== null && infoCompleted===true){
+      setActiveStep(2)
     }
-  })
+  },[isAuthenticated, infoCompleted, booleano ]);
+  
+  const inputsError = ['name', 'surname', 'phone','country', 'street_name', 'street_number', 'zip_code']
+
+  function validate(input) {
+    let errors = {};
+
+    if (!input.name) {
+      errors.name = 'Nombre de usuario requerido';
+    }
+    else if (input.name.length>30){
+      errors.name = 'Máximo 30 caracteres'
+    }
+    if (!input.surname) {
+      errors.surname = 'Apellido de usuario requerido';
+    }
+    else if (input.surname.length>30){
+      errors.surname = 'Máximo 30 caracteres'
+    }
+    if (!input.phone) {
+      errors.phone = 'Telefono requerido';
+    }
+    else if (input.phone.length!==8){
+      errors.phone = 'Debe contener 8 caracteres'
+    }
+    else if (input.phone<0){
+      errors.phone = 'Numero invalido'
+    }
+    if (!input.country) {
+      errors.country = 'Pais requerido';
+    }
+    if (!input.street_name) {
+      errors.street_name = 'Direccion de entrega requerida';
+
+    }else if (input.street_name.length>30){
+      errors.street_name = 'Maximo 30 caracteres'
+    }
+    if (!input.street_number) {
+      errors.street_number = 'Altura de entrega requerida';
+
+    }else if (input.street_number.length>7){
+      errors.street_number = 'Maximo 7 caracteres'
+    }
+    else if (input.street_number<0){
+      errors.street_number = 'Numero invalido'
+    }
+    if (!input.zip_code) {
+      errors.zip_code = 'Altura de entrega requerida';
+
+    }else if (input.zip_code.length>5){
+      errors.zip_code = 'Maximo 5 caracteres'
+    }else if (input.zip_code<0){
+      errors.zip_code = 'Numero invalido'
+    }
+
+    return errors;
+  };
   
   
 
@@ -148,59 +121,13 @@ export default function HorizontalLinearStepper() {
       localStorage.setItem("auth0", JSON.stringify(response.data));
       const userAction = JSON.parse(localStorage.getItem("auth0"));
       dispatch(auth0User(userAction));
+      dispatch(boolean())
     } catch (error) {
       console.log(error.message);
     }
   };
 
-  React.useEffect(() => {
-    if (isAuthenticated && localStorage.getItem("auth0") === null) {
-      callApiProtected();
-    } else if (isAuthenticated && localStorage.getItem("auth0")!== null && infoCompleted===false) {
-      setActiveStep(1)
-    } else if (isAuthenticated && localStorage.getItem("auth0")!== null && infoCompleted===true){
-      setActiveStep(2)
-    }
-  });
-
-
-  const isStepOptional = (step) => {
-    return step === 1;
-  };
-
-  const isStepSkipped = (step) => {
-    return skipped.has(step);
-  };
   
-  const handleNext = () => {
-    let newSkipped = skipped;
-    if (isStepSkipped(activeStep)) {
-      newSkipped = new Set(newSkipped.values());
-      newSkipped.delete(activeStep);
-    }
-
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped(newSkipped);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const handleSkip = () => {
-    if (!isStepOptional(activeStep)) {
-      // You probably want to guard against something like this,
-      // it should never occur unless someone's actively trying to break something.
-      throw new Error("You can't skip a step that isn't optional.");
-    }
-
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped((prevSkipped) => {
-      const newSkipped = new Set(prevSkipped.values());
-      newSkipped.add(activeStep);
-      return newSkipped;
-    });
-  };
 
   const handleReset = () => {
     setActiveStep(0);
@@ -212,11 +139,18 @@ export default function HorizontalLinearStepper() {
       ...inputs,
       [e.target.name]: e.target.value
   });
+  setErrors(validate({
+    ...inputs,
+    [e.target.name]:e.target.value
+}))
   }
 
   function handleSubmit(e){
     
     e.preventDefault()
+    console.log('GFDHFD')
+    if(!inputsError.some(inp=>errors.hasOwnProperty(inp))&&inputs.name.length>0){
+      console.log('ASDASDD')
     const location = {
       country: inputs.country,
       street_name: inputs.street_name,
@@ -231,31 +165,8 @@ export default function HorizontalLinearStepper() {
     localStorage.setItem('location', JSON.stringify(location) )
     localStorage.setItem('input', JSON.stringify(input) )
     setInfoCompleted(true)
-  }
-
-  function linkMP(e){
-    e.preventDefault()
-    // let productArray = JSON.parse(localStorage.getItem('productArray'))
-    // let productArray = [{
-    //   name: 'vestido',
-    //   count: 1,
-    //   image: 'not valid',
-    //   price: 100,
-    //   _id: '637695d20cf126c6d70830ae'
-    // }]
-    console.log ('PRODUCTARRAY', productArray)
-    let id = JSON.parse(localStorage.getItem('auth0'))._id
-    let location = JSON.parse(localStorage.getItem('location'))
-    let input = JSON.parse(localStorage.getItem('input'))
-    console.log('ID', id)
-    console.log('LOCATION', location)
-    console.log('INPUT', input)
-    
-    dispatch(orderProduct(productArray, id, location, input))
-  }
-  function paypal(e){
-    e.preventDefault()
-    Paypal()
+    console.log('26151')
+    }
   }
 
   
@@ -266,22 +177,14 @@ export default function HorizontalLinearStepper() {
         width:'100%',
         display:'flex',
         justifyContent:'center',
-        marginTop:10,
+        marginTop:3,
     }}
     >
         <Box sx={{ width: '80%' }}>
-      <Stepper activeStep={activeStep}>
+        <Stepper activeStep={activeStep}>
         {steps.map((label, index) => {
           const stepProps = {};
           const labelProps = {};
-          if (isStepOptional(index)) {
-            labelProps.optional = (
-              <Typography variant="caption">Optional</Typography>
-            );
-          }
-          if (isStepSkipped(index)) {
-            stepProps.completed = false;
-          }
           return (
             <Step key={label} {...stepProps}>
               <StepLabel {...labelProps}>{label}</StepLabel>
@@ -289,17 +192,6 @@ export default function HorizontalLinearStepper() {
           );
         })}
       </Stepper>
-      {activeStep === steps.length ? (
-        <React.Fragment>
-          <Typography sx={{ mt: 2, mb: 1 }}>
-            All steps completed - you&apos;re finished
-          </Typography>
-          <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-            <Box sx={{ flex: '1 1 auto' }} />
-            <Button onClick={handleReset}>Reset</Button>
-          </Box>
-        </React.Fragment>
-      ) : (
         <React.Fragment>
             {activeStep===0?
             <Grid container xs={12} >
@@ -322,17 +214,17 @@ export default function HorizontalLinearStepper() {
                         style={{
                             fontSize:13,
                         }}
-                        >Para continuar tu compra ingresa tu correo electrónico.</Typography>
+                        >Para continuar tu compra Logueate con tu cuenta.</Typography>
                         <Typography
                         style={{
                             fontSize:13,
                             marginBottom:30,
                         }}
-                        >Recuerda que si eres cliente CMRElitey pagas con tu tarjeta tienes 3 despachos gratis al mes. Revisa las condiciones.</Typography>  
+                        >En caso de no estar regisgtrado, podrás hacerlo al intentar loguearte.</Typography>  
                     </Grid>
                     <Grid container xs={12}>
                         <Grid container xs={6}>
-                            <Grid xs={12}>
+                            {/* <Grid xs={12}>
                             <Typography>Correo electronico:</Typography>  
                             </Grid>
                             
@@ -342,8 +234,8 @@ export default function HorizontalLinearStepper() {
                                 width:400,
                                 marginBottom: 30,
                             }}
-                            ></TextField>
-                            <SubmitButton onClick={loginWithPopup}>Continuar</SubmitButton>
+                            ></TextField> */}
+                            <SubmitButton onClick={loginWithPopup}>Loguearse</SubmitButton>
                         </Grid>
                         <Grid xs={6}>
                             <Box>
@@ -385,21 +277,49 @@ export default function HorizontalLinearStepper() {
                             <Grid xs={12}>
                             <Typography>Nombre</Typography>  
                             </Grid>
+                            {errors.name?
+                              <TextField
+                              name='name'
+                              value={inputs.name}
+                              variant="standard"
+                              // label={localStorage.getItem('auth0')?`${JSON.parse(localStorage.getItem('auth0')).name}`:'Nombre'}
+                              onChange={handleChange}
+                              helperText={errors.name}
+                              style={{
+                                  width:400,
+                                  marginBottom: 30,
+                              }}
+                              ></TextField>
+                            :
                             <TextField
                             name='name'
-                            value={TextField.name}
+                            value={inputs.name}
                             variant="standard"
-                            // placeholder={localStorage.getItem('auth0')?`${JSON.parse(localStorage.getItem('auth0')).name}`:null}
-                            label={localStorage.getItem('auth0')?`${JSON.parse(localStorage.getItem('auth0')).name}`:'Nombre'}
+                            // label={localStorage.getItem('auth0')?`${JSON.parse(localStorage.getItem('auth0')).name}`:'Nombre'}
                             onChange={handleChange}
                             style={{
                                 width:400,
                                 marginBottom: 30,
                             }}
                             ></TextField>
+                            }
+                            
                           <Grid xs={12}>
                             <Typography>Apellido</Typography>  
                             </Grid>
+                            {errors.surname?
+                            <TextField
+                            label="Apellido" variant="standard"
+                            name='surname'
+                            value={TextField.name}
+                            onChange={handleChange}
+                            helperText={errors.surname}
+                            style={{
+                                width:400,
+                                marginBottom: 30,
+                            }}
+                            ></TextField>
+                            :
                             <TextField
                             label="Apellido" variant="standard"
                             name='surname'
@@ -410,20 +330,39 @@ export default function HorizontalLinearStepper() {
                                 marginBottom: 30,
                             }}
                             ></TextField>
+                            }
+                            
                             <Grid xs={12}>
                             <Typography>Telefono</Typography>  
                             </Grid>
+                            {errors.phone?
                             <TextField
                             name='phone'
                             value={TextField.name}
                             onChange={handleChange}
                             label="Telefono" variant="standard"
-                            helperText='Debe ser de 8 digitos'
+                            helperText={errors.phone}
+                            type='number'
                             style={{
                                 width:400,
                                 marginBottom: 30,
                             }}
                             ></TextField>
+                            :
+                            <TextField
+                            name='phone'
+                            value={TextField.name}
+                            type='number'
+                            onChange={handleChange}
+                            label="Telefono" variant="standard"
+                            // helperText='Debe ser de 8 digitos'
+                            style={{
+                                width:400,
+                                marginBottom: 30,
+                            }}
+                            ></TextField>
+                            }
+                            
                           </Grid>
                           
                           <Grid container xs={6}
@@ -435,6 +374,19 @@ export default function HorizontalLinearStepper() {
                             <Grid xs={12}>
                             <Typography>Pais</Typography>  
                             </Grid>
+                            {errors.country?
+                            <TextField
+                            name='country'
+                            value={TextField.name}
+                            onChange={handleChange}
+                            label="Pais" variant="standard"
+                            helperText={errors.country}
+                            style={{
+                                width:400,
+                                marginBottom: 30,
+                            }}
+                            ></TextField>
+                            :
                             <TextField
                             name='country'
                             value={TextField.name}
@@ -445,61 +397,120 @@ export default function HorizontalLinearStepper() {
                                 marginBottom: 30,
                             }}
                             ></TextField>
+                            }
+                            
                             <Grid xs={12}>
-                            <Typography>Calle y Altura</Typography>  
+                            <Typography>Calle</Typography>  
                             </Grid>
+                            {errors.street_name?
                             <TextField
                             name='street_name'
                             value={TextField.name}
                             onChange={handleChange}
-                            label="Ej: 9 de Julio 335..." variant="standard"
+                            label="Ej: 9 de Julio..." variant="standard"
+                            helperText={errors.street_name}
                             style={{
                                 width:400,
                                 marginBottom: 30,
                             }}
                             ></TextField>
+                            :
+                            <TextField
+                            name='street_name'
+                            value={TextField.name}
+                            onChange={handleChange}
+                            label="Ej: 9 de Julio..." variant="standard"
+                            style={{
+                                width:400,
+                                marginBottom: 30,
+                            }}
+                            ></TextField>
+                            }
                             <Grid xs={12}>
-                            <Typography>Dpto/Casa/Oficina</Typography>  
+                            <Typography>Altura</Typography>  
                             </Grid>
+                            {errors.street_number?
                             <TextField
                             name='street_number'
                             value={TextField.name}
                             onChange={handleChange}
-                            label="Ej: casa, oficina..." variant="standard"
+                            label="Ej: 3700..." variant="standard"
+                            type='number'
+                            helperText={errors.street_number}
                             style={{
                                 width:400,
                                 marginBottom: 30,
                             }}
                             ></TextField>
+                            :
+                            <TextField
+                            name='street_number'
+                            value={TextField.name}
+                            onChange={handleChange}
+                            type='number'
+                            label="Ej: 3700..." variant="standard"
+                            style={{
+                                width:400,
+                                marginBottom: 30,
+                            }}
+                            ></TextField>
+                            }                            
                             <Grid xs={12}>
                             <Typography>Codigo Postal</Typography>  
                             </Grid>
+                            {errors.zip_code?
                             <TextField
                             name='zip_code'
                             value={TextField.name}
                             onChange={handleChange}
+                            type='number'
+                            helperText={errors.zip_code}
                             label="Ej: 1111" variant="standard"
                             style={{
                                 width:400,
                                 marginBottom: 30,
                             }}
                             ></TextField>
+                            :
+                            <TextField
+                            name='zip_code'
+                            value={TextField.name}
+                            onChange={handleChange}
+                            label="Ej: 1111" variant="standard"
+                            type='number'
+                            style={{
+                                width:400,
+                                marginBottom: 30,
+                            }}
+                            ></TextField>
+                            }
+                            
                           </Grid> 
                             
                             
                             
                           </Grid>
                         
+                        {/* <SubmitButton onClick={handleSubmit}>Continuar</SubmitButton> */}
+                        {inputs.name&&!inputsError.some(inp=>errors.hasOwnProperty(inp))?
                         <SubmitButton onClick={handleSubmit}>Continuar</SubmitButton>
+                          :
+                        <SubmitButton
+                          style={{
+                          opacity: 0.33,
+                          pointerEvents:'none'
+                          }}
+                        >Continuar</SubmitButton>
+                         }
                     </Grid>
 
                     <Grid container xs={2}
                     style={{
                       margin:10,
-                      marginTop:60
+                      marginTop:25
                     }}
                     >
-                      <Sumas cart={cartItems}
+                      <Cart cart={cartItems}
                       
                       />
                     </Grid>
@@ -513,54 +524,31 @@ export default function HorizontalLinearStepper() {
                     padding:30,
                     borderRadius:'20px',
                     marginTop:20,
+                    height:500,
                 }}
                 >
                     
-                        <ImageButton
-                        name="MercadoPago"
-                        onClick={linkMP}
-                        style={{
-                          backgroundImage: `url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBUb3s6MFqaj8sB3k4bBzVaiR9exgjoKY1DQ&usqp=CAU)`,
-                          height: "150px",
-                          width: "65%",
-                          borderRadius: "25px",
-                          backgroundSize: "cover",
-                          backgroundRepeat: "no-repeat",
-                          backgroundPosition: "center center",
-                        }}
-                        ></ImageButton>
+                        <MercadoPago/>
                         <Paypal />
                         <Stripe />
-                    <script src="https://sdk.mercadopago.com/js/v2"></script>
+                    
                     </Grid>
-
+                    <Grid container xs={2}
+                    style={{
+                      margin:10,
+                      marginTop:25,
+                      
+                    }}
+                    >
+                      <Cart cart={cartItems}
+                      />
+                    </Grid>
                 </Grid>
             :
             null
             }
-          <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography>
-          <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-            <Button
-              color="inherit"
-              disabled={activeStep === 0}
-              onClick={handleBack}
-              sx={{ mr: 1 }}
-            >
-              Back
-            </Button>
-            <Box sx={{ flex: '1 1 auto' }} />
-            {isStepOptional(activeStep) && (
-              <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-                Skip
-              </Button>
-            )}
-
-            <Button onClick={handleNext}>
-              {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-            </Button>
-          </Box>
+          
         </React.Fragment>
-      )}
     </Box>
     </Box>
     
