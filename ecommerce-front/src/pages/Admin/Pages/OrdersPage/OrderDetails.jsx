@@ -79,9 +79,9 @@ export default function OrderDetails() {
                 <SubTitle>{`Metodo de pago:`}</SubTitle>
                 <Body>{order.PaymentMethod}</Body>
                 <SubTitle>{`Entrega:`}</SubTitle>
-                <Body>{order.isDelivered ? "Entregado" : "No entregado"}</Body>
+                <Body>{order.isDelivered ? "Entregado" : "Pendiente"}</Body>
                 <SubTitle>{`Estado:`}</SubTitle>
-                <Body>{order.status === "Pending" ? "Pendiente" : "Completado"}</Body>
+                <Body>{order.status === "Pending" ? "Pendiente" : "Pagado"}</Body>
             </Section>
             <Title>Detalles de productos</Title>
             {order.orderItems?.map(p => {
@@ -99,14 +99,13 @@ export default function OrderDetails() {
             <Title>Detalles del comprador</Title>
             <Section>
                 <SubTitle>{`Nombre:`}</SubTitle>
-                {console.log("order", order)}
                 <Body>{order ? order.userPaymentInfo.name : "Desconocido"}</Body>
                 <SubTitle>{`Celular:`}</SubTitle>
                 <Body>{order.userPaymentInfo.phone}</Body>
             </Section>
             <Section>
                 <SubTitle>{`Direccion:`}</SubTitle>
-                <Body>{`${order.address.street_name ? "loco" : "nada"}, ${order.address.street_number ? "loco" : "nada"}`}</Body>
+                <Body>{`${order.address.street_name ? order.address.street_name : ""}, ${order.address.street_number ? order.address.street_number : "nada"}`}</Body>
                 <SubTitle>{`Código Postal:`}</SubTitle>
                 <Body>{order.address.zip_code}</Body>
             </Section>
@@ -114,7 +113,7 @@ export default function OrderDetails() {
                 <Flecha />
                 Atras
             </ButtonBack>
-            <ChangeOrder />
+            <ChangeOrder datos={order}/>
         </Container> : null
     )
 }

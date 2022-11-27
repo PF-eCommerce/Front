@@ -1,7 +1,7 @@
 export const STRIPE = "STRIPE";
 
 export const payStripe = (products) => {
-    return async (dispatch) => {
+    return async () => {
         try {
             await fetch(`${process.env.REACT_APP_API_URL}/create-order-stripe`, {
                 headers: {
@@ -9,7 +9,7 @@ export const payStripe = (products) => {
                     'Content-Type': 'application/json'
                 },
                 method: "POST",
-                body: JSON.stringify(products)
+                body: JSON.stringify({data: products})
             })
             .then(response => response.json())
             .then((response) => window.location.replace(response))
@@ -19,7 +19,7 @@ export const payStripe = (products) => {
     }
 }
 export const payPaypal = (products) => {
-    return async (dispatch) => {
+    return async () => {
         try {
             await fetch(`${process.env.REACT_APP_API_URL}/create-order-paypal`, {
                 headers: {
@@ -27,7 +27,7 @@ export const payPaypal = (products) => {
                     'Content-Type': 'application/json'
                 },
                 method: "POST",
-                body: JSON.stringify(products)
+                body: JSON.stringify({data: products})
             })
             .then(response => response.json())
             .then((response) => window.location.replace(response))

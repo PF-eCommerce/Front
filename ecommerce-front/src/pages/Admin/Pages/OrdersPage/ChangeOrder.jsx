@@ -1,6 +1,8 @@
 import { Box, Button, FormControl, InputLabel, MenuItem, Modal, Select, styled, Typography } from "@mui/material";
 import React from "react";
 import SettingsIcon from '@mui/icons-material/Settings';
+import { useDispatch } from "react-redux";
+import { editOrder } from "../../../../redux/actions/adminAction";
 
 const ButtonEdit = styled(Button)({
     backgroundColor: "#94744F",
@@ -26,15 +28,21 @@ const style = {
     p: 4,
 };
 
-export default function ChangeOrder() {
+export default function ChangeOrder({datos}) {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [age, setAge] = React.useState('');
+    const [entrega, setEntrega] = React.useState(datos.isDelivered);
+    const dispatch = useDispatch();
 
     const handleChange = (event) => {
-        setAge(event.target.value);
+        setEntrega(event.target.value);
     };
+    const handleSubmitChange = () => {
+        entrega === '' ? alert("Por favor complete el campo vacio"): 
+        dispatch(editOrder(datos._id, {isDelivered: entrega}))
+        // console.log(datos._id, {isDelivered: entrega})
+    }
 
     return (
         <Box>
@@ -57,16 +65,15 @@ export default function ChangeOrder() {
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
-                            value={age}
+                            value={entrega}
                             label="entrega"
                             onChange={handleChange}
                         >
-                            <MenuItem value={"Entregado"}>Entregado</MenuItem>
-                            <MenuItem value={"Despachado"}>Despachado</MenuItem>
-                            <MenuItem value={"Pendiente"}>Pendiente</MenuItem>
+                            <MenuItem value={true}>Entregado</MenuItem>
+                            <MenuItem value={false}>Pendiente</MenuItem>
                         </Select>
                     </FormControl>
-                    <ButtonEdit>Aceptar cambios</ButtonEdit>
+                    <ButtonEdit onClick={handleSubmitChange}>Aceptar cambios</ButtonEdit>
                     <ButtonEdit>Eliminar orden</ButtonEdit>
 
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
