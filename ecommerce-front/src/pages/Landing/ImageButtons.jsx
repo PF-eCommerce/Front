@@ -6,10 +6,32 @@ import { useNavigate } from "react-router-dom";
 import { getCategories } from "../../redux/actions/productsAction";
 import { ImageButton } from "../../components/Styled/StyledButtons";
 import Logos from "./Logos";
+import Carousel from 'react-material-ui-carousel';
+import LinearDeterminate from "../../components/Progress/MaterialUiProgress";
 
-
-
-export const ImageTrends = ()=> {
+export const ImageTrends = ()=>{
+    return(
+        <Grid
+        style={{
+          height: "650px",
+          width:'100%',
+          marginTop: 20,
+          marginBottom: 5,
+        }}
+        > 
+        <LinearDeterminate/>
+          <Carousel>
+        <ImageTrends1/>
+        <ImageTrends2/>
+        <ImageTrends3/>
+        </Carousel>
+        </Grid>
+        
+      
+      
+    )
+}
+export const ImageTrends1 = ()=> {
     return(
         <Grid
           container
@@ -17,8 +39,8 @@ export const ImageTrends = ()=> {
           style={{
             backgroundImage: `url(https://images.squarespace-cdn.com/content/v1/5f173b6f507f722ff8fd049d/1616490580704-S2KYVQT66SCCMQHWB26F/Tendencias+en+ropa+para+mujer+joven+verano+2021.jpg})`,
             height: "650px",
-            marginTop: 20,
-            marginBottom: 5,
+            // marginTop: 20,
+            // marginBottom: 5,
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center center",
@@ -26,7 +48,8 @@ export const ImageTrends = ()=> {
 
             
           }}
-        >
+        > 
+        
           <Grid
             xs={12}
             style={{
@@ -139,6 +162,87 @@ export const ImageTrends = ()=> {
           </Grid>
         </Grid>
     )
+}
+
+export const ImageTrends2 = ()=> {
+  return(
+      <Grid
+        container
+        xs={12}
+        style={{
+          backgroundImage: `url(http://sorprendete.pe/wp-content/uploads/2022/04/Descuentos-W.jpg})`,
+          height: "650px",
+          // marginTop: 20,
+          // marginBottom: 5,
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center center",
+          width:"100%"
+
+          
+        }}
+      >
+        <Grid
+          xs={12}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems:'center'
+          }}
+        >
+          <Item
+            style={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <BootstrapButton>NO TE LO PIERDAS!</BootstrapButton>
+          </Item>
+        </Grid>
+      </Grid>
+  )
+}
+
+export const ImageTrends3 = ()=> {
+  return(
+      <Grid
+        container
+        xs={12}
+        style={{
+          backgroundImage: `url(https://cmsphoto.ww-cdn.com/superstatic/81328/art/grande/40930198-34559071.jpg?v=1576776980.5958636})`,
+          height: "650px",
+          // marginTop: 20,
+          // marginBottom: 5,
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center center",
+          width:"100%"
+
+          
+        }}
+      >
+        <Grid
+          xs={12}
+          style={{
+            height:'580px',
+            display:'flex',
+            justifyContent:'center',
+            alignItems:'flex-end',
+          }}
+        >
+          <Item
+            style={{
+              fontSize: "25px",
+              fontFamily: "monospace",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            CON TU COMPRA MAYOR A $15.000
+          </Item>
+        </Grid>
+      </Grid>
+  )
 }
 
 export const ImageButton1 = ()=> {

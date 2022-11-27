@@ -5,7 +5,9 @@ import CheckBoxColors from "./CheckBoxColors"
 import FilterCategory from "./FilterCategory"
 import { addFavorites,showFavorites } from "../../../redux/actions/productsAction";
 import { useDispatch, useSelector } from "react-redux";
-import {filterRating} from "../../../redux/actions/productsAction"
+import {filterRating} from "../../../redux/actions/productsAction";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 
 export default function FilterSide(){
@@ -49,7 +51,13 @@ export default function FilterSide(){
              <ListItemButton component="a" 
              onClick={filterFavorites}
              >
-                 <Typography>Favoritos</Typography>
+                 <Typography
+                 style={{
+                    display: 'flex',
+                    justifyContent:'center',
+                    alignItems:'center',
+                 }}
+                 >Favoritos<FavoriteBorderIcon/></Typography>
              </ListItemButton>   
              <ListItemButton component="a" >
                  <Typography>Mexico vs Argentina</Typography>

@@ -9,7 +9,10 @@ const Landing = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
+        <Grid container xs={12}>
         <ImageTrends/>
+        </Grid>
+        
         <Grid container xs={7.8}>
           <Grid
             xs={5.8}
