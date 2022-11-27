@@ -34,7 +34,7 @@ export const getAllProducts = () => {
 export const getAllProductsNoPaginate = () => {
   return async (dispatch) => {
     try {
-      const products = await axios.get(`http://localhost:3001/productsAll`);
+      const products = await axios.get(`${process.env.REACT_APP_API_URL}/productsAll`);
  
       return dispatch({
         type : ALL_PRODUCTS,
