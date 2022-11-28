@@ -20,6 +20,7 @@
   border-radius: 6px;
   cursor: pointer;
   transition: all ease-in-out 0.4s;
+  margin-top: 50px;
 }
 .summ {
   border-radius: 15px;
@@ -98,7 +99,7 @@
     font-size: 15px;
   }
   .summComment {
-    width: 94%;
+    width: 90%;
     max-height: 20%;
     padding-top: 0.25rem;
     padding-left: 1.5rem;
