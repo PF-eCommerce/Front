@@ -24,6 +24,7 @@ import {
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { useState } from "react";
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
 export default function PositionedMenu() {
   const { loginWithRedirect, logout, isAuthenticated, getAccessTokenSilently } =
@@ -165,30 +166,25 @@ export default function PositionedMenu() {
             transformOrigin={{ horizontal: "right", vertical: "top" }}
             anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
           >
+             <Link style={{textDecoration: 'none' , color: '#4E4D4D'}}  to={`/account/${user?._id}/profile`}>
             <MenuItem>
-              <Link
-                style={{ textDecoration: "none" }}
-                to={`/account/${user?._id}/profile`}
-              >
-                <Avatar /> Profile
-              </Link>
+               
+               
+              
+                <Avatar /> Perfil
             </MenuItem>
-            {/* <MenuItem>
-              <Avatar /> My account
-            </MenuItem>
+            </Link>
+            
             <Divider />
+            { user.admin?.includes('admin') || userRedux.admin?.includes('admin') ? <Link to={`/admin/dashboard`}>
             <MenuItem>
               <ListItemIcon>
-                <PersonAdd fontSize="small" />
+              <AdminPanelSettingsIcon/>
               </ListItemIcon>
-              Add another account
+              Herramienta Admin
             </MenuItem>
-            <MenuItem>
-              <ListItemIcon>
-                <Settings fontSize="small" />
-              </ListItemIcon>
-              Settings
-            </MenuItem> */}
+            </Link> : null}
+            
             <MenuItem onClick={handleLogout}>
               <ListItemIcon>
                 <Logout fontSize='small' />
