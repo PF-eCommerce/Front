@@ -8,7 +8,9 @@ import {
   getProductDetail,
   deleteDetail,
 } from "../../redux/actions/productsAction";
-import Carrusel from "./Carrusel";
+
+
+//import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
 import {addToCart} from "../../redux/actions/cartAction"
 import Alert from "../../components/Cart/Alert";
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -22,6 +24,8 @@ import { addToFavorite, deleteFromFavorite } from "../../redux/actions/favoriteA
 import { NestedModal } from "../../components/Modals/ModalToCart";
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import ZoomDetail from './ZoomDetail';
+import './Detail.css'
 
 const Alerta = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -65,7 +69,9 @@ const Details = () => {
 
   const product = useSelector((state) => state.product?.detail);
   const [alert, setAlert] = useState(false);
-  
+
+  const images = product?.img ? product.img : []
+
   const reviewsByProduct = useSelector((state) => state.review?.reviews);
   const allUsers = useSelector((state) => state.user?.users)?.map((u) => ({
     name: u?.name,
@@ -120,7 +126,6 @@ const Details = () => {
   };
 
   const imagen = product.img?.map(el=>el)
-
 
   const reviewPro = useSelector((state) => state.review);
   let score = 0;
@@ -203,11 +208,12 @@ const Details = () => {
           flexWrap: "wrap",
         }}
       >
-        {product._id === id ? (
-          <Carrusel images={product.img ? product.img : []} autoplay={true} />
-        ) : null}
+        
+        <ZoomDetail images={images} />
         <Typography
           sx={{
+            marginTop: { xs: "200px", sm: "200px", md: "0px" },
+            marginBottom: { xs: "50px", sm: "50px", md: "0px" },
             padding: "10px",
             width: { xs: "100%", sm: "50%", md: "25%" },
             textAlign: "center",
