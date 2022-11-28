@@ -1,17 +1,17 @@
 import React from "react";
 import { DataGrid } from "@mui/x-data-grid";
-// import { useSelector } from 'react-redux';
-import { Box } from "@mui/material";
-import { orders } from "../../../utils/data/orders";
+import { useSelector } from "react-redux";
+import { Box, Typography } from "@mui/material";
+// import { orders } from "../../../utils/data/orders";
 
 const OrdersList = () => {
-  //   const { orders } = useSelector((state) => state.user.orders);
+  const { orders } = useSelector((state) => state.orders.userOrders);
 
   const rows = orders?.map((o) => ({
     id: o.id,
     // items: o.orderItems?.map((e) => e.name + ", "),
     items: o.items,
-    amount: o.amount,
+    amount: o.price,
     status: o.status,
     date: o.date,
   }));
@@ -51,19 +51,26 @@ const OrdersList = () => {
       },
     },
   ];
-
-  return (
-    <Box>
-      <DataGrid
-        autoHeight
-        sx={{ width: "95%" }}
-        rows={rows}
-        columns={orderColumns}
-        pageSize={4}
-        rowsPerPageOptions={[4]}
-      />
-    </Box>
-  );
+  if (orders?.length) {
+    return (
+      <Box>
+        <DataGrid
+          autoHeight
+          sx={{ width: "95%" }}
+          rows={rows}
+          columns={orderColumns}
+          pageSize={4}
+          rowsPerPageOptions={[4]}
+        />
+      </Box>
+    );
+  } else {
+    return (
+      <>
+        <Typography>Aún no has comprado nada</Typography>
+      </>
+    );
+  }
 };
 
 export default OrdersList;
