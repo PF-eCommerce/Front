@@ -14,7 +14,7 @@ import Logout from "@mui/icons-material/Logout";
 import { styled } from "@mui/system";
 import LoginIcon from "@mui/icons-material/Login";
 import Button from "@mui/material/Button";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   auth0User,
@@ -26,7 +26,8 @@ import axios from "axios";
 import { useState } from "react";
 
 export default function PositionedMenu() {
-  const { loginWithRedirect, logout, isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const { loginWithRedirect, logout, isAuthenticated, getAccessTokenSilently } =
+    useAuth0();
   const userLocalStorage = JSON.parse(localStorage.getItem("auth0"));
   const [user, setUser] = React.useState(userLocalStorage);
   const userRedux = useSelector((state) => state.user.user);
@@ -59,11 +60,14 @@ export default function PositionedMenu() {
     try {
       const token = isAuthenticated && (await getAccessTokenSilently());
 
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/protected`, {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/protected`,
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
       localStorage.setItem("auth0", JSON.stringify(response.data));
       const userAction = JSON.parse(localStorage.getItem("auth0"));
       dispatch(auth0User(userAction));
@@ -91,8 +95,8 @@ export default function PositionedMenu() {
           <Box
             sx={{ display: "flex", alignItems: "center", textAlign: "center" }}
           >
-            <Button onClick={loginWithRedirect} variant="text">
-              Iniciar Sesion
+            <Button onClick={loginWithRedirect} variant='text'>
+              Iniciar Sesión
             </Button>
             <LoginIcon />{" "}
           </Box>
@@ -112,10 +116,10 @@ export default function PositionedMenu() {
             >
               <IconButton
                 onClick={handleClick}
-                size="small"
+                size='small'
                 sx={{ ml: 2 }}
                 aria-controls={open ? "account-menu" : undefined}
-                aria-haspopup="true"
+                aria-haspopup='true'
                 aria-expanded={open ? "true" : undefined}
               >
                 <Avatar sx={{ width: 32, height: 32 }}>
@@ -128,7 +132,7 @@ export default function PositionedMenu() {
           </Box>
           <Menu
             anchorEl={anchorEl}
-            id="account-menu"
+            id='account-menu'
             open={open}
             onClose={handleClose}
             onClick={handleClose}
@@ -162,9 +166,14 @@ export default function PositionedMenu() {
             anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
           >
             <MenuItem>
-              <Avatar /> Profile
+              <Link
+                style={{ textDecoration: "none" }}
+                to={`/account/${user?._id}/profile`}
+              >
+                <Avatar /> Profile
+              </Link>
             </MenuItem>
-            <MenuItem>
+            {/* <MenuItem>
               <Avatar /> My account
             </MenuItem>
             <Divider />
@@ -179,10 +188,10 @@ export default function PositionedMenu() {
                 <Settings fontSize="small" />
               </ListItemIcon>
               Settings
-            </MenuItem>
+            </MenuItem> */}
             <MenuItem onClick={handleLogout}>
               <ListItemIcon>
-                <Logout fontSize="small" />
+                <Logout fontSize='small' />
               </ListItemIcon>
               Logout
             </MenuItem>
