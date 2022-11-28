@@ -119,7 +119,7 @@ export default function RecipeReviewCard({
         }
       />
       <Link to={`/detail/${id}`}>
-        <CardMedia component='img' height='280' image={img[0] ? img[0] : <Skeleton sx={{ height: 190 }} animation="wave" variant="rectangular" />} maxWidth='8' />
+        <CardMedia component='img' height='280' image={Array.isArray(img) ? img[0] : img} maxWidth='8' />
       </Link>
       <CardContent>
         <Typography variant='h8' color='secondary'>
