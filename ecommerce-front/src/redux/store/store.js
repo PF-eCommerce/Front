@@ -6,19 +6,20 @@ import userReducer from "../reducers/userReducer";
 import cartReducer from "../reducers/CartReducer";
 import cardReducer from "../reducers/cardReducer";
 import adminReducer from "../reducers/adminReducer";
-import reviewReducer from '../reducers/reviewReducer'
-
+import reviewReducer from "../reducers/reviewReducer";
+import ordersReducer from "../reducers/orderReducer";
+import modalReducer from '../reducers/modalsReducer';
 
 const reducer = combineReducers({
-    product: productReducer,
-    user: userReducer,
-    cart: cartReducer,
-    admin: adminReducer,
-    review: reviewReducer,
-    // orders: ordersReducer,
-    card: cardReducer,
-  });
-  const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
+  product: productReducer,
+  user: userReducer,
+  cart: cartReducer,
+  admin: adminReducer,
+  review: reviewReducer,
+  orders: ordersReducer,
+  card: cardReducer,
+  modal: modalReducer,
+});
+const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
 
-
-  export default store;
+export default store;

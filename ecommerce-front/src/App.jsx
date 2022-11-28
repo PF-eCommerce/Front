@@ -19,6 +19,10 @@ import Dashboard from "./pages/Admin/Pages/Dashboard/Dashboard";
 import Buy from "./pages/Forms/Buy/BuyForm";
 import { ProtectedRoute } from "./utils/protectedRoutes/ProtectedRoutes";
 import Error404 from './components/Error404/Error404'
+import OrdersPage from "./pages/Admin/Pages/OrdersPage/OrdersPage";
+import OrderDetails from "./pages/Admin/Pages/OrdersPage/OrderDetails";
+import ProductPage from "./pages/Admin/Pages/productsPage/ProductPage";
+
 
 function App() {
   const user = JSON.parse(localStorage.getItem("auth0"));
@@ -27,22 +31,25 @@ function App() {
       <Navbar />
       <Box>
         <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/detail/:id" element={<Details />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/sucursales" element={<Sucursales />} />
-          <Route path="/register" element={<FormLogin />} />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/faqs" element={<Preguntas />} />
-          <Route path="/cart" element={<ShoppingCart />} />
-          <Route path="/buy" element={<Buy />} />
-          <Route path="*" element={<Error404 />} />
-          {/* // admin Routes */}
+          <Route path='/' element={<Landing />} />
+          <Route path='/home' element={<Home />} />
+          <Route path='/detail/:id' element={<Details />} />
+          <Route path='/about' element={<About />} />
+
+          <Route path='/sucursales' element={<Sucursales />} />
+          <Route path='/register' element={<FormLogin />} />
+          <Route path='/auth' element={<Auth />} />
+          <Route path='/faqs' element={<Preguntas />} />
+
+          <Route path='/cart' element={<ShoppingCart />} />
+          <Route path='/buy' element={<Buy />} />
+          <Route path='*' element={<Error404 />} />
           <Route
             element={
               <ProtectedRoute
-                isAllowed={user && user.admin?.includes("admin")}
+                isAllowed={
+                  (user && user.admin) ? user.admin.includes("admin") : false
+                }
                 redirectTo={"/"}
               />
             }
@@ -50,19 +57,39 @@ function App() {
             <Route path="admin" element={<Admin />}>
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="users" element={<UsersPage />} />
+              <Route path="orders" element={<OrdersPage />} />
+              <Route path="orders/:id" element={<OrderDetails />} />
+              <Route path="products" element={<ProductPage />} />
+
             </Route>
+            {/* ADMIN */}
+          </Route>
+          <Route
+            path='/postproduct'
+            element={
+              <ProtectedRoute
+                isAllowed={
+                  (user && user.admin) ? user.admin.includes("admin") : false
+                }
+                redirectTo={"/"}
+              >
+                <ProductForm />
+              </ProtectedRoute>
+            }
+          >
+
             {/* ADMIN */}
             <Route path="/postproduct" element={<ProductForm />} />
           </Route>
           <Route
-            path="/account/profile"
+            path='/account/:id/profile'
             element={
               <ProtectedRoute isAllowed={user} redirectTo={"/"}>
                 <Profile />
               </ProtectedRoute>
             }
           />
-        </Routes> 
+        </Routes>
       </Box>
       <Footer />
     </div>

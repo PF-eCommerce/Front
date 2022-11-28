@@ -14,7 +14,7 @@ const CheckFalse = styled(HighlightOffIcon)({
     color: "red"
 })
 const Container = styled('div')({
-    width: "90%",
+    width: "100%",
     height: "635px",
     display:"flex",
     boxShadow:"0px 0px 5px black",
