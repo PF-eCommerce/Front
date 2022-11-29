@@ -20,6 +20,7 @@ const LastPurchases = () => {
                 price={prod?.price}
                 image={prod?.image}
                 _id={prod?._id}
+                product={prod?.product}
               />
             ))
           : purchases?.map((prod) => (
@@ -29,6 +30,7 @@ const LastPurchases = () => {
                 price={prod?.price}
                 image={prod?.image}
                 _id={prod?._id}
+                product={prod?.product}
               />
             ))}
       </Stack>

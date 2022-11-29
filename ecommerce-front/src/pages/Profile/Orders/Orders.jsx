@@ -1,17 +1,8 @@
 import React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { useSelector } from "react-redux";
-import { Box, Typography, Button, styled } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import OrdersModal from "./OrdersModal";
-// import { orders } from "../../../utils/data/orders";
-
-const ButtonAction = styled(Button)({
-  backgroundColor: "#94744F",
-  color: "white",
-  "&:hover": {
-    backgroundColor: "#4C4034",
-  },
-});
 
 const OrdersList = () => {
   const orders = useSelector((state) => state.orders.userOrders.orders);
@@ -30,7 +21,7 @@ const OrdersList = () => {
     {
       field: "items",
       headerName: "Productos",
-      width: 350,
+      width: 270,
       renderCell: (params) => {
         return <div>{params.row.items}</div>;
       },
@@ -73,13 +64,12 @@ const OrdersList = () => {
       description: "No se puede ordenar esta columna",
       sortable: false,
       renderCell: (params) => {
-        return (
-          <>
-            <ButtonAction onClick={() => <OrdersModal datos={params.row.id} />}>
-              VER
-            </ButtonAction>
-          </>
-        );
+        if (params.row.id)
+          return (
+            <>
+              <OrdersModal datos={params.row.id} />
+            </>
+          );
       },
     },
   ];

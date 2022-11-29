@@ -31,6 +31,7 @@ const Profile = () => {
   const { id } = useParams();
   const [open, setOpen] = useState(false);
   const [avatar, setAvatar] = useState("");
+  console.log(id)
   useEffect(() => {
     dispatch(getUserData(id));
     dispatch(getOrdersByUser(id));
