@@ -67,7 +67,7 @@ export const getOrders = () => {
                             status: o.status,
                             delivered: o.isDelivered,
                             price: totalPrice,
-                            date: o.date.substring(0, 10),
+                            date: `${o.date.substring(0, 10)} ${o.date.substring(11, 19)}`,
                         }
                     })
                     return dispatch({
