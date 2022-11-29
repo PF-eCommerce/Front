@@ -149,6 +149,34 @@ const Details = () => {
   //   enqueueSnackbar('Producto agregado a favoritos', { sucess });
   // };
   
+  let sizeObj = {}
+  let sizeArr =[]
+  if (product.size&&!Array.isArray(product.size)){
+    sizeObj ={
+      XS: product.size.extraSmall>0&&product.size.extraSmall,
+      S: product.size.small>0&&product.size.small,
+      M: product.size.medium>0&&product.size.medium,
+      L: product.size.large>0&&product.size.large,
+      XL: product.size.extraLarge>0&&product.size.extraLarge,
+      36: product.size.num36>0&&product.size.num36,
+      37: product.size.num37>0&&product.size.num37,
+      38: product.size.num38>0&&product.size.num38,
+      39: product.size.num39>0&&product.size.num39,
+      40: product.size.num40>0&&product.size.num40,
+      41: product.size.num41>0&&product.size.num41,
+      42: product.size.num42>0&&product.size.num42,
+      43: product.size.num43>0&&product.size.num43
+    }
+    for (let key in sizeObj){
+      if(sizeObj[key]){
+        sizeArr.push(key)
+      }
+      
+    }
+  }
+  
+
+  
   return (
     <Box
       sx={{
@@ -224,7 +252,7 @@ const Details = () => {
         <Box sx={{ width: { xs: "90%", sm: "auto", md: 450 } }}>
           <Box sx={boxStyle}>
             <Typography sx={textStyle}>Talles disponibles</Typography>
-            <Size arrSize={product.size} />
+            <Size arrSize={product.size&&Array.isArray(product.size)&&product.size} sizeAr={product.size&&!Array.isArray(product.size)&&sizeArr} />
           </Box>
           <Box sx={boxStyle}>
             <Typography sx={textStyle}>Colores disponibles</Typography>
