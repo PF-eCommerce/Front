@@ -72,6 +72,7 @@ export default function PositionedMenu() {
       localStorage.setItem("auth0", JSON.stringify(response.data));
       const userAction = JSON.parse(localStorage.getItem("auth0"));
       dispatch(auth0User(userAction));
+      
     } catch (error) {
       // console.log(error.message);
     }
@@ -107,7 +108,8 @@ export default function PositionedMenu() {
           {" "}
           <Box
             sx={{ display: "flex", alignItems: "center", textAlign: "center" }}
-          >
+          > 
+          <Button>{userRedux?.email ? userRedux?.email : user?.email}</Button>
             <Tooltip
               title={
                 Object.values(userRedux).length > 0
@@ -128,8 +130,10 @@ export default function PositionedMenu() {
                     ? userRedux?.email.toUpperCase().charAt(0)
                     : user?.email.toUpperCase().charAt(0)}
                 </Avatar>
+                
               </IconButton>
             </Tooltip>
+            
           </Box>
           <Menu
             anchorEl={anchorEl}
@@ -176,7 +180,7 @@ export default function PositionedMenu() {
             </Link>
             
             <Divider />
-            { user.admin?.includes('admin') || userRedux.admin?.includes('admin') ? <Link to={`/admin/dashboard`}>
+            { user?.admin?.includes('admin') || userRedux?.admin?.includes('admin') ? <Link to={`/admin/dashboard`}>
             <MenuItem>
               <ListItemIcon>
               <AdminPanelSettingsIcon/>
