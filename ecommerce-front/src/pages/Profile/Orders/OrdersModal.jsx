@@ -1,4 +1,10 @@
-import { Box, Button, styled, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  styled,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -78,7 +84,7 @@ export default function OrdersModal({ datos }) {
     <div>
       {!loading ? (
         <div>
-          <img alt='Loading...' />
+          <CircularProgress color='inherit' />
         </div>
       ) : (
         <div>
