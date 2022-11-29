@@ -3,9 +3,10 @@ import { styled } from "@mui/material";
 import DataGridX from "./DataGrid";
 
 const Container = styled('div')({
-    width: "80%",
+    width: "75%",
     height: "635px",
     display:"flex",
+    marginLeft:"20px"
 })
 
 export default function UsersPage() {

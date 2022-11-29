@@ -20,6 +20,7 @@
   border-radius: 6px;
   cursor: pointer;
   transition: all ease-in-out 0.4s;
+  margin-top: 50px;
 }
 .summ {
   border-radius: 15px;
@@ -37,6 +38,7 @@
   color: var(--color-detail-BtnBuy);
   background-color: rgba(0, 71, 212, 0.142);
   box-shadow: rgba(72, 72, 72, 0.877) 0px 2px 5px 0px;
+  font-size: 15px;
 }
 .summComment {
   width: 90%;
@@ -94,9 +96,10 @@
     color: var(--color-detail-BtnBuy);
     background-color: rgba(0, 71, 212, 0.142);
     box-shadow: rgba(72, 72, 72, 0.877) 0px 2px 5px 0px;
+    font-size: 15px;
   }
   .summComment {
-    width: 94%;
+    width: 90%;
     max-height: 20%;
     padding-top: 0.25rem;
     padding-left: 1.5rem;

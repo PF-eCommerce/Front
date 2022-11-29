@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getOtherPages } from "../../../redux/actions/productsAction";
 import { Box } from "@mui/material";
 
+
 export default function PaginationSize() {
   const products = useSelector((state) => state?.product.products);
   const productsAll = useSelector(state=>state?.product.allProducts)
