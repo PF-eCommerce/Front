@@ -9,6 +9,7 @@ import { getAllReviews } from "../../redux/actions/reviewActions";
 import { Box } from "@mui/system";
 import { getAllUsers } from "../../redux/actions/userAction";
 import CardSkeleton from "../CardSkeleton/CardSkeleton";
+import AlertEdit from "../Alert/AlertEdit";
 const Cards = () => {
   const dispatch = useDispatch();
 
@@ -21,12 +22,13 @@ const Cards = () => {
     dispatch(getAllReviews());
     dispatch(getAllUsers());
   }, []);
-  console.log('PRODUCTOSS', products)
+  
   return (
     <Box flex={8} p={1}>
-      {products.docs?.length > 0 ? (
+      {products.docs ? (
+       
         <Grid container spacing={2}>
-          {products.docs?.map((produc) => (
+          {products.docs.length > 0 ? products.docs?.map((produc) => (
             <Grid xs={12} md={6} lg={4} p={2}>
               {/* <Link to={`/detail/${produc._id}`}> */}
               <Card
@@ -39,7 +41,7 @@ const Cards = () => {
                 product={produc}
               />
             </Grid>
-          ))}
+          )) : <Box sx={{ width: '100%' , height: '500px', display: 'flex', alignItems: 'center', justifyContent: 'center'}}> <AlertEdit type="warning" msg="no existe productos con ese resultado"/> </Box> }
         </Grid>
       ) : (
         <Grid container spacing={2}>

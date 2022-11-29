@@ -61,6 +61,7 @@ const CheckFalse = styled(HighlightOffIcon)({
 })
 export default function Action({ datos }) {
     
+    console.log ('DATOS :  ' , datos ) 
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -73,7 +74,10 @@ export default function Action({ datos }) {
          title : datos.title,
          price: datos.price,
          img : datos.img,
-         inStock : datos.inStock
+         inStock : datos.inStock,
+         men : datos.men,
+         woman : datos.woman,
+         isShoes : datos.isShoes
     })
 
     const handleOnChange = (evt) => {
@@ -85,11 +89,14 @@ export default function Action({ datos }) {
     }
     const handleSetAdmin = () => {
         dispatch(updateProduct(datos.id, input))
-        .then(setTimeout(()=> {
-            window.location.reload()
-        },500));
-
-        setInput({})
+        handleClose();
+        
+        // .then(setTimeout(()=> {
+        //     window.location.reload()
+        // },500));
+        // setInput({})
+        
+        
     }
 
     return (
@@ -145,6 +152,28 @@ export default function Action({ datos }) {
                     <Button onClick={() => setInput({...input, inStock: true})}>si</Button>
                     <Button onClick={() => setInput({...input, inStock: false})}>no</Button>
                     </Box>
+                    
+                    <Box sx={{ display: 'flex', alignItems: 'center'}}>
+                   <SubTitle>Hombre :</SubTitle>
+                    {input?.men ? <CheckTrue/> : <CheckFalse/>}
+                    <Button onClick={() => setInput({...input, men: true})}>si</Button>
+                    <Button onClick={() => setInput({...input, men: false})}>no</Button>
+                   </Box>
+
+                   <Box sx={{ display: 'flex', alignItems: 'center'}}>
+                   <SubTitle>Mujer :</SubTitle>
+                    {input?.woman ? <CheckTrue/> : <CheckFalse/>}
+                    <Button onClick={() => setInput({...input, woman: true})}>si</Button>
+                    <Button onClick={() => setInput({...input, woman: false})}>no</Button>
+                   </Box>
+
+                   <Box sx={{ display: 'flex', alignItems: 'center'}}>
+                   <SubTitle>isShoes :</SubTitle>
+                    {input?.isShoes ? <CheckTrue/> : <CheckFalse/>}
+                    <Button onClick={() => setInput({...input, isShoes: true})}>si</Button>
+                    <Button onClick={() => setInput({...input, isShoes: false})}>no</Button>
+                   </Box>
+
                     <Title>Acciones</Title>
                     <ButtonAction onClick={handleSetAdmin}>Actualizar este Producto</ButtonAction>
                     </insideBox>
