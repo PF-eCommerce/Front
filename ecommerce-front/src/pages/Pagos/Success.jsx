@@ -1,7 +1,9 @@
-import { Box, styled, Typography } from "@mui/material";
+import { Box, Button, styled, Typography } from "@mui/material";
 import React from "react";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteAllCart } from "../../redux/actions/cartAction";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled(Box)({
     display: "flex",
@@ -20,11 +22,9 @@ const Icono = styled(CheckCircleIcon)({
     fontSize: "200px"
 })
 export default function Success() {
-    localStorage.setItem('cart', [])
-    // const awa = JSON.parse(localStorage.getItem("cart"))
-    // console.log(awa)
-    // console.log(data)
-    // const data = useSelector((state) => state)
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
+    dispatch(deleteAllCart())
     return (
         <Container>
             <Text>
@@ -34,6 +34,7 @@ export default function Success() {
             <Text>
                 {"Gracias por confiar en nosotros :)"}
             </Text>
+            <Button variant="contained" onClick={() => navigate("/home")}>Volver al HOME</Button>
         </Container>
     )
 }
