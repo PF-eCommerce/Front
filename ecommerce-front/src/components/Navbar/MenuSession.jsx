@@ -170,7 +170,7 @@ export default function PositionedMenu() {
             transformOrigin={{ horizontal: "right", vertical: "top" }}
             anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
           >
-             <Link style={{textDecoration: 'none' , color: '#4E4D4D'}}  to={`/account/${user?._id}/profile`}>
+             <Link style={{textDecoration: 'none' , color: '#4E4D4D'}}  to={`/account/${Object.keys(userRedux).length > 0 ? userRedux?._id : user?._id}/profile`}>
             <MenuItem>
                
                
