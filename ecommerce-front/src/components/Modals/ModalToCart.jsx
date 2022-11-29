@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
 import {addToCart} from "../../redux/actions/cartAction"
-import { selectSize } from "../../redux/actions/cardAction";
+import { selectSize, deleteSize } from "../../redux/actions/cardAction";
 import Modal from '@mui/material/Modal';
 import Grid from "@mui/material/Unstable_Grid2";
 import CardMedia from '@mui/material/CardMedia';
@@ -26,8 +26,9 @@ const style = {
     pb: 3,
   };
 
-  
-
+  let sizeObj = {}
+  let sizeArr =[]
+  let stock = ''
 export function ChildModal() {
     const dispatch = useDispatch();
     const [open, setOpen] = React.useState(false);
@@ -36,10 +37,12 @@ export function ChildModal() {
     };
     const handleClose = () => {
       setOpen(false);
+      setQty(1)
+      
       // dispatch(closeChildModal())
     };
     
-    let product = useSelector((state) => state.product.detail)
+    const product = useSelector((state) => state.product.detail)
     
     
     const sizee = useSelector(state=> state?.card.size)
@@ -57,25 +60,54 @@ export function ChildModal() {
         }
       } else if(e.target.value==='add'){
         
-        if(qty<10){
+        if(qty<10&&qty<stock){
           setQty(qty+1)
         }
       }
     }
-    product = {
+    let producto = {
       ...product,
       qty,
       size: sizee
     }
+    // console.log('PRODUCTSIZE', product.size)
+    // console.log('PRODUCTSTOCK', product.numStock)
+  if (product.size&&!Array.isArray(product.size)){
+    sizeObj ={
+      XS: product.size.extraSmall>0&&product.size.extraSmall,
+      S: product.size.small>0&&product.size.small,
+      M: product.size.medium>0&&product.size.medium,
+      L: product.size.large>0&&product.size.large,
+      XL: product.size.extraLarge>0&&product.size.extraLarge,
+      36: product.size.num36>0&&product.size.num36,
+      37: product.size.num37>0&&product.size.num37,
+      38: product.size.num38>0&&product.size.num38,
+      39: product.size.num39>0&&product.size.num39,
+      40: product.size.num40>0&&product.size.num40,
+      41: product.size.num41>0&&product.size.num41,
+      42: product.size.num42>0&&product.size.num42,
+      43: product.size.num43>0&&product.size.num43
+    }
+    stock = sizeObj[sizee]
+    // console.log('STOCK', stock)
+  
+  }else if(product.size&&Array.isArray(product.size)){
+    stock = product.numStock
+  }else if(product.size===undefined){
+    stock = product.numStock
+  }
+
+    
     function sendToCart(e){
-      dispatch(addToCart(product))
-     
+      dispatch(addToCart(producto))
+      dispatch(deleteSize())
       navigate('/cart')
     }
 
     function continueShopping(e){
       e.preventDefault()
-      dispatch(addToCart(product))
+      dispatch(addToCart(producto))
+      dispatch(deleteSize())
       setOpen(false);
       dispatch(closeChildModal())
     }
@@ -210,6 +242,7 @@ export function NestedModal() {
     };
     const handleClose = () => {
       setOpen(false);
+      dispatch(deleteSize())
     };
     const product = useSelector((state) => state.product.detail)
     const dispatch = useDispatch()
