@@ -18,6 +18,7 @@ export const getAllUsers = () => {
                             id: u._id,
                             email: u.email,
                             admin: isAdmin,
+                            superAdmin: u.admin ? u.admin.includes("super") : false,
                             confirmed: u.email_verified,
                         }
                     })
@@ -54,6 +55,11 @@ export const getOrders = () => {
                 .then(response => response.json())
                 .then(response => {
                     const data = response.orders?.map((o) => {
+                        const totalPrice = o.orderItems?.reduce((sum, p) => {
+                            console.log(sum, p,)
+                            return sum + p.price * p.qty
+                        }, 0
+                        )
                         return {
                             user: o.userPaymentInfo.name !== "" ? o.userPaymentInfo.name : "Desconocido",
                             idUser: o.user,
@@ -61,11 +67,10 @@ export const getOrders = () => {
                             payment: o.PaymentMethod,
                             status: o.status,
                             delivered: o.isDelivered,
-                            price: o.totalPrice,
+                            price: totalPrice,
                             date: o.date.substring(0, 10),
                         }
                     })
-                    console.log(data)
                     return dispatch({
                         type: GET_ALL_ORDERS,
                         payload: data,

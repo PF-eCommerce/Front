@@ -3,6 +3,8 @@ import React from "react";
 import SettingsIcon from '@mui/icons-material/Settings';
 import { useDispatch } from "react-redux";
 import { editOrder } from "../../../../redux/actions/adminAction";
+import { deleteOrder } from "../../../../redux/actions/ordersAction";
+import { useNavigate } from "react-router-dom";
 
 const ButtonEdit = styled(Button)({
     backgroundColor: "#94744F",
@@ -28,20 +30,31 @@ const style = {
     p: 4,
 };
 
-export default function ChangeOrder({datos}) {
+export default function ChangeOrder({ datos }) {
     const [open, setOpen] = React.useState(false);
+    const [openChild, setOpenChild] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const handleOpenChild = () => setOpenChild(true);
+    const handleCloseChild = () => setOpenChild(false);
     const [entrega, setEntrega] = React.useState(datos.isDelivered);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleChange = (event) => {
         setEntrega(event.target.value);
     };
     const handleSubmitChange = () => {
-        entrega === '' ? alert("Por favor complete el campo vacio"): 
-        dispatch(editOrder(datos._id, {isDelivered: entrega}))
+        entrega === '' ? alert("Por favor complete el campo vacio") :
+            dispatch(editOrder(datos._id, { isDelivered: entrega }))
         // console.log(datos._id, {isDelivered: entrega})
+    }
+    const handleSubmitDelete = () => {
+        handleOpenChild()
+    }
+    const handleDelete = () => {
+        dispatch(deleteOrder(datos._id))
+            .then(() => navigate("/admin/orders"))
     }
 
     return (
@@ -74,11 +87,18 @@ export default function ChangeOrder({datos}) {
                         </Select>
                     </FormControl>
                     <ButtonEdit onClick={handleSubmitChange}>Aceptar cambios</ButtonEdit>
-                    <ButtonEdit>Eliminar orden</ButtonEdit>
-
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Sin implementar
-                    </Typography>
+                    <ButtonEdit onClick={handleSubmitDelete}>Eliminar orden</ButtonEdit>
+                    <Modal
+                        open={openChild}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <Box sx={{ ...style, widht: "200px", display:"flex", justifyContent: "center" }}>
+                            <Typography>¿Esta seguro que desea eliminar la orden?</Typography>
+                            <ButtonEdit onClick={handleDelete}>Si</ButtonEdit>
+                            <ButtonEdit onClick={handleCloseChild}>No</ButtonEdit>
+                        </Box>
+                    </Modal>
                 </Box>
             </Modal>
         </Box>
