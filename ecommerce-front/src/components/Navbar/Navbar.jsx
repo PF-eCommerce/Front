@@ -42,55 +42,44 @@ const ButtonNav = styled(Button)(({ theme }) => ({
 
 const Navbar = () => {
   const cartState = useSelector((state) => state.cart.cart);
-  const user = JSON.parse(localStorage.getItem("auth0"));
-  const admin = (user) => {
-    if (user && user.admin) {
-      if (user.admin.includes("admin")) return true;
-      else return false;
-    } else {
-      return false;
-    }
-  };
 
   return (
-    <AppBar position='sticky'>
+    <AppBar position="sticky">
       <StyledToolbar>
         <LogoBox>
           <Logo />
         </LogoBox>
         <MenuCatalogo />
-        <ButtonNav variant='outlined' color='secondary'>
+        <ButtonNav variant="outlined" color="secondary">
           Promos
         </ButtonNav>
         <Box sx={{ display: "flex" }}>
           <SearchBar />
         </Box>
         <PositionedMenu />
-        {admin(user) === true ? (
-          <Link to={"/admin/dashboard"} underline='none'>
-            <ButtonNav variant='outlined' color='secondary'>
-              Admin
-            </ButtonNav>
-          </Link>
-        ) : null}
+        <Link to={"/admin/dashboard"} underline="none">
+          <ButtonNav variant="outlined" color="secondary">
+            Admin
+          </ButtonNav>
+        </Link>
         <Box style={{ position: "relative" }}>
-          <Link to='/cart'>
+          <Link to="/cart">
             <IconButton>
-              <AddShoppingCartOutlinedIcon fontSize='large' color='secondary' />
+              <AddShoppingCartOutlinedIcon fontSize="large" color="secondary" />
             </IconButton>
 
             <Box color={"white"}>
               <Typography
-                variant='body1'
+                variant="body1"
                 style={{ position: "absolute", top: "0px" }}
                 backgroundColor={"#f44336"}
                 padding={0}
-                border='solid 1px white'
+                border="solid 1px white"
                 paddingBottom={0}
                 paddingRight={0.2}
                 paddingTop={0}
                 paddingLeft={0.2}
-                borderRadius='5px'
+                borderRadius="5px"
               >
                 {cartState.length}
               </Typography>

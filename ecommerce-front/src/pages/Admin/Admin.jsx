@@ -1,21 +1,13 @@
-import { Box, styled } from "@mui/material";
+import { Box } from "@mui/system";
 import React from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
 
-const Container = styled(Box)({
-    backgroundColor: "#DBD0C4", 
-    paddingTop: "20px", 
-    display: "flex", 
-    flexWrap: "wrap", 
-    justifyContent: "start"
-})
-
 export default function Admin() {
     return (
-        <Container>
+        <Box sx={{ backgroundColor: "#DBD0C4", paddingTop: "20px", display: "flex", flexWrap: "wrap", justifyContent: "space-between" }}>
             <Sidebar />
             <Outlet />
-        </Container>
+        </Box>
     )
 }

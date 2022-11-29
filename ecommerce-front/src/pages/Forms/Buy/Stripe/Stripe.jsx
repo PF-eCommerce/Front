@@ -23,23 +23,19 @@ const Image = styled('img')({
 
 export default function Stripe(){
     const dispatch = useDispatch()
-    const cart = JSON.parse(localStorage.getItem("cart"))
-    const location = JSON.parse(localStorage.getItem("location"))
-    const user = JSON.parse(localStorage.getItem("input"));
-    const idUser = JSON.parse(localStorage.getItem("auth0"))._id
-
-    const data = {
-        data: cart,
-        user:{
-            id: idUser,
-            ...location,
-            ...user,
+    const data = [
+        {
+            name:"producto 1",
+            price: 500,
+            units: 3
         },
-        PaymentMethod: "Stripe"
-    }
-  
+        {
+            name:"producto 2",
+            price: 750,
+            units: 6
+        }
+    ]
     const handleClick = () => {
-        console.log(data)
         dispatch(payStripe(data))
     }
     return(

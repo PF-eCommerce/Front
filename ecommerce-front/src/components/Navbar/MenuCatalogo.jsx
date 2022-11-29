@@ -13,10 +13,7 @@ import Man2Icon from '@mui/icons-material/Man2';
 import Woman2Icon from '@mui/icons-material/Woman2';
 import { Link } from '@mui/material';
 import StorefrontIcon from '@mui/icons-material/Storefront';
-import { useDispatch } from 'react-redux';
-import { getAllProducts } from '../../redux/actions/productsAction';
-import { useNavigate } from 'react-router-dom';
-import { StyledMenuLateral } from './MenuComponents';
+// import { Link } from 'react-router-dom';
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -61,24 +58,15 @@ const StyledMenu = styled((props) => (
 
 
 
-
-
 export default function CustomizedMenus() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const allProducts = (e)=> {
-    e.preventDefault()
-    dispatch(getAllProducts())
-    navigate('/home')
-  }
 
   return (
     <div>
@@ -107,7 +95,7 @@ export default function CustomizedMenus() {
       >
         <MenuItem onClick={handleClose} disableRipple>
           <StorefrontIcon/>
-          <Link underline="none" onClick={allProducts}>
+          <Link href="/home" underline="none">
           Todos los productos
           </Link>
           
@@ -121,15 +109,6 @@ export default function CustomizedMenus() {
         <Man2Icon/>
           Calzado Hombre
         </MenuItem>
-        {/* <StyledMenuLateral
-        id="demo-customized-menu"
-        MenuListProps={{
-          'aria-labelledby': 'demo-customized-button',
-        }}
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-      ></StyledMenuLateral> */}
         <MenuItem onClick={handleClose} disableRipple>
           <Woman2Icon/>
           Calzado Mujer
