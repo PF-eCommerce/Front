@@ -15,6 +15,7 @@ import { formatLine } from "../../../utils/functions";
 
 const ReviewsList = () => {
   const reviews = useSelector((state) => state.review.reviews);
+
   if (reviews?.length > 0) {
     return (
       <Stack direction='row' spacing={1}>
