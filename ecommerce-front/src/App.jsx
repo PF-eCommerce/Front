@@ -22,10 +22,12 @@ import Error404 from './components/Error404/Error404'
 import OrdersPage from "./pages/Admin/Pages/OrdersPage/OrdersPage";
 import OrderDetails from "./pages/Admin/Pages/OrdersPage/OrderDetails";
 import ProductPage from "./pages/Admin/Pages/productsPage/ProductPage";
+import { useSelector } from "react-redux";
 
 
 function App() {
   const user = JSON.parse(localStorage.getItem("auth0"));
+  const userRedux = useSelector(state => state.user.user)
   return (
     <div>
       <Navbar />
@@ -48,7 +50,7 @@ function App() {
             element={
               <ProtectedRoute
                 isAllowed={
-                  (user && user.admin) ? user.admin.includes("admin") : false
+                 user?.admin.includes("admin")
                 }
                 redirectTo={"/"}
               />
@@ -69,7 +71,7 @@ function App() {
             element={
               <ProtectedRoute
                 isAllowed={
-                  (user && user.admin) ? user.admin.includes("admin") : false
+                   user?.admin.includes("admin") 
                 }
                 redirectTo={"/"}
               >
