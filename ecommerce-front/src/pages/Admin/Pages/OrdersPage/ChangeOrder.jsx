@@ -28,7 +28,7 @@ const style = {
     p: 4,
 };
 
-export default function ChangeOrder({datos}) {
+export default function ChangeOrder({ datos }) {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -39,9 +39,12 @@ export default function ChangeOrder({datos}) {
         setEntrega(event.target.value);
     };
     const handleSubmitChange = () => {
-        entrega === '' ? alert("Por favor complete el campo vacio"): 
-        dispatch(editOrder(datos._id, {isDelivered: entrega}))
+        entrega === '' ? alert("Por favor complete el campo vacio") :
+            dispatch(editOrder(datos._id, { isDelivered: entrega }))
         // console.log(datos._id, {isDelivered: entrega})
+    }
+    const handleSubmitDelete = () => {
+        dispatch(deleteOrder())
     }
 
     return (
@@ -74,11 +77,7 @@ export default function ChangeOrder({datos}) {
                         </Select>
                     </FormControl>
                     <ButtonEdit onClick={handleSubmitChange}>Aceptar cambios</ButtonEdit>
-                    <ButtonEdit>Eliminar orden</ButtonEdit>
-
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Sin implementar
-                    </Typography>
+                    <ButtonEdit onClick={handleSubmitDelete}>Eliminar orden</ButtonEdit>
                 </Box>
             </Modal>
         </Box>
