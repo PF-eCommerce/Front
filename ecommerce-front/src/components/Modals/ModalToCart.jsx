@@ -218,6 +218,32 @@ export function NestedModal() {
     const handleSelect = (e) =>{
       dispatch(selectSize(e.target.value))
     }
+
+  let sizeObj = {}
+  let sizeArr =[]
+  if (product.size&&!Array.isArray(product.size)){
+    sizeObj ={
+      XS: product.size.extraSmall>0&&product.size.extraSmall,
+      S: product.size.small>0&&product.size.small,
+      M: product.size.medium>0&&product.size.medium,
+      L: product.size.large>0&&product.size.large,
+      XL: product.size.extraLarge>0&&product.size.extraLarge,
+      36: product.size.num36>0&&product.size.num36,
+      37: product.size.num37>0&&product.size.num37,
+      38: product.size.num38>0&&product.size.num38,
+      39: product.size.num39>0&&product.size.num39,
+      40: product.size.num40>0&&product.size.num40,
+      41: product.size.num41>0&&product.size.num41,
+      42: product.size.num42>0&&product.size.num42,
+      43: product.size.num43>0&&product.size.num43
+    }
+    for (let key in sizeObj){
+      if(sizeObj[key]){
+        sizeArr.push(key)
+      }
+      
+    }
+  }
    
     return (
       <div>
@@ -280,14 +306,24 @@ export function NestedModal() {
                   <p>Selecciona tu talle: {sizee&&sizee}</p>
                 </Grid>
                 <Grid xs={12}>
-                  {product.size?.map(e=>{
+                  {product.size&&Array.isArray(product.size)?product.size.map(e=>{
                     return(
                     <SizeButton
                     value={e}
                      onClick={e=>handleSelect(e)}
                      >{e}</SizeButton>
                     )
-                  })}
+                  })
+                :
+                sizeArr.map(e=>{
+                  return(
+                    <SizeButton
+                    value={e}
+                     onClick={e=>handleSelect(e)}
+                     >{e}</SizeButton>
+                    )
+                })
+                }
                 </Grid>
               </Grid>
   
