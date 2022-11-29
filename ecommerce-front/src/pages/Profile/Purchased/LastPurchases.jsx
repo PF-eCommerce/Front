@@ -1,45 +1,27 @@
 import React from "react";
+
+import { obj } from "../../../utils/data/productDetail";
 import { Stack } from "@mui/system";
-import { useSelector } from "react-redux";
-import { Typography } from "@mui/material";
-import PurchasedCard from "./PurchasedCard";
+import RecipeReviewCard from "../../../components/Cards/Card/Card";
 
 const LastPurchases = () => {
-  const purchases = useSelector((state) => state.orders.purchased);
-
-  const lastPurchases = purchases?.slice(0, 3);
-
-  if (purchases?.length >= 1) {
-    return (
-      <Stack direction='row' spacing={1}>
-        {purchases?.length >= 4
-          ? lastPurchases?.map((prod) => (
-              <PurchasedCard
-                key={prod?.product + prod?._id}
-                name={prod?.name}
-                price={prod?.price}
-                image={prod?.image}
-                _id={prod?._id}
-              />
-            ))
-          : purchases?.map((prod) => (
-              <PurchasedCard
-                key={prod?.product + prod?._id}
-                name={prod?.name}
-                price={prod?.price}
-                image={prod?.image}
-                _id={prod?._id}
-              />
-            ))}
-      </Stack>
-    );
-  } else {
-    return (
-      <>
-        <Typography>Aún no has comprado nada</Typography>
-      </>
-    );
-  }
+  /*
+    const purchases = useSelector(state => state.orders)
+    */
+  // const lastPurchases = purchases?.slice(0, 3)
+  return (
+    <Stack direction='row' spacing={1}>
+    
+        <RecipeReviewCard
+          key={obj._id}
+          title={obj.title}
+          price={obj.price}
+          img={obj.img}
+          numStock={obj.numStock}
+        />
+    
+    </Stack>
+  );
 };
 
 export default LastPurchases;

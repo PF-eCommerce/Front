@@ -1,53 +1,10 @@
-import { styled } from "@mui/system";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { getOrders } from "../../../../redux/actions/adminAction";
+import { Box } from "@mui/material";
+import React from "react";
 
-const Container = styled('div')({
-    backgroundColor: "white",
-    width: "120px",
-    height: "100px",
-    borderRadius: "20px",
-    boxShadow: "0px 0px 5px #424242",
-    textDecoration: "none",
-    marginLeft:"10px",
-})
-const Title = styled('p')({
-    paddingLeft: "10px",
-    paddingTop: "10px",
-    fontSize: "15px",
-    fontWeight: "bold",
-    color: "gray",
-})
-const UserNum = styled('p')({
-    paddingLeft: "10px",
-    fontSize: "30px",
-    color:"#F44336"
-})
-const SubTitle = styled('p')({
-    paddingLeft: "10px",
-    fontSize:"14px",
-    textDecoration:"underline",
-    color:"#F44336"
-})
-
-export default function Users() {
-    const info = useSelector((state) => state.admin.orders)
-
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(getOrders())
-    }, [dispatch]);
-
-    return (
-        <Container>
-            <Link to={"/admin/orders"}>
-                <Title>Ordenes</Title>
-                <UserNum>{info.length}</UserNum>
-                <SubTitle>Ver todos</SubTitle>
-            </Link>
-        </Container>
+export default function Orders(){
+    return(
+        <Box>
+            Muestra las orders
+        </Box>
     )
 }

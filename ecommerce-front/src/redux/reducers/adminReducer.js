@@ -1,9 +1,7 @@
-import { EDIT_ORDER, GET_ALL_ORDERS, GET_ALL_USERS, GET_ORDER_DETAILS } from "../actions/adminAction";
+import { GET_ALL_USERS } from "../actions/adminAction";
 
 const initialState = {
     users: [],
-    orders: [],
-    orderDetails: [],
 }
 
 export default function adminReducer(state = initialState, action) {
@@ -13,18 +11,8 @@ export default function adminReducer(state = initialState, action) {
                 ...state,
                 users: action.payload,
             }
-        case GET_ALL_ORDERS:
-            return {
-                ...state,
-                orders: action.payload,
-            }
-        case GET_ORDER_DETAILS:
-            return {
-                ...state,
-                orderDetails: action.payload,
-            }
 
         default:
-            return state;
+            return state;;
     }
 }

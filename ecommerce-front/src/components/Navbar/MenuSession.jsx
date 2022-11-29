@@ -14,7 +14,7 @@ import Logout from "@mui/icons-material/Logout";
 import { styled } from "@mui/system";
 import LoginIcon from "@mui/icons-material/Login";
 import Button from "@mui/material/Button";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   auth0User,
@@ -24,11 +24,9 @@ import {
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { useState } from "react";
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
 export default function PositionedMenu() {
-  const { loginWithRedirect, logout, isAuthenticated, getAccessTokenSilently } =
-    useAuth0();
+  const { loginWithRedirect, logout, isAuthenticated, getAccessTokenSilently } = useAuth0();
   const userLocalStorage = JSON.parse(localStorage.getItem("auth0"));
   const [user, setUser] = React.useState(userLocalStorage);
   const userRedux = useSelector((state) => state.user.user);
@@ -61,27 +59,23 @@ export default function PositionedMenu() {
     try {
       const token = isAuthenticated && (await getAccessTokenSilently());
 
-      const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/protected`,
-        {
-          headers: {
-            authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/protected`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
       localStorage.setItem("auth0", JSON.stringify(response.data));
       const userAction = JSON.parse(localStorage.getItem("auth0"));
       dispatch(auth0User(userAction));
-      
     } catch (error) {
-      // console.log(error.message);
+      console.log(error.message);
     }
   };
 
   React.useEffect(() => {
-    // console.log('ISAUTHENTIC', isAuthenticated)
-    // console.log('LOCALSTORAGE', localStorage)
-    // console.log('AUTH0', localStorage.getItem('auth0'))
+    console.log('ISAUTHENTIC', isAuthenticated)
+    console.log('LOCALSTORAGE', localStorage)
+    console.log('AUTH0', localStorage.getItem('auth0'))
     if (isAuthenticated && localStorage.getItem("auth0") === null) {
       callApiProtected();
     }
@@ -97,8 +91,8 @@ export default function PositionedMenu() {
           <Box
             sx={{ display: "flex", alignItems: "center", textAlign: "center" }}
           >
-            <Button onClick={loginWithRedirect} variant='text'>
-              Iniciar Sesión
+            <Button onClick={loginWithRedirect} variant="text">
+              Iniciar Sesion
             </Button>
             <LoginIcon />{" "}
           </Box>
@@ -108,8 +102,7 @@ export default function PositionedMenu() {
           {" "}
           <Box
             sx={{ display: "flex", alignItems: "center", textAlign: "center" }}
-          > 
-          <Button>{userRedux?.email ? userRedux?.email : user?.email}</Button>
+          >
             <Tooltip
               title={
                 Object.values(userRedux).length > 0
@@ -119,10 +112,10 @@ export default function PositionedMenu() {
             >
               <IconButton
                 onClick={handleClick}
-                size='small'
+                size="small"
                 sx={{ ml: 2 }}
                 aria-controls={open ? "account-menu" : undefined}
-                aria-haspopup='true'
+                aria-haspopup="true"
                 aria-expanded={open ? "true" : undefined}
               >
                 <Avatar sx={{ width: 32, height: 32 }}>
@@ -130,14 +123,12 @@ export default function PositionedMenu() {
                     ? userRedux?.email.toUpperCase().charAt(0)
                     : user?.email.toUpperCase().charAt(0)}
                 </Avatar>
-                
               </IconButton>
             </Tooltip>
-            
           </Box>
           <Menu
             anchorEl={anchorEl}
-            id='account-menu'
+            id="account-menu"
             open={open}
             onClose={handleClose}
             onClick={handleClose}
@@ -170,28 +161,28 @@ export default function PositionedMenu() {
             transformOrigin={{ horizontal: "right", vertical: "top" }}
             anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
           >
-             <Link style={{textDecoration: 'none' , color: '#4E4D4D'}}  to={`/account/${user?._id}/profile`}>
             <MenuItem>
-               
-               
-              
-                <Avatar /> Perfil
+              <Avatar /> Profile
             </MenuItem>
-            </Link>
-            
+            <MenuItem>
+              <Avatar /> My account
+            </MenuItem>
             <Divider />
-            { user?.admin?.includes('admin') || userRedux?.admin?.includes('admin') ? <Link to={`/admin/dashboard`}>
             <MenuItem>
               <ListItemIcon>
-              <AdminPanelSettingsIcon/>
+                <PersonAdd fontSize="small" />
               </ListItemIcon>
-              Herramienta Admin
+              Add another account
             </MenuItem>
-            </Link> : null}
-            
+            <MenuItem>
+              <ListItemIcon>
+                <Settings fontSize="small" />
+              </ListItemIcon>
+              Settings
+            </MenuItem>
             <MenuItem onClick={handleLogout}>
               <ListItemIcon>
-                <Logout fontSize='small' />
+                <Logout fontSize="small" />
               </ListItemIcon>
               Logout
             </MenuItem>

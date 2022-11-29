@@ -31,7 +31,7 @@ const TextItem = styled('p')({
     width: "72%",
     paddingTop: "3px",
     paddingLeft: "3px",
-    color: "black"
+    color:"black"
 })
 const MainText = styled('p')({
     width: "100%",
@@ -46,85 +46,88 @@ const styleIcon = {
 
 export default function Sidebar() {
     return (
-        <Box sx={{
-            display: "flex",
-            flexWrap: "wrap",
-            width: "20%",
-            height: "500px",
-            backgroundColor: "white",
-            boxShadow: "0px 0px 5px black",
-            borderRadius: "0px 5px 5px 0px",
-        }}>
+        <Box>
             <Box
                 sx={{
                     display: "flex",
-                    alignItems: "center",
-                    marginTop: "10px",
-                    width: "100%",
-                    borderBottom: "2px solid #DBD0C4"
+                    flexWrap: "wrap",
+                    width: "200px",
+                    backgroundColor: "white",
+                    boxShadow: "0px 0px 5px black",
+                    borderRadius: "0px 5px 5px 0px",
                 }}
             >
-                <Typography
+                <Box
                     sx={{
-                        fontSize: "20px",
-                        marginRight: "5px",
-                        color: "#D687AC",
-                        fontWeight: "bold",
+                        display: "flex",
+                        alignItems: "center",
+                        marginTop: "10px",
+                        width: "100%",
+                        borderBottom: "2px solid #DBD0C4"
                     }}
                 >
-                    TresBien</Typography>
-                <Typography
-                    sx={{
-                        fontSize: "20px",
-                        color: "#94744F"
-                    }}
-                >
-                    Admin</Typography>
+                    <Typography
+                        sx={{
+                            fontSize: "20px",
+                            marginRight: "5px",
+                            color: "#D687AC",
+                            fontWeight: "bold",
+                        }}
+                    >
+                        TresBien</Typography>
+                    <Typography
+                        sx={{
+                            fontSize: "20px",
+                            color: "#94744F"
+                        }}
+                    >
+                        Admin</Typography>
+                </Box>
+                <Container>
+                    <MainText>Main</MainText>
+                    <ItemContainer to="/admin/dashboard">
+                        <DashboardIcon sx={styleIcon} />
+                        <TextItem>Dashboard</TextItem>
+                    </ItemContainer>
+                    <ItemContainer to="/home">
+                        <HomeIcon sx={styleIcon} />
+                        <TextItem>Home</TextItem>
+                    </ItemContainer>
+                </Container>
+                <Container>
+                    <MainText>Lista</MainText>
+                    <ItemContainer to="/admin/users">
+                        <PersonIcon sx={styleIcon} />
+                        <TextItem>Usuarios</TextItem>
+                    </ItemContainer>
+                    <ItemContainer to="/admin/products">
+                        <StoreIcon sx={styleIcon} />
+                        <TextItem>Productos</TextItem>
+                    </ItemContainer>
+                    <ItemContainer to="/admin/orders">
+                        <CreditCardIcon sx={styleIcon} />
+                        <TextItem>Órdenes</TextItem>
+                    </ItemContainer>
+                </Container>
+                <Container>
+                    <MainText>Utilidad</MainText>
+                    <ItemContainer to="/admin/notifications">
+                        <MailIcon sx={styleIcon} />
+                        <TextItem>Notificaciones</TextItem>
+                    </ItemContainer>
+                </Container>
+                <Container>
+                    <MainText>Usuario</MainText>
+                    <ItemContainer to="/admin/profile">
+                        <AccountCircleIcon sx={styleIcon} />
+                        <TextItem>Perfil</TextItem>
+                    </ItemContainer>
+                    <ItemContainer to="/">
+                        <LogoutIcon sx={styleIcon} />
+                        <TextItem>Salir</TextItem>
+                    </ItemContainer>
+                </Container>
             </Box>
-            <Container>
-                <MainText>Main</MainText>
-                <ItemContainer to="/admin/dashboard">
-                    <DashboardIcon sx={styleIcon} />
-                    <TextItem>Dashboard</TextItem>
-                </ItemContainer>
-                <ItemContainer to="/home">
-                    <HomeIcon sx={styleIcon} />
-                    <TextItem>Home</TextItem>
-                </ItemContainer>
-            </Container>
-            <Container>
-                <MainText>Lista</MainText>
-                <ItemContainer to="/admin/users">
-                    <PersonIcon sx={styleIcon} />
-                    <TextItem>Usuarios</TextItem>
-                </ItemContainer>
-                <ItemContainer to="/admin/products">
-                    <StoreIcon sx={styleIcon} />
-                    <TextItem>Productos</TextItem>
-                </ItemContainer>
-                <ItemContainer to="/admin/orders">
-                    <CreditCardIcon sx={styleIcon} />
-                    <TextItem>Órdenes</TextItem>
-                </ItemContainer>
-            </Container>
-            <Container>
-                <MainText>Utilidad</MainText>
-                <ItemContainer to="/admin/notifications">
-                    <MailIcon sx={styleIcon} />
-                    <TextItem>Notificaciones</TextItem>
-                </ItemContainer>
-            </Container>
-            <Container>
-                <MainText>Usuario</MainText>
-                <ItemContainer to="/admin/profile">
-                    <AccountCircleIcon sx={styleIcon} />
-                    <TextItem>Perfil</TextItem>
-                </ItemContainer>
-                <ItemContainer to="/">
-                    <LogoutIcon sx={styleIcon} />
-                    <TextItem>Salir</TextItem>
-                </ItemContainer>
-            </Container>
         </Box>
     )
 }

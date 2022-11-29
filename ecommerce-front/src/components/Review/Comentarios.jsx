@@ -1,12 +1,24 @@
-import React from 'react';
+import React /*, { useEffect } */ from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { getAllUsers } from "../../redux/actions/userAction";
 import styles from "./Reviews.module.css";
 
 function Comentarios({allUsers, reviewsByProduct}) {
+    /* const dispatch = useDispatch(); */
+    /* const reviewsByProduct = useSelector((state) => state.review.reviews);
+    const allUsers = useSelector((state) => state.user?.users).map((u) => ({
+    name: u?.username,
+    id: u?._id,
+    }));*/
 
-  const userbyName = (uId) => {
-      const userById = allUsers?.find((u) => u.id === uId);
-      return userById?.name;
-  };
+    const userbyName = (uId) => {
+        const userById = allUsers?.find((u) => u.id === uId);
+        return userById?.name;
+    };
+
+    /* useEffect(() => {
+        dispatch(getAllUsers());
+    }, [dispatch]); */
 
   return (
     <div>
@@ -21,7 +33,6 @@ function Comentarios({allUsers, reviewsByProduct}) {
                 className={styles.summUsuario}
                 id={"usuarioEnReview" + r?.user}
               >
-                {/* console.log('userrrrrR:',r.user) */}
                 {userbyName(r?.user)} :
               </p>
               <p

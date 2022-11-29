@@ -1,13 +1,11 @@
-
-import { GET_ALL_PRODUCTS, USE_PAGINATION, GET_PRODUCT_BY_NAME,ALL_PRODUCTS, GET_PRODUCT_BY_COLOR, LINK_MP,FILTER_BY_RATING, ADD_FAVORITES, SHOW_FAVORITES, GET_BY_CATEGORY, GET_PRODUCT_DETAIL, DELETE_DETAIL } from "../actions/productsAction";
+import { GET_ALL_PRODUCTS, USE_PAGINATION, GET_PRODUCT_BY_NAME, GET_PRODUCT_BY_COLOR, LINK_MP, ADD_FAVORITES, SHOW_FAVORITES, GET_BY_CATEGORY, GET_PRODUCT_DETAIL, DELETE_DETAIL } from "../actions/productsAction";
 
 const initialState = {
   products: [],
   detail: [],
-  // allProducts: [],
-  linkMP:'',
-  favorites:[],
-  allProductsNoLimit : [],
+  allProducts: [],
+  linkMP: '',
+  favorites: [],
 };
 
 export default function productReducer(state = initialState, action) {
@@ -15,23 +13,18 @@ export default function productReducer(state = initialState, action) {
     case GET_ALL_PRODUCTS:
       return {
         ...state,
-        products: action.payload,
-        // allProducts: action.payload,
+        // products: action.payload,
+        allProducts: action.payload,
       };
-    case ALL_PRODUCTS:
-        return {
-          ...state,
-          allProductsNoLimit : action.payload
-        }  
     case USE_PAGINATION:
       return {
         ...state,
-        products: action.payload,
+        allProducts: action.payload,
       };
     case GET_PRODUCT_BY_NAME:
       return {
         ...state,
-        products: action.payload
+        allProducts: action.payload
       }
     case GET_PRODUCT_BY_COLOR:
       return {
@@ -39,9 +32,10 @@ export default function productReducer(state = initialState, action) {
         products: action.payload
       }
     case GET_BY_CATEGORY:
+      console.log('action payload', action.payload)
       return {
         ...state,
-        products:action.payload
+        allProducts: action.payload
       }
     case GET_PRODUCT_DETAIL:
       return {
@@ -60,27 +54,22 @@ export default function productReducer(state = initialState, action) {
         linkMP: action.payload
       }
     case ADD_FAVORITES:
-      const docs = {
-        docs: action.payload
-      }
-      return{
+      // const allProducts = state.allProducts
+      // console.log('PRODUCTOS', allProducts.docs)
+      // const favorites = action.payload.map(el=>allProducts.docs.map(elem=>{
+      //   if (elem._id===el) return elem
+      // }
+      //   ))
+      console.log('FAVORITESSS', action.payload)
+      const asd = { docs: action.payload }
+      return {
         ...state,
-        products: docs
+        products: asd
       }
     case SHOW_FAVORITES:
       return {
         ...state,
         products: action.payload
-      }
-    case FILTER_BY_RATING:
-    const productsFilter = state.products
-    console.log(productsFilter)
-    const productsByRating = productsFilter.docs.filter(product=>product.rating>=3)
-    productsByRating.docs = productsByRating
-
-      return{
-        ...state,
-        products:productsByRating
       }
 
     default:
