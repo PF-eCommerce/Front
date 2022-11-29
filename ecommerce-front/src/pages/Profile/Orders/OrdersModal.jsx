@@ -1,25 +1,26 @@
-import { Box, Button, Modal, styled, Typography } from "@mui/material";
+import { Box, Button, styled, Typography } from "@mui/material";
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import Modal from "@mui/material/Modal";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { getOrderDetails } from "../../../redux/actions/adminAction";
+import { getOrder } from "../../../redux/actions/ordersAction";
 
-const Container = styled(Box)({
-  marginLeft: "20px",
-  backgroundColor: "white",
-  width: "75%",
-  borderRadius: "10px",
-  boxShadow: "0px 0px 5px #424242",
-  display: "flex",
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  bgcolor: "background.paper",
+  border: "1px solid #ff88005e",
+  boxShadow: 5,
+  pt: 2,
+  px: 1,
+  pb: 2,
   justifyContent: "center",
-  paddingTop: "30px",
-  paddingBottom: "30px",
-  flexWrap: "wrap",
   alignItems: "center",
-});
+};
 const Title = styled(Typography)({
   fontSize: "30px",
   fontWeight: "bold",
@@ -55,9 +56,15 @@ const Flecha = styled(ArrowBackIcon)({
 });
 
 export default function OrdersModal({ datos }) {
-  const order = useSelector((state) => state.orders.order);
+  const [loading, setLoading] = React.useState(false);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  useEffect(() => {
+    dispatch(getOrder(datos));
+    setTimeout(() => {
+      setLoading(true);
+    }, 1000);
+  }, [dispatch, datos]);
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -65,73 +72,86 @@ export default function OrdersModal({ datos }) {
   const handleClose = () => {
     setOpen(false);
   };
-  useEffect(() => {
-    if (datos) {
-      dispatch(getOrderDetails(datos));
-    }
-  }, [dispatch, datos]);
-  return order._id ? (
-    <Container>
-      <Button onClick={handleOpen}>Ver</Button>
-      <Modal
-        hideBackdrop
-        open={open}
-        onClose={handleClose}
-        aria-labelledby='child-modal-title'
-        aria-describedby='child-modal-description'
-      >
-        <Title>Detalles de orden</Title>
-        <Section>
-          <SubTitle>{`ID:`}</SubTitle>
-          <Body>{order._id}</Body>
-          <SubTitle>{`Fecha:`}</SubTitle>
-          <Body>{order.date?.substring(0, 10)}</Body>
-          <SubTitle>{`Precio total:`}</SubTitle>
-          <Body>{"$" + order.totalPrice}</Body>
-        </Section>
-        <Section>
-          <SubTitle>{`Metodo de pago:`}</SubTitle>
-          <Body>{order.PaymentMethod}</Body>
-          <SubTitle>{`Entrega:`}</SubTitle>
-          <Body>{order.isDelivered ? "Entregado" : "Pendiente"}</Body>
-          <SubTitle>{`Estado:`}</SubTitle>
-          <Body>{order.status === "Pending" ? "Pendiente" : "Pagado"}</Body>
-        </Section>
-        <Title>Detalles de productos</Title>
-        {order.orderItems?.map((p) => {
-          return (
-            <Section>
-              <SubTitle>{`Nombre:`}</SubTitle>
-              <Body>{p.name}</Body>
-              <SubTitle>{`Precio:`}</SubTitle>
-              <Body>{p.price}</Body>
-              <SubTitle>{`Unidades:`}</SubTitle>
-              <Body>{p.qty}</Body>
-            </Section>
-          );
-        })}
-        <Title>Datos del comprador</Title>
-        <Section>
-          <SubTitle>{`Nombre:`}</SubTitle>
-          <Body>{order ? order.userPaymentInfo.name : "Desconocido"}</Body>
-          <SubTitle>{`Celular:`}</SubTitle>
-          <Body>{order.userPaymentInfo.phone}</Body>
-        </Section>
-        <Section>
-          <SubTitle>{`Direccion:`}</SubTitle>
-          <Body>{`${
-            order.address.street_name ? order.address.street_name : ""
-          }, ${
-            order.address.street_number ? order.address.street_number : "nada"
-          }`}</Body>
-          <SubTitle>{`Código Postal:`}</SubTitle>
-          <Body>{order.address.zip_code}</Body>
-        </Section>
-        <ButtonBack onClick={() => navigate(-1)}>
-          <Flecha />
-          Atrás
-        </ButtonBack>
-      </Modal>
-    </Container>
-  ) : null;
+  const order = useSelector((state) => state?.orders.order);
+
+  return (
+    <div>
+      {!loading ? (
+        <div>
+          <img alt='Loading...' />
+        </div>
+      ) : (
+        <div>
+          <Button onClick={handleOpen}>Ver</Button>
+
+          <Modal
+            hideBackdrop
+            open={open}
+            onClose={handleClose}
+            aria-labelledby='child-modal-title'
+            aria-describedby='child-modal-description'
+          >
+            <Box sx={{ ...style, width: 760 }}>
+              <Section>
+                <SubTitle>{`ID:`}</SubTitle>
+                <Body>{order._id}</Body>
+                <SubTitle>{`Fecha:`}</SubTitle>
+                <Body>{order.date?.substring(0, 10)}</Body>
+                <SubTitle>{`Precio total:`}</SubTitle>
+                <Body>{"$" + order.totalPrice}</Body>
+              </Section>
+              <Section>
+                <SubTitle>{`Metodo de pago:`}</SubTitle>
+                <Body>{order.PaymentMethod}</Body>
+                <SubTitle>{`Entrega:`}</SubTitle>
+                <Body>{order.isDelivered ? "Entregado" : "Pendiente"}</Body>
+                <SubTitle>{`Estado:`}</SubTitle>
+                <Body>
+                  {order.status === "Pending" ? "Pendiente" : "Pagado"}
+                </Body>
+              </Section>
+              <Title>Datos del comprador</Title>
+              <Section>
+                <SubTitle>{`Nombre:`}</SubTitle>
+                <Body>
+                  {order ? order.userPaymentInfo.name : "Desconocido"}
+                </Body>
+                <SubTitle>{`Celular:`}</SubTitle>
+                <Body>{order.userPaymentInfo.phone}</Body>
+              </Section>
+              <Section>
+                <SubTitle>{`Direccion:`}</SubTitle>
+                <Body>{`${
+                  order.address.street_name ? order.address.street_name : ""
+                }, ${
+                  order.address.street_number
+                    ? order.address.street_number
+                    : "nada"
+                }`}</Body>
+                <SubTitle>{`Código Postal:`}</SubTitle>
+                <Body>{order.address.zip_code}</Body>
+              </Section>
+              <Title>Detalle de productos</Title>
+              {order.orderItems?.map((p) => {
+                return (
+                  <Section>
+                    <SubTitle>{`Nombre:`}</SubTitle>
+                    <Body>{p.name}</Body>
+                    <SubTitle>{`Precio:`}</SubTitle>
+                    <Body>{p.price}</Body>
+                    <SubTitle>{`Unidades:`}</SubTitle>
+                    <Body>{p.qty}</Body>
+                  </Section>
+                );
+              })}
+              <ButtonBack onClick={() => handleClose()}>
+                <Flecha />
+                Atrás
+              </ButtonBack>
+            </Box>
+          </Modal>
+        </div>
+      )}
+    </div>
+  );
 }
