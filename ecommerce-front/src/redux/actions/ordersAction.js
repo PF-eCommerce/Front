@@ -6,6 +6,7 @@ export const GET_USER_PRODUCTS = "GET_USER_PRODUCTS";
 export const GET_PRODUCT_ORDERS = "GET_PRODUCT_ORDERS";
 export const GET_ORDER = "GET_ORDER";
 
+
 export const getAllOrders = () => {
   return async (dispatch) => {
     try {
@@ -98,4 +99,20 @@ export function modifyOrder(order) {
       console.log(error);
     }
   };
+}
+export function deleteOrder(id) {
+  return async function (dispatch) {
+    try {
+      await fetch(`${process.env.REACT_APP_API_URL}/order/${id}`, {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: "PUT",
+        body: JSON.stringify({exist: false})
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
 }

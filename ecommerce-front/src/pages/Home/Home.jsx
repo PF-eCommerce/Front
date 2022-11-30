@@ -19,12 +19,12 @@ const Home = () => {
   console.log("desde home allproductsinpaginate", allproducts)
   return (
     <div>
-      <PaginationSize />
+      {products?.docs?.length > 0 && <PaginationSize />}
       <Stack direction="row" spacing={1}>
         <FilterSide />
         <Cards />
       </Stack>
-      <PaginationSize />
+      {products?.docs?.length > 0 && <PaginationSize />}
     </div>
   );
 };

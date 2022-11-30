@@ -22,10 +22,14 @@ import Error404 from './components/Error404/Error404'
 import OrdersPage from "./pages/Admin/Pages/OrdersPage/OrdersPage";
 import OrderDetails from "./pages/Admin/Pages/OrdersPage/OrderDetails";
 import ProductPage from "./pages/Admin/Pages/productsPage/ProductPage";
+import { useSelector } from "react-redux";
+import Success from "./pages/Pagos/Success";
+import Deny from "./pages/Pagos/Deny";
 
 
 function App() {
   const user = JSON.parse(localStorage.getItem("auth0"));
+  const userRedux = useSelector(state => state.user.user)
   return (
     <div>
       <Navbar />
@@ -43,12 +47,14 @@ function App() {
 
           <Route path='/cart' element={<ShoppingCart />} />
           <Route path='/buy' element={<Buy />} />
+          <Route path='/success' element={<Success />} />
+          <Route path='/deny' element={<Deny />} />
           <Route path='*' element={<Error404 />} />
           <Route
             element={
               <ProtectedRoute
                 isAllowed={
-                  (user && user.admin) ? user.admin.includes("admin") : false
+                 user?.admin.includes("admin")
                 }
                 redirectTo={"/"}
               />
@@ -69,7 +75,7 @@ function App() {
             element={
               <ProtectedRoute
                 isAllowed={
-                  (user && user.admin) ? user.admin.includes("admin") : false
+                   user?.admin.includes("admin") 
                 }
                 redirectTo={"/"}
               >
@@ -97,3 +103,41 @@ function App() {
 }
 
 export default App;
+/*
+Cosas que faltan implementar o terminar
+(Probados en deploy)
+Navbar:
+-Boton catalogo
+-Boton promos
+-Busqueda
+-Hay que recargar para acceder a admin o perfil
+
+Home:
+Error en cards, rompe
+
+Perfil:
+Boton cambiar imagen
+
+Cards:
+Imagen default, por si una imagen no carga
+Favoritos: roto
+
+Admin:
+Notificaciones
+perfil: solucionado
+Dashboard: Terminar
+
+Footer: 
+Direcciones, no se usa
+Mapa sucursales: no carga
+Su cuenta: solucionado
+Tus ordenes: no va a ningun lado
+tarifas y politicas: no va a ningun lado
+devoluciones: no va a ningun lado
+
+Pasarela:
+Stripe y Paypal: 
+Pagina de compra exitosa(eliminar productos del carrito) y fallida
+
+
+*/

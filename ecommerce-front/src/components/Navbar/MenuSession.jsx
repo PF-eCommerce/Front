@@ -24,6 +24,7 @@ import {
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { useState } from "react";
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
 export default function PositionedMenu() {
   const { loginWithRedirect, logout, isAuthenticated, getAccessTokenSilently } =
@@ -71,6 +72,7 @@ export default function PositionedMenu() {
       localStorage.setItem("auth0", JSON.stringify(response.data));
       const userAction = JSON.parse(localStorage.getItem("auth0"));
       dispatch(auth0User(userAction));
+      
     } catch (error) {
       // console.log(error.message);
     }
@@ -106,7 +108,8 @@ export default function PositionedMenu() {
           {" "}
           <Box
             sx={{ display: "flex", alignItems: "center", textAlign: "center" }}
-          >
+          > 
+          <Button>{userRedux?.email ? userRedux?.email : user?.email}</Button>
             <Tooltip
               title={
                 Object.values(userRedux).length > 0
@@ -127,8 +130,10 @@ export default function PositionedMenu() {
                     ? userRedux?.email.toUpperCase().charAt(0)
                     : user?.email.toUpperCase().charAt(0)}
                 </Avatar>
+                
               </IconButton>
             </Tooltip>
+            
           </Box>
           <Menu
             anchorEl={anchorEl}
@@ -165,30 +170,25 @@ export default function PositionedMenu() {
             transformOrigin={{ horizontal: "right", vertical: "top" }}
             anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
           >
+             <Link style={{textDecoration: 'none' , color: '#4E4D4D'}}  to={`/account/${Object.keys(userRedux).length > 0 ? userRedux?._id : user?._id}/profile`}>
             <MenuItem>
-              <Link
-                style={{ textDecoration: "none" }}
-                to={`/account/${user?._id}/profile`}
-              >
-                <Avatar /> Profile
-              </Link>
+               
+               
+              
+                <Avatar /> Perfil
             </MenuItem>
-            {/* <MenuItem>
-              <Avatar /> My account
-            </MenuItem>
+            </Link>
+            
             <Divider />
+            { user?.admin?.includes('admin') || userRedux?.admin?.includes('admin') ? <Link to={`/admin/dashboard`}>
             <MenuItem>
               <ListItemIcon>
-                <PersonAdd fontSize="small" />
+              <AdminPanelSettingsIcon/>
               </ListItemIcon>
-              Add another account
+              Herramienta Admin
             </MenuItem>
-            <MenuItem>
-              <ListItemIcon>
-                <Settings fontSize="small" />
-              </ListItemIcon>
-              Settings
-            </MenuItem> */}
+            </Link> : null}
+            
             <MenuItem onClick={handleLogout}>
               <ListItemIcon>
                 <Logout fontSize='small' />

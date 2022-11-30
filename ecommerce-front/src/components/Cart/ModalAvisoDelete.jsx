@@ -35,6 +35,12 @@ export default function BasicModal({item}) {
    title = item.title
    img = item.img[0]
   }
+
+  function handleConfirm(e){
+    e.preventDefault()
+    dispatch(deleteFromCart(item))
+    handleClose()
+  }
   
   return (
     <div>
@@ -64,7 +70,7 @@ export default function BasicModal({item}) {
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
         
             <Button
-            onClick={()=>dispatch(deleteFromCart(item))}sx={{ml:6}}  variant="contained">si
+            onClick={handleConfirm}sx={{ml:6}}  variant="contained">si
             </Button>
             <Button sx={{ml:8}} variant="contained"
              onClick={handleClose}>No</Button>
