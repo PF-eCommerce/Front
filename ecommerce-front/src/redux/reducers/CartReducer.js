@@ -1,4 +1,4 @@
-import { DELETE_FROM_CART, ADD_TO_CART } from "../actions/cartAction"
+import { DELETE_FROM_CART, ADD_TO_CART, DELETE_ALL_CART } from "../actions/cartAction"
 
 const INITIAL_STATE = {
   cart: [],
@@ -20,6 +20,11 @@ export default function cartReducer(state = INITIAL_STATE, action) {
       return {
         cart: [...action.payload]
       }
+      case DELETE_ALL_CART:
+        return{
+          ...state,
+          cart: [],
+        }
     default:
       return state;
   }

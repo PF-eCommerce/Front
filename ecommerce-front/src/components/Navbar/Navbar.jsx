@@ -66,13 +66,6 @@ const Navbar = () => {
           <SearchBar />
         </Box>
         <PositionedMenu />
-        {admin(user) === true ? (
-          <Link to={"/admin/dashboard"} underline='none'>
-            <ButtonNav variant='outlined' color='secondary'>
-              Admin
-            </ButtonNav>
-          </Link>
-        ) : null}
         <Box style={{ position: "relative" }}>
           <Link to='/cart'>
             <IconButton>

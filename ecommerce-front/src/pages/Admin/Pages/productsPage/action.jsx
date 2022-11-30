@@ -61,15 +61,17 @@ const CheckFalse = styled(HighlightOffIcon)({
 })
 export default function Action({ datos }) {
     
-    console.log ('DATOS :  ' , datos ) 
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const [active0 , setActive0] = useState(false)
     const [active , setActive] = useState(false)
     const [active2 , setActive2] = useState(false)
     const [active3 , setActive3] = useState(false)
+    const [active4 , setActive4] = useState(false)
     const [input, setInput] = useState({
+         type : datos.type,
          id : datos.id,
          title : datos.title,
          price: datos.price,
@@ -113,6 +115,14 @@ export default function Action({ datos }) {
                 <AdminWindows>
                     <insideBox>
                     <Title>Editar el Producto</Title>
+
+                    <Box sx={{ display: 'flex', alignItems: 'center'}}>
+                    <SubTitle>Type</SubTitle>
+                    <Button onClick={() => setActive0(!active0)}><EditIcon/></Button>
+                    </Box>
+                    
+                    {active0 && <TextField id="filled-basic" label={datos.type} variant="filled" name="type" value={input?.type} onChange={handleOnChange} />}
+
 
 
                     <Box sx={{ display: 'flex', alignItems: 'center'}}>
@@ -174,9 +184,18 @@ export default function Action({ datos }) {
                     <Button onClick={() => setInput({...input, isShoes: false})}>no</Button>
                    </Box>
 
+                    
+                    <Box sx={{ display: 'flex', alignItems: 'center'}}>
+                   <SubTitle>Talle extraSmall</SubTitle>
+                   <Button onClick={() => setActive4(!active4)}><EditIcon/></Button>
+                    </Box>
+
+                    {active4 && <TextField id="filled-basic" label="extraSmall" variant="filled" name="extraSmall" value={input?.size.extraSmall} onChange={handleOnChange} />}
+                
                     <Title>Acciones</Title>
                     <ButtonAction onClick={handleSetAdmin}>Actualizar este Producto</ButtonAction>
                     </insideBox>
+                
                 </AdminWindows>
             </Modal>
         </Box>
