@@ -1,4 +1,4 @@
-.widget {
+/* .widget {
   display: flex;
   justify-content: space-between;
   flex: 1;
@@ -50,7 +50,7 @@
 
 .iconWit {
   font-size: 18px;
-  /* padding: 5px; */
+  padding: 5px;
   border-radius: 5px;
   align-self: flex-end;
-}
+} */
