@@ -30,15 +30,15 @@ function Error404() {
                     color="blueviolet"
                     variant="h3"
                 >
-                    404: La página que buscas no está aquí
+                    404: The page you are looking for isn’t here
                 </Typography>
                 <Typography
                     align="center"
                     color="textPrimary"
                     variant="subtitle2"
                 >
-                    O intentaste una ruta sombría o viniste aquí por error.
-                    Sea lo que sea, intenta usar la navegación
+                    You either tried some shady route or you came here by mistake.
+                    Whichever it is, try using the navigation
                 </Typography>
                 <Box sx={{ textAlign: 'center' }}>
                     <img
@@ -60,7 +60,7 @@ function Error404() {
                         variant="contained"
                         color='secondary'
                     >
-                        Volver
+                        Go back
                     </Button>
                 </Link>
                 </Box>

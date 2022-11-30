@@ -1,38 +1,40 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Box } from "@mui/material";
-import ReactImageMagnify from "react-image-magnify";
-import "./Detail.css";
+import ReactImageMagnify from 'react-image-magnify';
+import './Detail.css'
+
 
 function ZoomDetail({ images }) {
-  const [img, setImg] = useState(null);
-  console.log("images1:", images[0]);
-  console.log("img:", img);
+    const [img, setImg] = useState(null);
+    //console.log('images1:', images[0])
+    //console.log('img:', img)
 
-  const hoverHandler = (image, i) => {
-    setImg(image);
-    refs.current[i].classList.add("active");
-    for (var j = 0; j < images.length; j++) {
-      if (i !== j) {
-        refs.current[j].classList.remove("active");
-      }
-    }
-  };
-  const refs = useRef([]);
-  refs.current = [];
-  const addRefs = (el) => {
-    if (el && !refs.current.includes(el)) {
-      refs.current.push(el);
-    }
-  };
+    const hoverHandler = (image, i) => {
+        setImg(image);
+        refs.current[i].classList.add('active');
+        for (var j = 0; j < images.length; j++) {
+            if (i !== j) {
+                refs.current[j].classList.remove('active');
+            }
+        }
+    };
+    const refs = useRef([]);
+    refs.current = [];
+    const addRefs = (el) => {
+        if (el && !refs.current.includes(el)) {
+            refs.current.push(el);
+        }
+    };
 
-  useEffect(() => {
-    if (!img) {
-      setImg(images[0]);
-    }
-    return;
-  });
+    useEffect(() => {
+        if(!img){
+            setImg(images[0])
+        }
+        return
+    })
 
-    return (
+
+  return (
     <div>
         <Box
             sx={{

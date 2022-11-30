@@ -4,8 +4,8 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 // import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutlined";
-import { Box, Container, Divider, Typography } from "@mui/material";
-import { getAllOrders } from "../../../../redux/actions/ordersAction";
+//import { Box, Container, Divider, Typography } from "@mui/material";
+//import { getAllOrders } from "../../../../redux/actions/ordersAction";
 
 const VentasTotales = () => {
   const { orders, spent } = useSelector((state) => state.orders.allOrders);

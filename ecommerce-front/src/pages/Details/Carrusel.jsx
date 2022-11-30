@@ -1,4 +1,4 @@
-/* import { Box, Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import React, { useState } from "react";
 import { useEffect } from "react";
 
@@ -87,4 +87,4 @@ export default function Carrusel({ images, autoplay }) {
             </Box>
         </Box>
     )
-} */
+}

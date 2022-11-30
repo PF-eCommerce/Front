@@ -126,7 +126,6 @@ Admin:
 Notificaciones
 perfil: solucionado
 Dashboard: Terminar
-
 Footer: 
 Direcciones, no se usa
 Mapa sucursales: no carga

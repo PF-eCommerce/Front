@@ -10,7 +10,7 @@ import {
 } from "../../redux/actions/productsAction";
 
 
-//import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
+import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
 import {addToCart} from "../../redux/actions/cartAction"
 import Alert from "../../components/Cart/Alert";
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -250,7 +250,7 @@ const Details = () => {
                     }}>
                         <Box sx={boxStyle}>
                             <Typography sx={textStyle}>Talles disponibles</Typography>
-                            <Size arrSize={product.size&&Array.isArray(product.size)&&product.size} sizeAr={product.size&&!Array.isArray(product.size)&&sizeArr} />
+                            {/* <Size arrSize={product.size&&Array.isArray(product.size)&&product.size} sizeAr={product.size&&!Array.isArray(product.size)&&sizeArr} /> */}
                         </Box>
                         <Box sx={boxStyle}>
                             <Typography sx={textStyle}>Colores disponibles</Typography>
@@ -396,5 +396,3 @@ const Details = () => {
 };
 
 export default Details;
-
-
