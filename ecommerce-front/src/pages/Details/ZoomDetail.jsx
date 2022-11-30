@@ -32,71 +32,7 @@ function ZoomDetail({ images }) {
     return;
   });
 
-
-  return (
-    <div>
-      <Box
-        sx={{
-          display: "flex",
-          width: { sx: "40vh", md: "30vw" },
-          height: { sx: "40vh", md: "30vw" },
-          flexWrap: "wrap",
-          justifyContent: "center",
-          marginBottom: "30px",
-        }}
-      >
-        <Box
-          sx={{
-            width: "100%",
-            /* display: "grid", */
-            justifyContent: "center",
-          }}
-        >
-          <div className='left'>
-            <div className='left_2'>
-              <ReactImageMagnify
-                {...{
-                  smallImage: {
-                    alt: "Wristwatch by Ted Baker London",
-                    isFluidWidth: false,
-                    src: img,
-                    width: 375,
-                    height: 400,
-                  },
-                  largeImage: {
-                    src: img,
-                    width: 1200,
-                    height: 1800,
-                  },
-                  enlargedImageContainerDimensions: {
-                    width: "85%",
-                    height: "100%",
-                  },
-                  /* enlargedImagePosition: 'over', */
-                }}
-              />
-            </div>
-            <div className='left_1'>
-              {images.map((image, i) => (
-                <div
-                  className={i === 0 ? "img_wrap active" : "img_wrap"}
-                  key={i}
-                  onMouseOver={() => hoverHandler(image, i)}
-                  ref={addRefs}
-                >
-                  <img src={image} alt='' />
-                </div>
-              ))}
-            </div>
-          </div>
-        </Box>
-      </Box>
-    </div>
-  );
-}
-
-
-  return (
+    return (
     <div>
         <Box
             sx={{
