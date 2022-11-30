@@ -1,4 +1,4 @@
-import { EDIT_ORDER, GET_ALL_ORDERS, GET_ALL_USERS, GET_ORDER_DETAILS } from "../actions/adminAction";
+import { GET_ALL_ORDERS, GET_ALL_USERS, GET_ORDER_DETAILS } from "../actions/adminAction";
 
 const initialState = {
     users: [],

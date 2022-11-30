@@ -2,7 +2,7 @@ import { Button, Modal, styled, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setAdmin } from "../../../../redux/actions/adminAction";
+import { getAllUsers, setAdmin } from "../../../../redux/actions/adminAction";
 
 const ButtonAction = styled(Button)({
     backgroundColor: "#94744F",
@@ -40,25 +40,29 @@ const SubTitle = styled(Typography)({
 const Verified = styled(SubTitle)({
     fontWeight: "500"
 })
-export default function UserAction({ datos }) {
-    console.log(datos)
+export default function UserAction({ datos, superAdmin }) {
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const handleSetAdmin = () => {
-        dispatch(setAdmin(datos.id))
-        .then(window.location.reload());
-        // console.log("Este boton da privilegios de administrador")
+        dispatch(setAdmin(datos.id)).then(() => dispatch(getAllUsers()))
+
     }
 
-
+    // console.log(datos)
     return (
         <Box>
-            {!datos.admin ? <ButtonAction onClick={handleOpen}>
-                Editar
-            </ButtonAction> : 
-            <Button disabled variant="contained">Editar</Button>}
+            {
+                datos.superAdmin ?
+                    <Button disabled variant="contained">Editar</Button>
+                    : superAdmin || !datos.admin?
+                        <ButtonAction onClick={handleOpen}>
+                            Editar
+                        </ButtonAction>
+                        : 
+                        <Button disabled variant="contained">Editar</Button>
+            }
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -70,11 +74,13 @@ export default function UserAction({ datos }) {
                     <SubTitle>{datos.userName}</SubTitle>
                     <SubTitle>{datos.email}</SubTitle>
                     <Title>Estado</Title>
-                    <Verified sx={datos.confirmed ? {color:"green"} : {color:"red"}}>
+                    <Verified sx={datos.confirmed ? { color: "green" } : { color: "red" }}>
                         {datos.confirmed ? "Verificado" : "No verificado"}
                     </Verified>
                     <Title>Acciones</Title>
-                    <ButtonAction onClick={handleSetAdmin}>Promover a Administrador</ButtonAction>
+                    <ButtonAction onClick={handleSetAdmin}>
+                        {!datos.admin ? "Dar permisos de Admin" : "Quitar permisos de Admin"}
+                    </ButtonAction>
                 </AdminWindows>
             </Modal>
         </Box>

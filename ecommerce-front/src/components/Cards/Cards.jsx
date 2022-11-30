@@ -23,6 +23,7 @@ const Cards = () => {
     dispatch(getAllUsers());
   }, []);
   
+  console.log('PRODUCTOS', products)
   return (
     <Box flex={8} p={1}>
       {products.docs ? (

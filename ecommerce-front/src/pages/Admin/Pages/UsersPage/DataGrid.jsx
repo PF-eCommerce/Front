@@ -20,7 +20,7 @@ const Container = styled('div')({
     boxShadow:"0px 0px 5px black",
     borderRadius:"5px"
 })
-
+const user = JSON.parse(localStorage.getItem('auth0'));
 const columns = [
     { field: "id", headerName: "ID", width: 200 },
     { field: "userName", headerName: "Usuario", width: 250 },
@@ -47,11 +47,12 @@ const columns = [
         width: 105,
         renderCell: (params) => {
             // console.log(params.row)
-            return <UserAction datos={params.row} />
+            return <UserAction datos={params.row} superAdmin={user.admin?.includes("super")} />
         }
     },
 ];
 
+// console.log("datos",user)
 export default function DataGridX(){
     const info = useSelector((state) => state.admin.users)
 
@@ -60,7 +61,6 @@ export default function DataGridX(){
     useEffect(() => {
         dispatch(getAllUsers())
     }, [dispatch])
-
     return(
         <Container>
             {info ? <DataGrid
