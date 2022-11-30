@@ -56,7 +56,6 @@ export const getOrders = () => {
                 .then(response => {
                     const data = response.orders?.map((o) => {
                         const totalPrice = o.orderItems?.reduce((sum, p) => {
-                            console.log(sum, p,)
                             return sum + p.price * p.qty
                         }, 0
                         )
@@ -68,7 +67,7 @@ export const getOrders = () => {
                             status: o.status,
                             delivered: o.isDelivered,
                             price: totalPrice,
-                            date: o.date.substring(0, 10),
+                            date: `${o.date.substring(0, 10)} ${o.date.substring(11, 19)}`,
                         }
                     })
                     return dispatch({
