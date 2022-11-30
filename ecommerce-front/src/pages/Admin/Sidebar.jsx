@@ -11,6 +11,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Link } from "react-router-dom";
 
+const user = JSON.parse(localStorage.getItem('auth0'));
 const Container = styled('div')({
     display: "flex",
     flexWrap: "wrap",
@@ -116,7 +117,7 @@ export default function Sidebar() {
             </Container>
             <Container>
                 <MainText>Usuario</MainText>
-                <ItemContainer to="/admin/profile">
+                <ItemContainer to={`/account/${user._id}/profile`}>
                     <AccountCircleIcon sx={styleIcon} />
                     <TextItem>Perfil</TextItem>
                 </ItemContainer>

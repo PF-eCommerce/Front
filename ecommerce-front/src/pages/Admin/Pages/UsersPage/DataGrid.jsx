@@ -52,7 +52,7 @@ const columns = [
     },
 ];
 
-console.log("datos",user)
+// console.log("datos",user)
 export default function DataGridX(){
     const info = useSelector((state) => state.admin.users)
 

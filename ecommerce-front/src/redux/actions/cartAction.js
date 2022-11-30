@@ -5,6 +5,7 @@ export const REMOVE_ONE_FROM_CART = "REMOVE_ONE_FROM_CART";
 export const REMOVE_ALL_FROM_CART = "REMOVE_ALL_FROM_CART";
 export const CLEAR_CART = "CLEAR_CART";
 export const DELETE_FROM_CART = "DELETE_FROM_CART";
+export const DELETE_ALL_CART = "DELETE_ALL_CART";
 
 
 
@@ -64,3 +65,12 @@ export const deleteFromCart = product => async dispatch => {
 		payload: updatedCart,
 	});
 };
+
+export const deleteAllCart = () => {
+	return (dispatch) => {
+		localStorage.setItem("cart", []);
+		dispatch({
+			type: DELETE_ALL_CART,
+		})
+	}
+}

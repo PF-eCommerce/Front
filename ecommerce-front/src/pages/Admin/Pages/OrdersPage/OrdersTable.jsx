@@ -27,7 +27,7 @@ const Pending = styled(Typography)({
     color: "black",
     padding: "5px",
     borderRadius: "10px",
-    
+
 })
 const CheckTrue = styled(CheckCircleOutlineIcon)({
     color: "green"
@@ -45,23 +45,23 @@ const columns = [
         width: 90,
         renderCell: (params) => {
             return (
-                params.row.status === "Success" ? 
-                <Success>{params.row.status}</Success>
-                :
-                <Pending>{params.row.status}</Pending>
-                )
+                params.row.status === "Success" ?
+                    <Success>{params.row.status}</Success>
+                    :
+                    <Pending>{params.row.status}</Pending>
+            )
         }
     },
     { field: 'payment', headerName: 'Metodo', width: 130 },
     { field: 'price', headerName: 'Monto', width: 130 },
-    { 
-        field: 'delivered', 
-        headerName: 'Entregado', 
+    {
+        field: 'delivered',
+        headerName: 'Entregado',
         width: 80,
         renderCell: (params) => {
-            return(
+            return (
                 params.row.delivered ?
-                <CheckTrue /> : <CheckFalse />
+                    <CheckTrue /> : <CheckFalse />
             )
         }
     },
@@ -92,6 +92,11 @@ export default function OrdersTable() {
     return (
         <Container>
             <DataGrid
+                initialState={{
+                    sorting: {
+                        sortModel: [{ field: 'date', sort: 'desc' }],
+                    },
+                }}
                 rows={rows}
                 columns={columns}
                 pageSize={10}
