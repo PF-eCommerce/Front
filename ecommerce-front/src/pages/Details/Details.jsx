@@ -26,7 +26,7 @@ import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import ZoomDetail from './ZoomDetail';
 import './Detail.css'
-//import ComentarioRemix from "../../components/Review/ComentarioRemix";
+
 
 const Alerta = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -46,7 +46,7 @@ const style = {
   pb: 3,
 };
 
-const Details3 = () => {
+const Details = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -70,7 +70,7 @@ const Details3 = () => {
       dispatch(deleteDetail());
     };
 
-  }, [dispatch, reviewsByProduct, id]);
+  }, [dispatch, id]);
 
   const product = useSelector((state) => state.product?.detail);
   const [alert, setAlert] = useState(false);
@@ -153,6 +153,32 @@ const Details3 = () => {
   //   // variant could be success, error, warning, info, or default
   //   enqueueSnackbar('Producto agregado a favoritos', { sucess });
   // };
+
+  let sizeObj = {}
+  let sizeArr =[]
+  if (product.size&&!Array.isArray(product.size)){
+    sizeObj ={
+      XS: product.size.extraSmall>0&&product.size.extraSmall,
+      S: product.size.small>0&&product.size.small,
+      M: product.size.medium>0&&product.size.medium,
+      L: product.size.large>0&&product.size.large,
+      XL: product.size.extraLarge>0&&product.size.extraLarge,
+      36: product.size.num36>0&&product.size.num36,
+      37: product.size.num37>0&&product.size.num37,
+      38: product.size.num38>0&&product.size.num38,
+      39: product.size.num39>0&&product.size.num39,
+      40: product.size.num40>0&&product.size.num40,
+      41: product.size.num41>0&&product.size.num41,
+      42: product.size.num42>0&&product.size.num42,
+      43: product.size.num43>0&&product.size.num43
+    }
+    for (let key in sizeObj){
+      if(sizeObj[key]){
+        sizeArr.push(key)
+      }
+      
+    }
+  }
   
   return (
       <Box
@@ -224,7 +250,7 @@ const Details3 = () => {
                     }}>
                         <Box sx={boxStyle}>
                             <Typography sx={textStyle}>Talles disponibles</Typography>
-                            <Size arrSize={product.size} />
+                            <Size arrSize={product.size&&Array.isArray(product.size)&&product.size} sizeAr={product.size&&!Array.isArray(product.size)&&sizeArr} />
                         </Box>
                         <Box sx={boxStyle}>
                             <Typography sx={textStyle}>Colores disponibles</Typography>
@@ -252,14 +278,29 @@ const Details3 = () => {
                             Hasta 3 cuotas sin interés de ${Math.round(product.price / 3)}
                         </Typography>
 
-                        <Typography
+                        {product.numStock===0||product.numStock===undefined?
+                            <Typography
                             sx={{
-                                padding: "10px",
-                                textAlign: { xs: "center", md: "center" },
+                              padding: "10px",
+                              paddingBottom: "5px",
+                              textAlign: { xs: "center", md: "center" },
+                              fontSize: '25px'
                             }}
-                        >
+                          >
+                            SIN STOCK
+                          </Typography>
+                            :
+                            <Typography
+                            sx={{
+                              padding: "10px",
+                              paddingBottom: "5px",
+                              textAlign: { xs: "center", md: "center" },
+                            }}
+                          >
                             {product.numStock} unidades disponibles
-                        </Typography>
+                          </Typography>
+                        }
+
                         <Box
                             sx={{
                                 marginTop: "10px",
@@ -275,21 +316,29 @@ const Details3 = () => {
                                     <FavoriteBorderIcon onClick={addFav} />
                                 }
                                 {/* <FavoriteIcon 
-                    onClick={e=>addFav
-                        // (e,{
-                        // id:`${product._id}`,
-                        // title:`${product.title}`,
-                        // desc:`${product.desc}`,
-                        // price:`${product.price}`,
-                        // img:[`${imagen}`],
-                        // numStock:`${product.numStock}`,
-                        // })
-                    }
-                        /> */}
+                                    onClick={e=>addFav
+                                        // (e,{
+                                        // id:`${product._id}`,
+                                        // title:`${product.title}`,
+                                        // desc:`${product.desc}`,
+                                        // price:`${product.price}`,
+                                        // img:[`${imagen}`],
+                                        // numStock:`${product.numStock}`,
+                                        // })
+                                    }
+                                        /> */}
                             </IconButton>
-                            <IconButton >
-                                <NestedModal />
-                            </IconButton>
+
+                            {(product?.numStock===0||product?.numStock===undefined)?
+                              <IconButton>
+                                <AddShoppingCartOutlinedIcon sx={{marginRight:"1rem"}} color="secondary" fontSize="large"/>
+                              </IconButton>
+                              :
+                              <IconButton>
+                                <NestedModal/>
+                                {/* <AddShoppingCartOutlinedIcon sx={{ marginRight: "1rem" }} /> */}
+                              </IconButton>
+                            }
 
 
                             <Button
@@ -336,7 +385,7 @@ const Details3 = () => {
                         }}
                     >
                         {reviewsTotales > 0 ? <Comentarios allUsers={allUsers} reviewsByProduct={reviewsByProduct} /> : null}
-                        {/* { reviewsTotales > 0 ? <ComentarioRemix allUsers={allUsers} reviewsByProduct={reviewsByProduct} id={id} image={product.img} name={product?.title} /> : null } */}
+                        
                     </Typography>
                 </Box>
             </div>
@@ -346,7 +395,6 @@ const Details3 = () => {
   );
 };
 
-export default Details3;
+export default Details;
 
-/* Details3 */
 
