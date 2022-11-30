@@ -1,7 +1,7 @@
 .left {
-    display: flex;
-    height: 50vh;
-    flex-direction: column;
+  display: flex;
+  height: 50vh;
+  flex-direction: column;
 }
 .left_1 {
     display: flex;
@@ -25,6 +25,8 @@
     place-self: center; */
     margin-top: 0px;
 }
+/* .left_2 {
+} */
 .left_2 img {
     width: 350px;
     height: 400px;
@@ -32,7 +34,7 @@
   
 }
 .active {
-    border: 2px solid #e77600;
+  border: 2px solid #e77600;
 }
 
 .listRev {

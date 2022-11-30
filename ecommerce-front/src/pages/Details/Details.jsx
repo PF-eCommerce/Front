@@ -46,7 +46,7 @@ const style = {
   pb: 3,
 };
 
-const Details = () => {
+const Details3 = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -346,6 +346,7 @@ const Details = () => {
   );
 };
 
-export default Details;
+export default Details3;
 
+/* Details3 */
 

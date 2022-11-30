@@ -11,7 +11,7 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -19,11 +19,14 @@ import logo from "../../../assets/images/Trés_bien__2_-removebg-preview.png";
 import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 import { Link } from "react-router-dom";
 import PutModal from "../../PutModal/PutModal";
-import Skeleton from '@mui/material/Skeleton';
+import Skeleton from "@mui/material/Skeleton";
 import { NestedModal } from "../../Modals/ModalToCart";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductDetail } from "../../../redux/actions/productsAction";
-import { addToFavorite, deleteFromFavorite } from "../../../redux/actions/favoriteAction";
+import {
+  addToFavorite,
+  deleteFromFavorite,
+} from "../../../redux/actions/favoriteAction";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -46,10 +49,10 @@ export default function RecipeReviewCard({
   product,
 }) {
   const [expanded, setExpanded] = React.useState(false);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("auth0"));
   //Función inspectora de billet----privilegios
-  const favoritos = JSON.parse(localStorage.getItem('favorite'))
+  const favoritos = JSON.parse(localStorage.getItem("favorite"));
   const admin = (user) => {
     if (user && user.admin) {
       if (user.admin.includes("admin")) return true;
@@ -58,7 +61,7 @@ export default function RecipeReviewCard({
       return false;
     }
   };
-  const productDet = useSelector(state => state.product.detail)
+  const productDet = useSelector((state) => state.product.detail);
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -67,29 +70,51 @@ export default function RecipeReviewCard({
   //   localStorage.setItem('favorite', JSON.stringify(id))
   // }
 
-  function modalToCart(e){
-    e.preventDefault()
-    dispatch(getProductDetail(id))
+  function modalToCart(e) {
+    e.preventDefault();
+    dispatch(getProductDetail(id));
   }
 
-  function hover(e){
-    e.preventDefault()
-    dispatch(getProductDetail(id))
+  function hover(e) {
+    e.preventDefault();
+    dispatch(getProductDetail(id));
   }
-  function addFav(e){
-    e.preventDefault()
+  function addFav(e) {
+    e.preventDefault();
     // dispatch(getProductDetail(id))
-    dispatch(addToFavorite(productDet))
+    dispatch(addToFavorite(productDet));
   }
 
-  function deleteFav(e){
-    e.preventDefault()
-    dispatch(deleteFromFavorite(productDet))
+  function deleteFav(e) {
+    e.preventDefault();
+    dispatch(deleteFromFavorite(productDet));
+  }
+
+  function stockString() {
+    if (numStock === 0 || numStock === undefined) {
+      return "SIN STOCK";
+    }
+  }
+  function stockTypography() {
+    if (numStock === 0 || numStock === undefined) {
+      return { backgroundColor: "red", color: "white" };
+    }
   }
   return (
     <Card sx={{ maxWidth: 330 }}>
       <CardHeader
-        avatar={logo.length > 0 ? <Avatar src={logo} /> :  <Skeleton animation="wave" variant="circular" width={40} height={40} />}
+        avatar={
+          logo.length > 0 ? (
+            <Avatar src={logo} />
+          ) : (
+            <Skeleton
+              animation='wave'
+              variant='circular'
+              width={40}
+              height={40}
+            />
+          )
+        }
         action={
           admin(user) === true ? (
             <IconButton aria-label='settings'>
@@ -97,50 +122,78 @@ export default function RecipeReviewCard({
             </IconButton>
           ) : null
         }
-        title={title ? title : <Skeleton
-          animation="wave"
-          height={10}
-          width="80%"
-          style={{ marginBottom: 6 }}
-        />}
+        title={
+          title ? (
+            title
+          ) : (
+            <Skeleton
+              animation='wave'
+              height={10}
+              width='80%'
+              style={{ marginBottom: 6 }}
+            />
+          )
+        }
         subheader={
           `${numStock}` < 10
             ? "Quedan pocas unidades"
-            : `${numStock}` === 0
-            ? "SIN STOCK"
-            : null
+            : // : ((`${numStock}` === 0) || (`${numStock}` === undefined))
+              // ? "SIN STOCK"
+              // : null
+              stockString()
         }
         subheaderTypographyProps={
           `${numStock}` < 10
             ? { backgroundColor: "yellow" }
-            : `${numStock}` === 0
-            ? { backgroundColor: "red" }
-            : null
+            : // : ((`${numStock}` === 0) || (`${numStock}` === undefined))
+              // ? { backgroundColor: "red" }
+              // : null
+              stockTypography()
         }
       />
       <Link to={`/detail/${id}`}>
-        <CardMedia component='img' height='280' image={img[0] ? img[0] : <Skeleton sx={{ height: 190 }} animation="wave" variant="rectangular" />} maxWidth='8' />
+        <CardMedia
+          component='img'
+          height='280'
+          image={Array.isArray(img) ? img[0] : img}
+          maxWidth='8'
+        />
       </Link>
       <CardContent>
         <Typography variant='h8' color='secondary'>
-          {`$ ${price ? price :  <Skeleton animation="wave" height={10} width="40%" />}`}
+          {`$ ${
+            price ? (
+              price
+            ) : (
+              <Skeleton animation='wave' height={10} width='40%' />
+            )
+          }`}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label='add to favorites' onMouseOver={hover}>
-          {(favoritos?.filter(el=>el._id===id))?.length>0?
+          {/* {(favoritos?.filter(el=>el._id===id))?.length>0?
             <FavoriteIcon onClick={deleteFav}/>
             :            
             <FavoriteBorderIcon onClick={addFav}/>
-          }
+          } */}
         </IconButton>
         {/* <Link to={`/detail/${id}`}> */}
-          <IconButton
-          onClick={modalToCart}
-          >
-            <NestedModal/>
+        {numStock === 0 || numStock === undefined ? (
+          <IconButton>
+            <AddShoppingCartOutlinedIcon
+              sx={{ marginRight: "1rem" }}
+              color='secondary'
+              fontSize='large'
+            />
+          </IconButton>
+        ) : (
+          <IconButton onClick={modalToCart}>
+            <NestedModal />
             {/* <AddShoppingCartOutlinedIcon sx={{ marginRight: "1rem" }} /> */}
           </IconButton>
+        )}
+
         {/* </Link> */}
 
         <ExpandMore

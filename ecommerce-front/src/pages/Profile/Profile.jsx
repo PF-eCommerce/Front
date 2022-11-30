@@ -31,6 +31,7 @@ const Profile = () => {
   const { id } = useParams();
   const [open, setOpen] = useState(false);
   const [avatar, setAvatar] = useState("");
+  console.log(id)
   useEffect(() => {
     dispatch(getUserData(id));
     dispatch(getOrdersByUser(id));
@@ -59,7 +60,6 @@ const Profile = () => {
       dispatch(updateUserData({ image: avatar })).then(setAvatar(""));
     }
   };
-
   return (
     <Box
       sx={{
@@ -78,7 +78,7 @@ const Profile = () => {
             }}
           >
             <Avatar
-              src={avatar === "" ? user?.image : avatar}
+              src={user?.image ? user.image : avatar}
               sx={{
                 height: 160,
                 mb: 1,
@@ -111,8 +111,10 @@ const Profile = () => {
                 ({user?.userName})
               </Typography>
             )}
+
             <Typography color='textSecondary' variant='body2'>
-              {`${user?.city} ${user?.country}`}
+              {user?.city ? `${user?.city}` : null}
+              {user?.country ? ` ${user?.country}` : null}
             </Typography>
           </Box>
         </CardContent>
