@@ -1,3 +1,4 @@
+import { Data } from "@react-google-maps/api";
 import axios from "axios";
 
 export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
@@ -12,6 +13,8 @@ export const ADD_FAVORITES = "ADD_FAVORITES";
 export const SHOW_FAVORITES = "SHOW_FAVORITES";
 export const FILTER_BY_RATING = "FILTER_BY_RATING"
 export const ALL_PRODUCTS = "ALL_PRODUCTS"
+export const FILTER_BY_GENERO = "FILTER_BY_GENERO";
+export const FILTER_NEW_PRODUCTS = "FILTER_NEW_PRODUCTS";
 
 
 export const getAllProducts = () => {
@@ -65,6 +68,16 @@ export const filterRating = ()=> {
   return (dispatch)=> {
     return dispatch({
       type: FILTER_BY_RATING,
+      
+    })
+  }
+}
+export const filterByNews = (data)=> {
+  console.log("desdeaction",data)
+  return (dispatch)=> {
+    return dispatch({
+      type: FILTER_NEW_PRODUCTS,
+      payload:data
       
     })
   }
@@ -256,4 +269,12 @@ export const showFavorites = (payload) => {
     payload,
   };
 };
+export const filterBygenero = (data) => {
+  return(dispatch)=>{
+    dispatch({
+      type: FILTER_BY_GENERO,
+      payload:data,
+    })
+  }
+}
 
