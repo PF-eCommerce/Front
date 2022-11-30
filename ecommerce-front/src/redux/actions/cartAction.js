@@ -17,7 +17,7 @@ export const addToCart = item => async dispatch => {
 		: [];
 	
 	// check if duplicates
-	const duplicates = cart?.filter(cartItem => cartItem._id === item._id);
+	const duplicates = cart?.filter(cartItem => (cartItem._id === item._id)&&(cartItem.size === item.size));
 	
 	// if no duplicates, proceed
 	if (duplicates.length === 0) {
@@ -47,8 +47,17 @@ export const deleteFromCart = product => async dispatch => {
 		? JSON.parse(localStorage.getItem('cart'))
 		: [];
 
-	const updatedCart = cart.filter(cartItem => cartItem._id !== product._id);
-
+	const updatedCart = cart.filter(cartItem => {
+		if (cartItem._id !== product._id){
+			return true
+		}else if (cartItem.size !== product.size){
+				return true
+		}else{
+			return false
+		}
+	
+	});
+	
 	localStorage.setItem('cart', JSON.stringify(updatedCart));
 
 	dispatch({

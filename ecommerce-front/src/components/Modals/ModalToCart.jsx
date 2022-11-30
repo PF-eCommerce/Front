@@ -65,11 +65,7 @@ export function ChildModal() {
         }
       }
     }
-    let producto = {
-      ...product,
-      qty,
-      size: sizee
-    }
+    
     // console.log('PRODUCTSIZE', product.size)
     // console.log('PRODUCTSTOCK', product.numStock)
   if (product.size&&!Array.isArray(product.size)){
@@ -97,7 +93,12 @@ export function ChildModal() {
     stock = product.numStock
   }
 
-    
+  let producto = {
+    ...product,
+    qty,
+    size: sizee,
+    numStock: stock
+  }
     function sendToCart(e){
       dispatch(addToCart(producto))
       dispatch(deleteSize())
