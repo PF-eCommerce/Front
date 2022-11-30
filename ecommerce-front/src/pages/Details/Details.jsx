@@ -25,7 +25,8 @@ import { NestedModal } from "../../components/Modals/ModalToCart";
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import ZoomDetail from './ZoomDetail';
-import './Detail.css'
+import './Detail.css';
+import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 
 const Alerta = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -279,8 +280,19 @@ const Details = () => {
           >
             Hasta 3 cuotas sin interés de ${Math.round(product.price / 3)}
           </Typography>
-
-          <Typography
+            {product.numStock===0||product.numStock===undefined?
+            <Typography
+            sx={{
+              padding: "10px",
+              paddingBottom: "5px",
+              textAlign: { xs: "center", md: "start" },
+              fontSize: '25px'
+            }}
+          >
+            SIN STOCK
+          </Typography>
+            :
+            <Typography
             sx={{
               padding: "10px",
               paddingBottom: "5px",
@@ -289,6 +301,8 @@ const Details = () => {
           >
             {product.numStock} unidades disponibles
           </Typography>
+            }
+          
           <Box
             sx={{
               marginTop: "10px",
@@ -315,9 +329,17 @@ const Details = () => {
               }
                 /> */}
              </IconButton>
-              <IconButton >
-               <NestedModal/>
-              </IconButton>
+
+              {(product?.numStock===0||product?.numStock===undefined)?
+          <IconButton>
+            <AddShoppingCartOutlinedIcon sx={{marginRight:"1rem"}} color="secondary" fontSize="large"/>
+          </IconButton>
+          :
+          <IconButton>
+            <NestedModal/>
+            {/* <AddShoppingCartOutlinedIcon sx={{ marginRight: "1rem" }} /> */}
+          </IconButton>
+          }
 
 
             <Button
