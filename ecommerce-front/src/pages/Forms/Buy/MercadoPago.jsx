@@ -18,9 +18,11 @@ export const MercadoPago = () =>{
     function linkMP(e){
         e.preventDefault()
         let id = JSON.parse(localStorage.getItem('auth0'))._id
+        let email = JSON.parse(localStorage.getItem('auth0')).email
+        console.log(email)
         let location = JSON.parse(localStorage.getItem('location'))
         let input = JSON.parse(localStorage.getItem('input'))
-        dispatch(orderProduct(productArray, id, location, input))
+        dispatch(orderProduct(productArray, id, location, input,email))
       }
 
     return (
