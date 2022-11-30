@@ -22,6 +22,7 @@ import Error404 from './components/Error404/Error404'
 import OrdersPage from "./pages/Admin/Pages/OrdersPage/OrdersPage";
 import OrderDetails from "./pages/Admin/Pages/OrdersPage/OrderDetails";
 import ProductPage from "./pages/Admin/Pages/productsPage/ProductPage";
+//import Details3 from "./pages/Details/Details3";
 
 
 function App() {

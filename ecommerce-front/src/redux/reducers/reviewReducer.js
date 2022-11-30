@@ -2,6 +2,7 @@ import {
   GET_PRODUCT_REVIEWS,
   GET_USER_REVIEWS,
   ALL_REVIEWS,
+  REVIEW_RESET,
 } from "../actions/reviewActions";
 
 const initialState = {
@@ -26,6 +27,11 @@ export default function reviewReducer(state = initialState, action) {
         ...state,
         reviews: action.payload,
       };
+    case REVIEW_RESET:
+      return {
+        ...state,
+        reviews: []
+      }
     default:
       return state;
   }

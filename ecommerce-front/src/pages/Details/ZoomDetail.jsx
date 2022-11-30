@@ -6,8 +6,8 @@ import './Detail.css'
 
 function ZoomDetail({ images }) {
     const [img, setImg] = useState(null);
-    console.log('images1:', images[0])
-    console.log('img:', img)
+    //console.log('images1:', images[0])
+    //console.log('img:', img)
 
     const hoverHandler = (image, i) => {
         setImg(image);
@@ -33,14 +33,14 @@ function ZoomDetail({ images }) {
         return
     })
 
-/* holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaa seeeeeeeeeee tomaaaaaaaa */
+
   return (
     <div>
         <Box
             sx={{
                 display: "flex",
-                width: { sx: "auto", sx: "40vh", md: "30vw" },
-                height: { sx: "auto", sx: "40vh", md: "30vw" },
+                /* width: { sx: "auto", sx: "40vh", md: "30vw" },
+                height: { sx: "auto", sx: "40vh", md: "30vw" }, */
                 flexWrap: "wrap",
                 justifyContent: "center",
                 marginBottom: "30px"
@@ -63,7 +63,7 @@ function ZoomDetail({ images }) {
                                     alt: 'Wristwatch by Ted Baker London',
                                     isFluidWidth: false,
                                     src: img,
-                                    width: 375,
+                                    width: 350,
                                     height: 400,
                                 },
                                 largeImage: {
@@ -72,7 +72,7 @@ function ZoomDetail({ images }) {
                                     height: 1800,
                                 },
                                 enlargedImageContainerDimensions: {
-                                    width: '85%',
+                                    width: '100%',
                                     height: '100%',
                                 },
                                 /* enlargedImagePosition: 'over', */
