@@ -86,6 +86,17 @@ export default function RecipeReviewCard({
     e.preventDefault()
     dispatch(deleteFromFavorite(productDet))
   }
+  
+  function stockString(){
+    if(numStock===0||numStock===undefined){
+      return 'SIN STOCK'
+    } 
+  }
+  function stockTypography(){
+    if(numStock===0||numStock===undefined){
+      return { backgroundColor: "red", color: 'white' }
+    } 
+  }
   return (
     <Card sx={{ maxWidth: 330 }}>
       <CardHeader
@@ -106,16 +117,18 @@ export default function RecipeReviewCard({
         subheader={
           `${numStock}` < 10
             ? "Quedan pocas unidades"
-            : `${numStock}` === 0
-            ? "SIN STOCK"
-            : null
+            // : ((`${numStock}` === 0) || (`${numStock}` === undefined))
+            // ? "SIN STOCK"
+            // : null
+            :stockString()
         }
         subheaderTypographyProps={
           `${numStock}` < 10
             ? { backgroundColor: "yellow" }
-            : `${numStock}` === 0
-            ? { backgroundColor: "red" }
-            : null
+            // : ((`${numStock}` === 0) || (`${numStock}` === undefined))
+            // ? { backgroundColor: "red" }
+            // : null
+            :stockTypography()
         }
       />
       <Link to={`/detail/${id}`}>
@@ -135,12 +148,19 @@ export default function RecipeReviewCard({
           }
         </IconButton>
         {/* <Link to={`/detail/${id}`}> */}
+          {(numStock===0||numStock===undefined)?
+          <IconButton>
+            <AddShoppingCartOutlinedIcon sx={{marginRight:"1rem"}} color="secondary" fontSize="large"/>
+          </IconButton>
+          :
           <IconButton
           onClick={modalToCart}
           >
             <NestedModal/>
             {/* <AddShoppingCartOutlinedIcon sx={{ marginRight: "1rem" }} /> */}
           </IconButton>
+          }
+          
         {/* </Link> */}
 
         <ExpandMore
