@@ -39,7 +39,6 @@ export function ChildModal() {
       setOpen(false);
       setQty(1)
       
-      // dispatch(closeChildModal())
     };
     
     const product = useSelector((state) => state.product.detail)
@@ -60,14 +59,12 @@ export function ChildModal() {
         }
       } else if(e.target.value==='add'){
         
-        if(qty<10&&qty<stock){
+        if(qty<stock){
           setQty(qty+1)
         }
       }
     }
     
-    // console.log('PRODUCTSIZE', product.size)
-    // console.log('PRODUCTSTOCK', product.numStock)
   if (product.size&&!Array.isArray(product.size)){
     sizeObj ={
       XS: product.size.extraSmall>0&&product.size.extraSmall,
@@ -85,7 +82,7 @@ export function ChildModal() {
       43: product.size.num43>0&&product.size.num43
     }
     stock = sizeObj[sizee]
-    // console.log('STOCK', stock)
+     console.log('STOCK', stock)
   
   }else if(product.size&&Array.isArray(product.size)){
     stock = product.numStock
@@ -180,7 +177,7 @@ export function ChildModal() {
                   value={'add'}
                   onClick={handleClick}
                   >+</SizeButton>
-                  <p>Máximo 10 unidades</p>
+                  <p>Máximo {stock} unidades</p>
                 </Grid>
   
               </Grid>
