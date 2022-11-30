@@ -100,4 +100,19 @@ export function modifyOrder(order) {
     }
   };
 }
-
+export function deleteOrder(id) {
+  return async function (dispatch) {
+    try {
+      await fetch(`${process.env.REACT_APP_API_URL}/order/${id}`, {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: "PUT",
+        body: JSON.stringify({exist: false})
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}

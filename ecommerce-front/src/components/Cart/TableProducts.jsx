@@ -79,7 +79,7 @@ export default function BasicTable() {
                   </TableCell>{" "}
                   <TableCell align='left'>
                     <Link className={s.link} to={`/detail/${item._id}`}>
-                      {item.title}
+                      {item.title}, Talle: {item.size}
                     </Link>
                   </TableCell>
                   <TableCell align='left'>{item.numStock}</TableCell>

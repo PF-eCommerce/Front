@@ -47,9 +47,12 @@ const SearchBar = () =>{
 
 
     function handleSubmit(e){
-        e.preventDefault();
-        dispatch(getProductByName(input))
-        setInputChange("")
+        if (input.length > 3){
+            e.preventDefault();
+            dispatch(getProductByName(input))
+            setInputChange("")
+        }
+
        
     }
 
