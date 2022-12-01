@@ -1,10 +1,10 @@
 
-import { GET_ALL_PRODUCTS, USE_PAGINATION, GET_PRODUCT_BY_NAME,ALL_PRODUCTS, GET_PRODUCT_BY_COLOR, LINK_MP,FILTER_BY_RATING, ADD_FAVORITES, SHOW_FAVORITES, GET_BY_CATEGORY, GET_PRODUCT_DETAIL, DELETE_DETAIL } from "../actions/productsAction";
+import { GET_ALL_PRODUCTS, USE_PAGINATION, GET_PRODUCT_BY_NAME,ALL_PRODUCTS, GET_PRODUCT_BY_COLOR, LINK_MP,FILTER_BY_RATING, ADD_FAVORITES, SHOW_FAVORITES, GET_BY_CATEGORY, GET_PRODUCT_DETAIL, DELETE_DETAIL, FILTER_NEW_PRODUCTS, FILTER_BY_GENERO, FILTER_BY_GENERO2 } from "../actions/productsAction";
 
 const initialState = {
   products: [],
   detail: [],
-  // allProducts: [],
+  //allProducts: [],
   linkMP:'',
   favorites:[],
   allProductsNoLimit : [],
@@ -16,7 +16,7 @@ export default function productReducer(state = initialState, action) {
       return {
         ...state,
         products: action.payload,
-        // allProducts: action.payload,
+        //allProducts: action.payload,
       };
     case ALL_PRODUCTS:
         return {
@@ -82,6 +82,31 @@ export default function productReducer(state = initialState, action) {
         ...state,
         products:productsByRating
       }
+    case FILTER_NEW_PRODUCTS:
+      console.log("desde redux",action.payload)
+      const newsproducts ={docs:action.payload}
+      
+      return {
+        ...state,
+        products:newsproducts
+      }
+    case FILTER_BY_GENERO:
+    console.log("payload",action.payload)
+    const genMen = {docs:action.payload}
+    
+    return {
+      ...state,
+      products: genMen
+    }
+
+    case FILTER_BY_GENERO2:
+    console.log("payload",action.payload)
+    const genWom = {docs:action.payload}
+    
+    return {
+      ...state,
+      products: genWom
+    }
 
     default:
       return {

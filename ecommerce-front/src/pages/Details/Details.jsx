@@ -252,10 +252,10 @@ const Details = () => {
                             <Typography sx={textStyle}>Talles disponibles</Typography>
                             <Size sizeAr={sizeArr} />
                         </Box>
-                        <Box sx={boxStyle}>
+                        {/* <Box sx={boxStyle}>
                             <Typography sx={textStyle}>Colores disponibles</Typography>
                             <Colors arrColors={product.color} />
-                        </Box>
+                        </Box> */}
 
                         <Box sx={boxStyle}>
                             <Typography sx={textStyle}>Precio</Typography>

@@ -1,11 +1,20 @@
 import { Stack } from "@mui/material";
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Cards from "../../components/Cards/Cards";
 import PaginationSize from "../../components/Cards/Pagination/Pagination";
 import FilterSide from "../../components/Filters/filtros/FilterSide";
+import { getAllProductsNoPaginate } from '../../redux/actions/productsAction'
 
 const Home = () => {
+
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    dispatch(getAllProductsNoPaginate())
+  },[])
+
+
   const products = useSelector(state => state.product.products)
   return (
     <div>
