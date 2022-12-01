@@ -192,8 +192,9 @@ export function deleteDetail() {
   };
 }
 
-export const orderProduct = (productArray, id, location, input, navigate) => {
-  const data = [productArray, location, input];
+export const orderProduct = (productArray, id, location, input, email, navigate) => {
+  const data = [productArray, location, input,email];
+  console.log(data)
   // console.log('ID', id)
   // console.log("DATA", data);
   // console.log("PRODUCTARRAY", productArray);
