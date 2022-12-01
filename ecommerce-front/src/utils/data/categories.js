@@ -3,7 +3,7 @@ export const cates = [
   { nombre: "Moda", valor: "Accesorio" },
   { nombre: "Shorts", valor: "Shorts" },
   { nombre: "Blusas", valor: "Blusas" },
-  { nombre: "Calzado", valor: "Calzado" },
+  { nombre: "Zapatillas", valor: "Zapatillas" },
   { nombre: "Camisas", valor: "Camisas" },
   { nombre: "Enteritos", valor: "Enteritos" },
   { nombre: "Equipaje", valor: "Equipaje" },

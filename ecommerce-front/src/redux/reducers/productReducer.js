@@ -19,9 +19,12 @@ export default function productReducer(state = initialState, action) {
         //allProducts: action.payload,
       };
     case ALL_PRODUCTS:
+      const doc = {
+        docs: action.payload
+      }
         return {
           ...state,
-          allProductsNoLimit : action.payload
+          allProductsNoLimit : doc
         }  
     case USE_PAGINATION:
       return {

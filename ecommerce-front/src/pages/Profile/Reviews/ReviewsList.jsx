@@ -8,11 +8,13 @@ import {
   Typography,
 } from "@mui/material";
 
-import React from "react";
+import React, { useState } from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { formatLine } from "../../../utils/functions";
 
 const ReviewsList = () => {
+
   const reviews = useSelector((state) => state.review.reviews);
   setTimeout(() => {
   if (reviews) {
@@ -58,4 +60,6 @@ const ReviewsList = () => {
     );
   }} , 500) 
 };
+
+     
 export default ReviewsList;
