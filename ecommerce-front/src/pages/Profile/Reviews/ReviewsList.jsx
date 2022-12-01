@@ -15,8 +15,8 @@ import { formatLine } from "../../../utils/functions";
 
 const ReviewsList = () => {
   const reviews = useSelector((state) => state.review.reviews);
-
-  if (reviews?.length > 0) {
+  setTimeout(() => {
+  if (reviews) {
     return (
       <Stack direction='row' spacing={1}>
         {reviews?.map((rev) => (
@@ -30,8 +30,6 @@ const ReviewsList = () => {
         height="280"
         image={img[0]}
         maxWidth="8"
-      
-        
       /> */}
             <CardContent>
               <Typography variant='body2' color='secondary'>
@@ -60,6 +58,7 @@ const ReviewsList = () => {
       </>
     );
   }
+ } , 500) 
 };
 
 export default ReviewsList;
