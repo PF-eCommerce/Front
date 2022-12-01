@@ -250,7 +250,7 @@ const Details = () => {
                     }}>
                         <Box sx={boxStyle}>
                             <Typography sx={textStyle}>Talles disponibles</Typography>
-                            {/* <Size arrSize={product.size&&Array.isArray(product.size)&&product.size} sizeAr={product.size&&!Array.isArray(product.size)&&sizeArr} /> */}
+                            <Size sizeAr={sizeArr} />
                         </Box>
                         <Box sx={boxStyle}>
                             <Typography sx={textStyle}>Colores disponibles</Typography>
