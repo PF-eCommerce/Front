@@ -59,9 +59,9 @@ const Navbar = () => {
           <Logo />
         </LogoBox>
         <MenuCatalogo />
-        <ButtonNav variant='outlined' color='secondary'>
+        {/* <ButtonNav variant='outlined' color='secondary'>
           Promos
-        </ButtonNav>
+        </ButtonNav> */}
         <Box sx={{ display: "flex" }}>
           <SearchBar />
         </Box>

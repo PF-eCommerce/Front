@@ -157,7 +157,7 @@ export const ImageTrends1 = ()=> {
                 justifyContent: "center",
               }}
             >
-              <BootstrapButton>IR A SELECCIÓN</BootstrapButton>
+              {/* <BootstrapButton>IR A SELECCIÓN</BootstrapButton> */}
             </Item>
           </Grid>
         </Grid>
@@ -196,7 +196,7 @@ export const ImageTrends2 = ()=> {
               justifyContent: "center",
             }}
           >
-            <BootstrapButton>NO TE LO PIERDAS!</BootstrapButton>
+            {/* <BootstrapButton>NO TE LO PIERDAS!</BootstrapButton> */}
           </Item>
         </Grid>
       </Grid>
@@ -410,7 +410,7 @@ export const ImageButton5 = () =>{
     };
   return(
     <ImageButton
-            value='Jeans'
+            value='Pantalones'
             onClick={handleSelect}
             style={{
               backgroundImage: `url(https://www.outfit-styles.com/wp-content/uploads/2019/07/Skinny-Jeans-Outfit-2019.jpg)`,
@@ -509,7 +509,7 @@ export const ImageButton7 = () =>{
     };
   return(
     <ImageButton
-            value='Shorts'
+            value='Zapatillas'
             onClick={handleSelect}
             style={{
               backgroundImage: `url(https://i.pinimg.com/originals/dc/53/94/dc5394110c2f8ce33f9fc13dc36d8abe.jpg)`,

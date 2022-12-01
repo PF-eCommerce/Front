@@ -17,7 +17,7 @@ export const addToCart = item => async dispatch => {
 		: [];
 	
 	// check if duplicates
-	const duplicates = cart?.filter(cartItem => (cartItem._id === item._id)&&(cartItem.size === item.size));
+	const duplicates = cart?.filter(cartItem => (cartItem._id === item._id)&&(cartItem.sizee === item.sizee));
 	
 	// if no duplicates, proceed
 	if (duplicates.length === 0) {
