@@ -4,6 +4,7 @@ import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { postReview } from "../../redux/actions/reviewActions";
 
+
 export default function ReviewsRemix({ id, name, image, user, setBox }) {
 
   const [hoverStar, setHoverStar] = useState(undefined);
@@ -32,7 +33,7 @@ export default function ReviewsRemix({ id, name, image, user, setBox }) {
       });
       alert('Review completada!')
     } else {
-      alert("Debes iniciar sesion o comentarios de mínimo 4 caracteres, y mínimo 1 estrella");
+      alert("Comentarios de mínimo 4 caracteres, y mínimo 1 estrella");
     }
   };
 
@@ -99,7 +100,7 @@ export default function ReviewsRemix({ id, name, image, user, setBox }) {
               src={image[0]}
               alt={name}
             />
-            <h1 className={s.h1X}>{name}</h1>
+            {/* <h1 className={s.h1X}>{name}</h1> */}
           </div>
           <div>
             <h1 className={s.h1Num}>{handleText()}</h1>
