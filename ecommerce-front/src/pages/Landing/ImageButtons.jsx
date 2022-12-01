@@ -437,7 +437,7 @@ export const ImageButton5 = () =>{
                   color: "black",
                 }}
               >
-                Jeans
+                Pantalones
               </Item>
             </Grid>
           </ImageButton>
@@ -512,7 +512,7 @@ export const ImageButton7 = () =>{
             value='Zapatillas'
             onClick={handleSelect}
             style={{
-              backgroundImage: `url(https://i.pinimg.com/originals/dc/53/94/dc5394110c2f8ce33f9fc13dc36d8abe.jpg)`,
+              backgroundImage: `url(https://d3ugyf2ht6aenh.cloudfront.net/stores/284/577/products/20211225_1145051-42e4798ce65222233116404436477912-1024-1024.jpg)`,
               height: "600px",
               width: "100%",
               borderRadius: "25px",
@@ -537,7 +537,7 @@ export const ImageButton7 = () =>{
                   color: "white",
                 }}
               >
-                Shorts
+                Zapatillas
               </Item>
             </Grid>
           </ImageButton>
