@@ -15,7 +15,7 @@ export default function FilterSide(){
    
     const dispatch = useDispatch()
     const favorites = useSelector(state=>state?.product.favorites)
-    const productsFilter = useSelector(state=>state.product.products)
+    const productsFilter = useSelector(state=>state.product.allProductsNoLimit)
     const productsFilterGeneros = useSelector(state=>state.product.allProductsNoLimit)
 
     
@@ -55,13 +55,13 @@ export default function FilterSide(){
     }
     let mens =[]
     function generoMen(products){
-    mens = products.filter(g=>g.men===true)
+    mens = products.docs.filter(g=>g.men===true)
        return mens
     }
     
     let woman =[]
     function generoWoman(products){
-    woman = products.filter(g=>g.woman===true)
+    woman = products.docs.filter(g=>g.woman===true)
        return woman
     }
     
@@ -122,10 +122,10 @@ export default function FilterSide(){
              {/* <ListItemButton component="a" >
                  <Typography>Lo mas Comprado</Typography>
              </ListItemButton>    */}
-             <ListItemButton component="a"
+             {/* <ListItemButton component="a"
              onClick={handleRating} >
                  <Typography>Con mas Rating</Typography>
-             </ListItemButton> 
+             </ListItemButton>  */}
              <ListItemButton component="a" 
              onClick={filterFavorites}
              >
