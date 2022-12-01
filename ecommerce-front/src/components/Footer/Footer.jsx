@@ -28,7 +28,7 @@ export default function Footer() {
                     <div className="footer__column">
                         <h4>Usuario</h4>
                             <li className='footer__li'><Link to={`/account/${user ? user._id : ""}/profile`} className='footer__link'>Su cuenta</Link></li>
-                            <li className='footer__li'><Link to='' className='footer__link'>Tus ordenes</Link></li>
+                            <li className='footer__li'><Link to={`/account/${user ? user._id : ""}/profile`} className='footer__link'>Tus ordenes</Link></li>
                     </div>
 
                     <div className="footer__column">

@@ -82,7 +82,23 @@ export default function CustomizedMenus() {
 
   return (
     <div>
-      <Button 
+      <Link underline="none" onClick={allProducts}>
+        <Button 
+          id="demo-customized-button"
+          aria-controls={open ? 'demo-customized-menu' : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? 'true' : undefined}
+          variant="outlined"
+          disableElevation
+          onClick={handleClick}
+          /* endIcon={<KeyboardArrowDownIcon />} */
+          color="secondary"
+      
+        >
+            Todos los Productos
+        </Button>
+      </Link>
+      {/* <Button 
         id="demo-customized-button"
         aria-controls={open ? 'demo-customized-menu' : undefined}
         aria-haspopup="true"
@@ -94,7 +110,7 @@ export default function CustomizedMenus() {
         color="secondary"
      
       >
-          Catalogo
+          Todos los Productos
       </Button>
       <StyledMenu
         id="demo-customized-menu"
@@ -120,7 +136,7 @@ export default function CustomizedMenus() {
         <MenuItem onClick={handleClose} disableRipple>
         <Man2Icon/>
           Calzado Hombre
-        </MenuItem>
+        </MenuItem> */}
         {/* <StyledMenuLateral
         id="demo-customized-menu"
         MenuListProps={{
@@ -130,11 +146,11 @@ export default function CustomizedMenus() {
         open={open}
         onClose={handleClose}
       ></StyledMenuLateral> */}
-        <MenuItem onClick={handleClose} disableRipple>
+        {/* <MenuItem onClick={handleClose} disableRipple>
           <Woman2Icon/>
           Calzado Mujer
         </MenuItem>
-      </StyledMenu>
+      </StyledMenu> */}
     </div>
   );
 }

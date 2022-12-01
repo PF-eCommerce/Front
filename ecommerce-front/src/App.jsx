@@ -25,6 +25,7 @@ import ProductPage from "./pages/Admin/Pages/productsPage/ProductPage";
 import { useSelector } from "react-redux";
 import Success from "./pages/Pagos/Success";
 import Deny from "./pages/Pagos/Deny";
+import PostBuy from './pages/Forms/Buy/PostForm';
 
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
           <Route path='/buy' element={<Buy />} />
           <Route path='/success' element={<Success />} />
           <Route path='/deny' element={<Deny />} />
+          <Route path='/postBuy' element={<PostBuy />} />
           <Route path='*' element={<Error404 />} />
           <Route
             element={

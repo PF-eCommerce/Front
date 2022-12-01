@@ -50,7 +50,7 @@ export const deleteFromCart = product => async dispatch => {
 	const updatedCart = cart.filter(cartItem => {
 		if (cartItem._id !== product._id){
 			return true
-		}else if (cartItem.size !== product.size){
+		}else if (cartItem.sizee !== product.sizee){
 				return true
 		}else{
 			return false

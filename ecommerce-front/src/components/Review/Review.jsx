@@ -24,10 +24,11 @@ const Review = ({ id, name, image }) => {
   useEffect(() => {
     dispatch(getReviewByProduct(id));
   }, [dispatch]);
+
   return (
     <>
       
-      {/* user?.admin === false && */ (
+      { userLocal?._id && (
         <button
           className={styles.buttonReviewRemix}
           onClick={(e) => handlePost(e)}

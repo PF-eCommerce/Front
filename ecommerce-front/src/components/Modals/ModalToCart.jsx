@@ -93,8 +93,8 @@ export function ChildModal() {
   let producto = {
     ...product,
     qty,
-    size: sizee,
-    numStock: stock
+    sizee,
+    stock,
   }
     function sendToCart(e){
       dispatch(addToCart(producto))
