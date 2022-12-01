@@ -14,6 +14,7 @@ export const FILTER_BY_RATING = "FILTER_BY_RATING"
 export const ALL_PRODUCTS = "ALL_PRODUCTS"
 
 
+
 export const getAllProducts = () => {
   return async (dispatch) => {
     try {
@@ -191,7 +192,7 @@ export function deleteDetail() {
   };
 }
 
-export const orderProduct = (productArray, id, location, input) => {
+export const orderProduct = (productArray, id, location, input, navigate) => {
   const data = [productArray, location, input];
   // console.log('ID', id)
   // console.log("DATA", data);
@@ -202,8 +203,9 @@ export const orderProduct = (productArray, id, location, input) => {
         `${process.env.REACT_APP_API_URL}/post-order/${id}`,
         data
       );
-      console.log("PASO EL LINKMP");
+      console.log("PASO EL LINKMP", linkMP);
       window.open(linkMP.data, "PAGO", "width=600, height=400");
+      navigate('/postBuy')
       return dispatch({
         type: LINK_MP,
         payload: linkMP.data,

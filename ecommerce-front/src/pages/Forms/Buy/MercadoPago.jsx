@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { ImageButton } from "../../../components/Styled/StyledButtons";
 import { orderProduct } from "../../../redux/actions/productsAction";
 
 export const MercadoPago = () =>{
-
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const cartItems = useSelector(state=>state.cart.cart)
     const productArray = cartItems.map(el=>{
@@ -20,7 +21,7 @@ export const MercadoPago = () =>{
         let id = JSON.parse(localStorage.getItem('auth0'))._id
         let location = JSON.parse(localStorage.getItem('location'))
         let input = JSON.parse(localStorage.getItem('input'))
-        dispatch(orderProduct(productArray, id, location, input))
+        dispatch(orderProduct(productArray, id, location, input, navigate))
       }
 
     return (
