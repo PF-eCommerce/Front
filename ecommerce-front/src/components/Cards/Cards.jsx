@@ -14,9 +14,10 @@ import AlertEdit from "../Alert/AlertEdit";
 const Cards = () => {
   const dispatch = useDispatch();
 
+
   const products = useSelector((state) => state?.product.products);
   const productsAll = useSelector((state) => state?.product.allProducts);
-  
+  console.log('PRODUCTOS', products)
   useEffect(() => {
     products.length === 0 && dispatch(getAllProducts());
     // dispatch(getAllProducts());
