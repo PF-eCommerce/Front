@@ -60,7 +60,7 @@ const CheckFalse = styled(HighlightOffIcon)({
     color: "red"
 })
 export default function Action({ datos }) {
-    
+    console.log ('datos', datos)
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -69,7 +69,7 @@ export default function Action({ datos }) {
     const [active , setActive] = useState(false)
     const [active2 , setActive2] = useState(false)
     const [active3 , setActive3] = useState(false)
-    const [active4 , setActive4] = useState(false)
+    //const [active4 , setActive4] = useState(false)
     const [input, setInput] = useState({
          type : datos.type,
          id : datos.id,
@@ -79,10 +79,27 @@ export default function Action({ datos }) {
          inStock : datos.inStock,
          men : datos.men,
          woman : datos.woman,
-         isShoes : datos.isShoes
-    })
+         isShoes : datos.isShoes,
+         size : {
+                // extraSmall : Math.floor(Math.random() * (25 + 1)),
+                // small : Math.floor(Math.random() * (25 + 1)),
+                // medium : Math.floor(Math.random() * (25 + 1)),
+                // large : Math.floor(Math.random() * (25 + 1)),
+                // extraLarge : Math.floor(Math.random() * (25 + 1)),
+                num36 : Math.floor(Math.random() * (25 + 1)),
+                num37 : Math.floor(Math.random() * (25 + 1)),
+                num38 : Math.floor(Math.random() * (25 + 1)),
+                num39 : Math.floor(Math.random() * (25 + 1)),
+                num40 : Math.floor(Math.random() * (25 + 1)),
+                num41 : Math.floor(Math.random() * (25 + 1)),
+                num42 : Math.floor(Math.random() * (25 + 1)),
+                num43 : Math.floor(Math.random() * (25 + 1)),
+                }
+         })
 
+   
     const handleOnChange = (evt) => {
+        console.log(evt)
         setInput({
             ...input,
             [evt.target.name] : evt.target.value,
@@ -184,13 +201,13 @@ export default function Action({ datos }) {
                     <Button onClick={() => setInput({...input, isShoes: false})}>no</Button>
                    </Box>
 
-                    
+{/*                     
                     <Box sx={{ display: 'flex', alignItems: 'center'}}>
                    <SubTitle>Talle extraSmall</SubTitle>
                    <Button onClick={() => setActive4(!active4)}><EditIcon/></Button>
                     </Box>
 
-                    {active4 && <TextField id="filled-basic" label="extraSmall" variant="filled" name="extraSmall" value={input?.size.extraSmall} onChange={handleOnChange} />}
+                    {active4 && <TextField id="filled-basic" label="extraSmall" variant="filled" name="extraSmall" value={input?.size?.extraSmall} onChange={handleOnChange} />} */}
                 
                     <Title>Acciones</Title>
                     <ButtonAction onClick={handleSetAdmin}>Actualizar este Producto</ButtonAction>

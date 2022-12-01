@@ -117,7 +117,7 @@ export default function Sidebar() {
             </Container>
             <Container>
                 <MainText>Usuario</MainText>
-                <ItemContainer to={`/account/${user._id}/profile`}>
+                <ItemContainer to={`/account/${user?._id}/profile`}>
                     <AccountCircleIcon sx={styleIcon} />
                     <TextItem>Perfil</TextItem>
                 </ItemContainer>
