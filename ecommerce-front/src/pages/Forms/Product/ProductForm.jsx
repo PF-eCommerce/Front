@@ -11,6 +11,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { Container } from "@mui/system";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
@@ -77,14 +78,28 @@ const ProductForm = () => {
   };
 
   const handleDelete = (e) => {
-    setImages(images?.filter((i) => i !== e));
+    console.log("SOY EVENTO", e);
+    if (images.length) {
+      setImages(images.filter((i) => i !== e.target.src));
+    }
   };
   return (
-    <Box my={2} display='flex' justifyContent='center'>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <InputLabel>
-          Título
+    <Box
+      sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
+      <form
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyItems: "center",
+        }}
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <Container sx={{ p: 2 }}>
+          <InputLabel>Título</InputLabel>
           <TextField
+            sx={{ my: 1 }}
             {...register("title", { required: true, minLength: 4 })}
           ></TextField>
           {errors.title?.type === "required" && (
@@ -97,10 +112,9 @@ const ProductForm = () => {
               El título tiene que tener 4 caracteres mínimamente
             </p>
           )}
-        </InputLabel>
-        <InputLabel>
-          Categoría
+          <InputLabel>Categoría</InputLabel>
           <Select
+            sx={{ my: 1 }}
             id='cateSelect'
             {...register("category", { required: true, minLength: 1 })}
             value={catesOption}
@@ -122,9 +136,7 @@ const ProductForm = () => {
               Elige una categoría
             </p>
           )}
-        </InputLabel>
-        <InputLabel>
-          Imágenes
+          <InputLabel sx={{ my: 1 }}>Imágenes</InputLabel>
           {!images.length ? (
             <Button
               color='secondary'
@@ -135,23 +147,30 @@ const ProductForm = () => {
             </Button>
           ) : null}
           <Typography variant='caption' display='block' gutterBottom>
-            Verás las imágenes en ésta pestaña
+            {images.length
+              ? "Puedes eliminar una imagen haciendo click en ella"
+              : "Verás las imágenes aquí abajo"}
           </Typography>
-          <Box>
+          <Box sx={{ my: 1 }}>
             {images.length
               ? images?.map((ima) => (
                   <>
-                    <Close
-                      sx={{ cursor: "pointer" }}
-                      onClick={(e) => handleDelete(e)}
-                    />
+                    {/* <Close
+                      sx={{
+                        cursor: "pointer",
+                        backgroundColor: "darkgoldenrod",
+                        p: 1,
+                        borderRadius: "50%",
+                      }}
+                      /> */}
                     <Avatar
                       alt='imaLength'
                       src={ima}
+                      onClick={(e) => handleDelete(e)}
                       style={{
-                        width: "30%",
+                        width: "15%",
+                        height: "10%",
                         borderRadius: "8px",
-                        height: "50%",
                         cursor: "pointer",
                       }}
                     />
@@ -167,20 +186,18 @@ const ProductForm = () => {
               Sube al menos una imagen
             </p>
           )}
-        </InputLabel>
-        <InputLabel>
-          Descripción
+          <InputLabel>Descripción</InputLabel>
           <TextField
+            sx={{ my: 1 }}
             type='text'
             {...register("desc", { required: true })}
           ></TextField>
           {errors.desc?.type === "required" && (
             <p style={{ color: "red", margin: "0.25rem" }}>Campo requerido</p>
           )}
-        </InputLabel>
-        <InputLabel>
-          Precio
+          <InputLabel>Precio</InputLabel>
           <Input
+            sx={{ my: 1 }}
             type='number'
             {...register("price", { required: true, min: 0 })}
           ></Input>
@@ -192,25 +209,10 @@ const ProductForm = () => {
               El precio debe ser mayor a 0. No queremos pérdidas
             </p>
           )}
-        </InputLabel>
-        <InputLabel>
-          Stock
-          <Input
-            type='number'
-            {...register("numStock", { required: true, min: 1 })}
-          ></Input>
-          {errors.numStock?.type === "required" && (
-            <p style={{ color: "red", margin: "0.25rem" }}>Stock requerido</p>
-          )}
-          {errors.numStock?.type === "min" && (
-            <p style={{ color: "red", margin: "0.25rem" }}>
-              El stock debería ser mayor a 1, de otra forma, sería raro.
-            </p>
-          )}
-        </InputLabel>
-        <InputLabel>
-          Tamaño/talle
+
+          <InputLabel>Tamaño/talle</InputLabel>
           <Select
+            sx={{ my: 1 }}
             id='talleSelect'
             {...register("size", { required: true, minLength: 1 })}
             multiple
@@ -238,26 +240,41 @@ const ProductForm = () => {
               Selecciona al menos un talle
             </p>
           )}
-        </InputLabel>
-        <InputLabel>
-          Colores
-          {/* <input
-            type='color'
-            {...register("color", { required: false })}
-          ></input> */}
+          <InputLabel>Stock</InputLabel>
+          <Input
+            sx={{ my: 1 }}
+            type='number'
+            {...register("numStock", { required: true, min: 1 })}
+          ></Input>
+          {errors.numStock?.type === "required" && (
+            <p style={{ color: "red", margin: "0.25rem" }}>Stock requerido</p>
+          )}
+          {errors.numStock?.type === "min" && (
+            <p style={{ color: "red", margin: "0.25rem" }}>
+              El stock debería ser mayor a 1, de otra forma, sería raro.
+            </p>
+          )}
+          <InputLabel>Colores</InputLabel>
           <TextField
+            sx={{ my: 1 }}
             type='text'
             {...register("color", { required: false })}
           ></TextField>
-        </InputLabel>
-        <Button type='submit' color='primary' variant='outlined'>
+        </Container>
+        <Button type='submit' color='primary' variant='contained'>
           Enviar
         </Button>
       </form>
+      <Button
+        sx={{ my: 1 }}
+        color='primary'
+        variant='text'
+        onClick={() => navigate("/admin/dashboard")}
+      >
+        Volver
+      </Button>
     </Box>
   );
 };
 
 export default ProductForm;
-
-

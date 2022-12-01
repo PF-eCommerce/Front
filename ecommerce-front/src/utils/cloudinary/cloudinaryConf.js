@@ -1,7 +1,15 @@
 export const config = {
   cloudName: process.env.REACT_APP_SECURE_CLOUDY_NAME,
   uploadPreset: process.env.REACT_APP_SECURE_CLOUDY_PRESET,
-  sources: ["local", "url", "camera", "google_drive", "dropbox", "instagram"],
+  sources: [
+    "local",
+    "url",
+    "unsplash",
+    "camera",
+    "google_drive",
+    "dropbox",
+    "instagram",
+  ],
   googleApiKey: "<image_search_google_api_key>",
   showAdvancedOptions: false,
   cropping: false,
