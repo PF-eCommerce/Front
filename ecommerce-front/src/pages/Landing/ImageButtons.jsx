@@ -512,7 +512,7 @@ export const ImageButton7 = () =>{
             value='Zapatillas'
             onClick={handleSelect}
             style={{
-              backgroundImage: `url(https://i.pinimg.com/originals/dc/53/94/dc5394110c2f8ce33f9fc13dc36d8abe.jpg)`,
+              backgroundImage: `url(https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/tendencias-deportivas-sneakers-2021-1-1612962401.jpg)`,
               height: "600px",
               width: "100%",
               borderRadius: "25px",
@@ -537,7 +537,7 @@ export const ImageButton7 = () =>{
                   color: "white",
                 }}
               >
-                Shorts
+                Zapatillas
               </Item>
             </Grid>
           </ImageButton>
