@@ -12,6 +12,10 @@ export const ADD_FAVORITES = "ADD_FAVORITES";
 export const SHOW_FAVORITES = "SHOW_FAVORITES";
 export const FILTER_BY_RATING = "FILTER_BY_RATING"
 export const ALL_PRODUCTS = "ALL_PRODUCTS"
+export const FILTER_BY_GENERO2 = "FILTER_BY_GENERO2"
+export const FILTER_BY_GENERO = "FILTER_BY_GENERO"
+export const FILTER_NEW_PRODUCTS = "FILTER_NEW_PRODUCTS"
+
 
 
 export const getAllProducts = () => {
@@ -191,7 +195,7 @@ export function deleteDetail() {
   };
 }
 
-export const orderProduct = (productArray, id, location, input, email) => {
+export const orderProduct = (productArray, id, location, input, email, navigate) => {
   const data = [productArray, location, input,email];
   console.log(data)
   // console.log('ID', id)
@@ -203,8 +207,9 @@ export const orderProduct = (productArray, id, location, input, email) => {
         `${process.env.REACT_APP_API_URL}/post-order/${id}`,
         data
       );
-      console.log("PASO EL LINKMP");
+      console.log("PASO EL LINKMP", linkMP);
       window.open(linkMP.data, "PAGO", "width=600, height=400");
+      navigate('/postBuy')
       return dispatch({
         type: LINK_MP,
         payload: linkMP.data,
@@ -257,4 +262,33 @@ export const showFavorites = (payload) => {
     payload,
   };
 };
+
+export const filterByNews = (data)=> {
+  console.log("desdeaction",data)
+  return (dispatch)=> {
+    return dispatch({
+      type: FILTER_NEW_PRODUCTS,
+      payload:data
+      
+    })
+  }
+}
+
+export const filterBygeneroH = (data) => {
+  return(dispatch)=>{
+    dispatch({
+      type: FILTER_BY_GENERO,
+      payload:data,
+    })
+  }
+}
+
+export const filterBygeneroM = (data) => {
+  return(dispatch)=>{
+    dispatch({
+      type: FILTER_BY_GENERO2,
+      payload:data,
+    })
+  }
+}
 

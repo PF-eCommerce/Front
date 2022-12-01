@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CircularProgressbar } from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css";
+// import { CircularProgressbar } from "react-circular-progressbar";
+// import "react-circular-progressbar/dist/styles.css";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 // import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutlined";
 import { Box, Container, Divider, Typography } from "@mui/material";
@@ -101,7 +101,7 @@ const VentasTotales = () => {
       </Box>
       <Box>
         <Box sx={{ height: "15%", mb: 1, mt: 1 }}>
-          <CircularProgressbar
+          {/* <CircularProgressbar
             styles={{
               root: {},
               path: {
@@ -125,7 +125,7 @@ const VentasTotales = () => {
             value={porcentajeVenta}
             text={`${porcentajeVenta} %`}
             strokeWidth={4}
-          />
+          /> */}
         </Box>
         <Typography>Ventas totales realizadas hoy</Typography>
         <Typography>{ventasDelDía}</Typography>

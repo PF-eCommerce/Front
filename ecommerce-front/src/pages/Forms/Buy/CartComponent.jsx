@@ -47,8 +47,8 @@ export const Cart = ({cart}) => {
                 margin:10}}
                 >
                 {/* <p>{el.title}</p> */}
-                {el.size.length>0?
-                <p>{el.title}, Talle: {el.size}</p>
+                {el.sizee.length>0?
+                <p>{el.title}, Talle: {el.sizee}</p>
                 :
                 <p>{el.title}</p>
                 }
