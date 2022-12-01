@@ -40,12 +40,12 @@ export default function Users() {
   useEffect(() => {
     dispatch(getOrders());
   }, [dispatch]);
-
+  console.log(info)
   return (
     <Container>
       <Link to={"/admin/orders"}>
         <Title>Ordenes</Title>
-        <UserNum>{info.length}</UserNum>
+        <UserNum>{info ? info.length : 0}</UserNum>
         <SubTitle>Ver todos</SubTitle>
       </Link>
     </Container>
