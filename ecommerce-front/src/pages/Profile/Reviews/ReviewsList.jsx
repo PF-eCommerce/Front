@@ -57,8 +57,6 @@ const ReviewsList = () => {
         <Typography>Aún no has hecho ninguna review</Typography>
       </>
     );
-  }
- } , 500) 
+  }} , 500) 
 };
-
 export default ReviewsList;
