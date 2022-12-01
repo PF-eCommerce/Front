@@ -157,7 +157,7 @@ export const ImageTrends1 = ()=> {
                 justifyContent: "center",
               }}
             >
-              <BootstrapButton>IR A SELECCIÓN</BootstrapButton>
+              {/* <BootstrapButton>IR A SELECCIÓN</BootstrapButton> */}
             </Item>
           </Grid>
         </Grid>
@@ -196,7 +196,7 @@ export const ImageTrends2 = ()=> {
               justifyContent: "center",
             }}
           >
-            <BootstrapButton>NO TE LO PIERDAS!</BootstrapButton>
+            {/* <BootstrapButton>NO TE LO PIERDAS!</BootstrapButton> */}
           </Item>
         </Grid>
       </Grid>
