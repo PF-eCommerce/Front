@@ -30,14 +30,15 @@
 }
 .summUsuario {
   margin-top: 0.25rem;
-  margin-bottom: -0.55rem;
+  margin-bottom: -4px;
   padding: 0.25rem 0 0.25rem 0;
-  max-width: 20%;
+  max-width: 40%;
   border: none;
   border-radius: 6px;
-  color: var(--color-detail-BtnBuy);
-  background-color: rgba(0, 71, 212, 0.142);
-  box-shadow: rgba(72, 72, 72, 0.877) 0px 2px 5px 0px;
+  color: goldenrod;
+  /* background-color: rgba(0, 71, 212, 0.142); */
+  /* 
+   */
   font-size: 15px;
 }
 .summComment {
@@ -54,6 +55,10 @@
   box-shadow: rgba(10, 10, 10, 0.877) 0px 2px 3px 0px;
   margin-bottom: 0.5rem;
   font-size: 15px;
+}
+
+.unaMas{
+  align-items: flex-start;
 }
 
 @media (max-width: 768px) {
@@ -90,12 +95,12 @@
     margin-top: 0.25rem;
     margin-bottom: -0.55rem;
     padding: 0.25rem 0 0.25rem 0;
-    max-width: 20%;
+    max-width: 60%;
     border: none;
     border-radius: 6px;
-    color: var(--color-detail-BtnBuy);
-    background-color: rgba(0, 71, 212, 0.142);
-    box-shadow: rgba(72, 72, 72, 0.877) 0px 2px 5px 0px;
+    color: goldenrod;
+    /* background-color: rgba(0, 71, 212, 0.142);
+    box-shadow: rgba(72, 72, 72, 0.877) 0px 2px 5px 0px; */
     font-size: 15px;
   }
   .summComment {

@@ -2,6 +2,8 @@ import axios from "axios";
 export const ALL_REVIEWS = "ALL_REVIEWS";
 export const GET_USER_REVIEWS = "GET_USER_REVIEWS";
 export const GET_PRODUCT_REVIEWS = "GET_PRODUCT_REVIEWS";
+export const REVIEW_RESET = "REVIEW_RESET";
+
 
 export const postReview = (productId, review) => {
   return async (dispatch) => {
@@ -71,6 +73,18 @@ export const deleteReviewByUser = (id) => {
   return async () => {
     try {
       await axios.delete(`${process.env.REACT_APP_API_URL}/review/` + id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const reviewReset = () => {
+  return async (dispatch) => {
+    try {
+      return dispatch({
+        type: REVIEW_RESET,
+      });
     } catch (error) {
       console.log(error);
     }

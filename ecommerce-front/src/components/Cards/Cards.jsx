@@ -5,11 +5,12 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getAllProducts } from "../../redux/actions/productsAction";
-import { getAllReviews } from "../../redux/actions/reviewActions";
+import { getAllReviews, reviewReset } from "../../redux/actions/reviewActions";
 import { Box } from "@mui/system";
 import { getAllUsers } from "../../redux/actions/userAction";
 import CardSkeleton from "../CardSkeleton/CardSkeleton";
 import AlertEdit from "../Alert/AlertEdit";
+
 const Cards = () => {
   const dispatch = useDispatch();
 
@@ -21,9 +22,12 @@ const Cards = () => {
     // dispatch(getAllProducts());
     dispatch(getAllReviews());
     dispatch(getAllUsers());
-  }, []);
-  
-  console.log('PRODUCTOS', products)
+
+    return function () {
+      dispatch(reviewReset());
+    };
+  }, [dispatch]);
+  //console.log('PRODUCTOSS', products)
   return (
     <Box flex={8} p={1}>
       {products.docs ? (

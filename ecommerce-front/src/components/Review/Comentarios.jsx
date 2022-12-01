@@ -1,5 +1,11 @@
 import React from 'react';
 import styles from "./Reviews.module.css";
+import {
+  ListItem,
+  ListItemText,
+  Rating,
+  Typography,
+} from "@mui/material";
 
 function Comentarios({allUsers, reviewsByProduct}) {
 
@@ -13,24 +19,52 @@ function Comentarios({allUsers, reviewsByProduct}) {
         {reviewsByProduct ? (
         <details id="detalles" title="Reviews" className={styles.botónReview}>
           <summary id="reviewsDe" className={styles.summ}>
-            Comentarios
+            Reviews del Producto
           </summary>
           {reviewsByProduct?.map((r) => (
-            <>
-              <p
-                className={styles.summUsuario}
-                id={"usuarioEnReview" + r?.user}
-              >
-                {/* console.log('userrrrrR:',r.user) */}
-                {userbyName(r?.user)} :
-              </p>
-              <p
+            <ListItem
+              alignItems="flex-start"
+              button
+              key={r?.user + r?.id}
+            >
+              <ListItemText
+                  primary={
+                    <Typography
+                        sx={{ display: "block" }}
+                        component="span"
+                        variant="body3"
+                        color="goldenrod"
+                        fontSize="18px"
+                      >
+                        {userbyName(r?.user) ? userbyName(r?.user) : <p>anonymus</p> }
+                      </Typography>}
+                  secondary={
+                    <>
+                      
+                      <Typography
+                        sx={{ display: "inline" }}
+                        component="span"
+                        variant="body2"
+                        color="text.primary"
+                      >
+                        {r?.comment}
+                      </Typography>
+                    </>
+                  }
+                />
+              <Rating
+                name="Rating"
+                value={r?.rating}
+                readOnly
+                size="small"
+              />
+              {/* <p
                 className={styles.summComment}
                 id={"commentEnReview" + r?.user}
               >
                 {r?.comment}
-              </p>
-            </>
+              </p> */}
+            </ListItem>
           ))}
         </details>
       ) : <h1>Opps.. aun estan cargando</h1> }
