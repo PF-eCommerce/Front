@@ -39,7 +39,7 @@ export default function BasicTable() {
 
     cart.forEach((cartItem) => {
       if (cartItem._id === item._id) {
-        if (ee.target.id === "+" && cartItem.numStock > cartItem.qty) {
+        if (ee.target.id === "+" && cartItem.stock > cartItem.qty) {
           cartItem.qty = cartItem.qty + 1;
         } else if (ee.target.id === "-" && cartItem.qty > 1)
           cartItem.qty = cartItem.qty - 1;
@@ -79,10 +79,10 @@ export default function BasicTable() {
                   </TableCell>{" "}
                   <TableCell align='left'>
                     <Link className={s.link} to={`/detail/${item._id}`}>
-                      {item.title}, Talle: {item.size}
+                      {item.title}, Talle: {item.sizee}
                     </Link>
                   </TableCell>
-                  <TableCell align='left'>{item.numStock}</TableCell>
+                  <TableCell align='left'>{item.stock}</TableCell>
                   <TableCell align='left'>${item.price}.00</TableCell>
                   <TableCell align='left'>
                     {" "}
