@@ -10,7 +10,6 @@ import {
 
 import React from "react";
 import { useSelector } from "react-redux";
-// import { reviews } from "../../../utils/data/reviews";
 import { formatLine } from "../../../utils/functions";
 
 const ReviewsList = () => {
