@@ -156,7 +156,7 @@ const Profile = () => {
             <OrdersList />
           </AccordionDetails>
         </Accordion>
-        <Accordion key='acordOptions'>
+        {/* <Accordion key='acordOptions'>
           <AccordionSummary
             expandIcon={<ExpandMore />}
             aria-controls='panel1a-content'
@@ -167,7 +167,7 @@ const Profile = () => {
           <AccordionDetails>
             <ProfileDetails user={user} />
           </AccordionDetails>
-        </Accordion>
+        </Accordion> */}
       </Box>
     </Box>
   );
