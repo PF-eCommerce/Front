@@ -15,8 +15,8 @@ export default function FilterSide(){
    
     const dispatch = useDispatch()
     const favorites = useSelector(state=>state?.product.favorites)
-    const productsFilter = useSelector(state=>state.product.allProductsNoLimit)
-    const productsFilterGeneros = useSelector(state=>state.product.allProductsNoLimit)
+    const productsFilter = useSelector(state=>state.product.allProductsNoLimitRemix)
+    const productsFilterGeneros = useSelector(state=>state.product.allProductsNoLimitRemix)
 
     
   

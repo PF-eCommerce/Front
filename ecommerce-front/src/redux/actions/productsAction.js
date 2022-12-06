@@ -12,6 +12,7 @@ export const ADD_FAVORITES = "ADD_FAVORITES";
 export const SHOW_FAVORITES = "SHOW_FAVORITES";
 export const FILTER_BY_RATING = "FILTER_BY_RATING"
 export const ALL_PRODUCTS = "ALL_PRODUCTS"
+export const ALL_PRODUCTS_REMIX = "ALL_PRODUCTS_REMIX"
 export const FILTER_BY_GENERO2 = "FILTER_BY_GENERO2"
 export const FILTER_BY_GENERO = "FILTER_BY_GENERO"
 export const FILTER_NEW_PRODUCTS = "FILTER_NEW_PRODUCTS"
@@ -42,6 +43,21 @@ export const getAllProductsNoPaginate = () => {
  
       return dispatch({
         type : ALL_PRODUCTS,
+        payload : products.data
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const getAllProductsNoPaginateRemix = () => {
+  return async (dispatch) => {
+    try {
+      const products = await axios.get(`${process.env.REACT_APP_API_URL}/productsAllRemix`);
+ 
+      return dispatch({
+        type : ALL_PRODUCTS_REMIX,
         payload : products.data
       })
     } catch (error) {
