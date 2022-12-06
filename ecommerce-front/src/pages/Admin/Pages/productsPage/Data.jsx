@@ -54,7 +54,7 @@ const columns = [
 ];
 
 export default function Data(){
-    const products = useSelector((state) => state.product.allProductsNoLimit)
+    const products = useSelector((state) => state.product?.allProductsNoLimit)
      
     
     const dispatch = useDispatch();
